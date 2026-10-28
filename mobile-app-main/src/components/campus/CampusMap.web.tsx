@@ -3,7 +3,7 @@ import * as maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { CAMPUS_CENTER, campusStyle, type CampusMapProps } from './mapStyle';
 
-export default function CampusMap({threeD, selected, resetKey, onSelect, onReady, onError}: CampusMapProps) {
+export default function CampusMap({threeD, selected, resetKey, onSelect, onReady, onError, tracking, userLocation, heading}: CampusMapProps) {
   const container = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
   const callbacks = useRef({onSelect,onReady,onError});
@@ -46,6 +46,7 @@ export default function CampusMap({threeD, selected, resetKey, onSelect, onReady
     if(instance.getLayer('buildings-3d'))update();else instance.once('style.load',update);
     return ()=>{instance.off('style.load',update);};
   },[threeD,selected]);
+  useEffect(()=>{const instance=map.current;if(!instance)return;const source=instance.getSource('user') as maplibregl.GeoJSONSource|undefined;if(source)source.setData({type:'FeatureCollection',features:userLocation?[{type:'Feature',geometry:{type:'Point',coordinates:userLocation},properties:{}}]:[]});if(tracking&&userLocation)instance.easeTo({center:userLocation,bearing:heading??instance.getBearing(),duration:700});},[tracking,userLocation,heading]);
   useEffect(()=>{map.current?.easeTo({center:CAMPUS_CENTER,zoom:15.8,bearing:-15,duration:650});},[resetKey]);
   return <div ref={container} style={{position:'absolute',inset:0}} aria-label="Interactive FUTA campus map" />;
 }

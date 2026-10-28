@@ -11,16 +11,20 @@ export interface CampusMapProps {
   onSelect: (id: string) => void;
   onReady: () => void;
   onError: () => void;
+  tracking: boolean;
+  userLocation: [number, number] | null;
+  heading: number | null;
 }
 
 // Bundled OSM geometry: no tile server or API key is needed for the campus layer.
-export function campusStyle(threeD: boolean, selectedId?: string): StyleSpecification {
+export function campusStyle(threeD: boolean, selectedId?: string, userLocation?: [number, number] | null): StyleSpecification {
   return {
     version: 8,
     glyphs: 'https://fonts.openmaptiles.org/{fontstack}/{range}.pbf',
     sources: {
       campus: { type: 'geojson', data: geometry as GeoJSON.FeatureCollection, attribution: '© OpenStreetMap contributors' },
       places: { type: 'geojson', data: { type: 'FeatureCollection', features: places.map(p => ({ type: 'Feature', geometry: { type: 'Point', coordinates: p.coordinate }, properties: { id: p.id, name: p.name } })) } },
+      user: { type: 'geojson', data: { type: 'FeatureCollection', features: userLocation ? [{ type: 'Feature', geometry: { type: 'Point', coordinates: userLocation }, properties: {} }] : [] } },
     },
     layers: [
       { id: 'ground', type: 'background', paint: { 'background-color': '#edf0e9' } },
@@ -32,6 +36,8 @@ export function campusStyle(threeD: boolean, selectedId?: string): StyleSpecific
       { id:'buildings-3d', type:'fill-extrusion', source:'campus', filter:['==',['get','kind'],'building'], layout:{visibility:threeD?'visible':'none'}, paint:{'fill-extrusion-color':['case',['==',['get','osmId'],selectedId||''],'#2487ed','#c4d2df'],'fill-extrusion-height':['get','height'],'fill-extrusion-base':0,'fill-extrusion-opacity':0.96} },
       { id:'place-dots', type:'circle', source:'places', minzoom:14, paint:{'circle-radius':['case',['==',['get','id'],selectedId||''],8,4],'circle-color':['case',['==',['get','id'],selectedId||''],'#1266da','#6c91ad'],'circle-stroke-width':2,'circle-stroke-color':'#ffffff'} },
       { id:'place-labels', type:'symbol', source:'places', minzoom:16, layout:{'text-field':['get','name'],'text-font':['Open Sans Regular'],'text-size':11,'text-max-width':12,'text-offset':[0,1.2],'text-anchor':'top'}, paint:{'text-color':'#354b60','text-halo-color':'#ffffff','text-halo-width':1.5} },
+      { id:'user-halo', type:'circle', source:'user', paint:{'circle-radius':12,'circle-color':'#1685ee','circle-opacity':0.18} },
+      { id:'user-dot', type:'circle', source:'user', paint:{'circle-radius':6,'circle-color':'#1685ee','circle-stroke-width':3,'circle-stroke-color':'#ffffff'} },
     ],
   };
 }
