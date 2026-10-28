@@ -1,0 +1,16 @@
+{
+  "downloadedAt": "2026-10-28",
+  "source": "https://api.openstreetmap.org/api/0.6/map?bbox=5.1141,7.2924,5.1499,7.3163",
+  "bounds": [
+    5.114100595265533,
+    7.292430867250749,
+    5.149885084734393,
+    7.316252637270088
+  ],
+  "buildings": 1906,
+  "roads": 752,
+  "places": 401,
+  "recordedHeights": 5,
+  "attribution": "© OpenStreetMap contributors",
+  "license": "https://www.openstreetmap.org/copyright"
+}

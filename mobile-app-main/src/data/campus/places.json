@@ -1,0 +1,4012 @@
+[
+  {
+    "id": "way/709052020",
+    "name": "2 IN 1 Lecture Theatre",
+    "category": "Academic",
+    "coordinate": [
+      5.1365365,
+      7.29816764
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/709052020"
+  },
+  {
+    "id": "node/11937594768",
+    "name": "3 in 1 A",
+    "category": "Academic",
+    "coordinate": [
+      5.1340334,
+      7.3011131
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937594768"
+  },
+  {
+    "id": "node/11937564451",
+    "name": "3 in 1 B",
+    "category": "Academic",
+    "coordinate": [
+      5.1337208,
+      7.3012898
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937564451"
+  },
+  {
+    "id": "node/11937600520",
+    "name": "3 in 1 C",
+    "category": "Academic",
+    "coordinate": [
+      5.1336921,
+      7.3008779
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937600520"
+  },
+  {
+    "id": "way/708287147",
+    "name": "3-IN-1 A",
+    "category": "Places",
+    "coordinate": [
+      5.13198480625,
+      7.298050068750001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708287147"
+  },
+  {
+    "id": "way/708287148",
+    "name": "3-IN-1 B",
+    "category": "Places",
+    "coordinate": [
+      5.132358968750001,
+      7.29804605625
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708287148"
+  },
+  {
+    "id": "way/708287146",
+    "name": "3-IN-1 C",
+    "category": "Places",
+    "coordinate": [
+      5.1321900437500005,
+      7.2977029374999995
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708287146"
+  },
+  {
+    "id": "way/793775093",
+    "name": "ABANDONED WAREHOUSE",
+    "category": "Places",
+    "coordinate": [
+      5.14080144,
+      7.30480346
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/793775093"
+  },
+  {
+    "id": "way/793775094",
+    "name": "ABANDONED WAREHOUSE",
+    "category": "Places",
+    "coordinate": [
+      5.1404859,
+      7.30490848
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/793775094"
+  },
+  {
+    "id": "way/793775095",
+    "name": "ABANDONED WAREHOUSE",
+    "category": "Places",
+    "coordinate": [
+      5.14058776,
+      7.3048379400000005
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/793775095"
+  },
+  {
+    "id": "way/793775096",
+    "name": "ABANDONED WAREHOUSE",
+    "category": "Places",
+    "coordinate": [
+      5.140372699999999,
+      7.30502468
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/793775096"
+  },
+  {
+    "id": "node/11934334556",
+    "name": "Abiola Block 1",
+    "category": "Places",
+    "coordinate": [
+      5.1422761,
+      7.304084
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11934334556"
+  },
+  {
+    "id": "node/11934356622",
+    "name": "Abiola Block 2",
+    "category": "Places",
+    "coordinate": [
+      5.1428053,
+      7.3034631
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11934356622"
+  },
+  {
+    "id": "node/11934371570",
+    "name": "Abiola Block 3",
+    "category": "Places",
+    "coordinate": [
+      5.1432371,
+      7.3028663
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11934371570"
+  },
+  {
+    "id": "way/502937332",
+    "name": "ABIOLA HALL2",
+    "category": "Places",
+    "coordinate": [
+      5.142823569230769,
+      7.303484800000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/502937332"
+  },
+  {
+    "id": "node/11937864634",
+    "name": "Abiola Mosque",
+    "category": "Places",
+    "coordinate": [
+      5.1422306,
+      7.3043255
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937864634"
+  },
+  {
+    "id": "way/502937331",
+    "name": "ABIOLAHALL1",
+    "category": "Hostels",
+    "coordinate": [
+      5.142250735294119,
+      7.304253970588236
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/502937331"
+  },
+  {
+    "id": "way/708311030",
+    "name": "Adamu Academic Staff Building",
+    "category": "Places",
+    "coordinate": [
+      5.134636100000001,
+      7.301379322222222
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708311030"
+  },
+  {
+    "id": "way/783691628",
+    "name": "Akindeko Football Pitch",
+    "category": "Places",
+    "coordinate": [
+      5.14840355,
+      7.294730350000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/783691628"
+  },
+  {
+    "id": "way/716662974",
+    "name": "Akindeko Hall",
+    "category": "Hostels",
+    "coordinate": [
+      5.148336145454547,
+      7.294935104545456
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/716662974"
+  },
+  {
+    "id": "way/792712228",
+    "name": "Akindeko hostel's toilet",
+    "category": "Hostels",
+    "coordinate": [
+      5.14786734,
+      7.294709180000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/792712228"
+  },
+  {
+    "id": "way/584170121",
+    "name": "Akindeko Print Shop",
+    "category": "Places",
+    "coordinate": [
+      5.148892822222223,
+      7.294801555555555
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/584170121"
+  },
+  {
+    "id": "way/709616965",
+    "name": "Akure Tech Hub",
+    "category": "Places",
+    "coordinate": [
+      5.140462335294117,
+      7.300355023529412
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/709616965"
+  },
+  {
+    "id": "way/713879208",
+    "name": "Alice Mosunmola Hostel",
+    "category": "Hostels",
+    "coordinate": [
+      5.1339036230769235,
+      7.310189769230769
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/713879208"
+  },
+  {
+    "id": "node/11937829897",
+    "name": "All For God Restaurant",
+    "category": "Food",
+    "coordinate": [
+      5.1399499,
+      7.301405
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937829897"
+  },
+  {
+    "id": "way/709052025",
+    "name": "Alunmi Building",
+    "category": "Places",
+    "coordinate": [
+      5.14027088846154,
+      7.302427403846153
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/709052025"
+  },
+  {
+    "id": "way/711995933",
+    "name": "ALUTA MARKET",
+    "category": "Places",
+    "coordinate": [
+      5.141313970370369,
+      7.302621733333332
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/711995933"
+  },
+  {
+    "id": "way/584170125",
+    "name": "ANIMAL AND HEALTH PRODUCTION WORKSHOP",
+    "category": "Places",
+    "coordinate": [
+      5.14874672,
+      7.293301420000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/584170125"
+  },
+  {
+    "id": "node/11937583539",
+    "name": "Animal House",
+    "category": "Academic",
+    "coordinate": [
+      5.1337623,
+      7.3015147
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937583539"
+  },
+  {
+    "id": "way/711995940",
+    "name": "ASUU secretariat FUTA",
+    "category": "Places",
+    "coordinate": [
+      5.13761182,
+      7.3072304
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/711995940"
+  },
+  {
+    "id": "way/711995942",
+    "name": "ASUU secretariat FUTA",
+    "category": "Places",
+    "coordinate": [
+      5.137526885714286,
+      7.307306928571429
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/711995942"
+  },
+  {
+    "id": "node/11935872590",
+    "name": "At-Taqwa Mosque",
+    "category": "Places",
+    "coordinate": [
+      5.137361,
+      7.2929827
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11935872590"
+  },
+  {
+    "id": "way/680580791",
+    "name": "Basketball Court",
+    "category": "Places",
+    "coordinate": [
+      5.139031008333333,
+      7.305943008333334
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/680580791"
+  },
+  {
+    "id": "way/799304892",
+    "name": "BISI BALOGUN HOSTEL",
+    "category": "Hostels",
+    "coordinate": [
+      5.146210631818182,
+      7.297760145454544
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/799304892"
+  },
+  {
+    "id": "node/11934304927",
+    "name": "Block A",
+    "category": "Places",
+    "coordinate": [
+      5.1486055,
+      7.2944636
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11934304927"
+  },
+  {
+    "id": "node/11934331248",
+    "name": "Block B",
+    "category": "Places",
+    "coordinate": [
+      5.1483872,
+      7.2949155
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11934331248"
+  },
+  {
+    "id": "node/11934352502",
+    "name": "Block C",
+    "category": "Places",
+    "coordinate": [
+      5.1483041,
+      7.2953902
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11934352502"
+  },
+  {
+    "id": "node/11934353740",
+    "name": "Block D",
+    "category": "Places",
+    "coordinate": [
+      5.1480261,
+      7.2952069
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11934353740"
+  },
+  {
+    "id": "node/11934331734",
+    "name": "Block E",
+    "category": "Places",
+    "coordinate": [
+      5.1482028,
+      7.2944517
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11934331734"
+  },
+  {
+    "id": "node/11934330457",
+    "name": "Block E Extension.",
+    "category": "Places",
+    "coordinate": [
+      5.1480217,
+      7.2946823
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11934330457"
+  },
+  {
+    "id": "node/11934328589",
+    "name": "Bola Store",
+    "category": "Places",
+    "coordinate": [
+      5.1480357,
+      7.294391
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11934328589"
+  },
+  {
+    "id": "way/713609344",
+    "name": "brooders house",
+    "category": "Places",
+    "coordinate": [
+      5.14449312,
+      7.3007577800000005
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/713609344"
+  },
+  {
+    "id": "way/792822304",
+    "name": "Bukar Ibrahim Lecture Theatre",
+    "category": "Academic",
+    "coordinate": [
+      5.136179433333332,
+      7.298033561904762
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/792822304"
+  },
+  {
+    "id": "way/714528667",
+    "name": "Bus stop",
+    "category": "Places",
+    "coordinate": [
+      5.13632814,
+      7.3014274200000004
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/714528667"
+  },
+  {
+    "id": "way/713890823",
+    "name": "Campus Christian Fellowship-Nigeria Fellowship of Evangelical Student (CCFNIFES)",
+    "category": "Places",
+    "coordinate": [
+      5.140229133333333,
+      7.309050077777779
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/713890823"
+  },
+  {
+    "id": "way/713604427",
+    "name": "CBE",
+    "category": "Places",
+    "coordinate": [
+      5.146311733333333,
+      7.29583825
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/713604427"
+  },
+  {
+    "id": "way/502937318",
+    "name": "Center for Continuing Education Lecture hall (CCE)",
+    "category": "Academic",
+    "coordinate": [
+      5.13558408,
+      7.304390906666666
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/502937318"
+  },
+  {
+    "id": "way/713121928",
+    "name": "CENTRE FOR RENEWABLE ENERGY (CRET)",
+    "category": "Places",
+    "coordinate": [
+      5.127780679999999,
+      7.302699199999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/713121928"
+  },
+  {
+    "id": "way/502937321",
+    "name": "Centre for Space Research and Applications (CESRA)",
+    "category": "Places",
+    "coordinate": [
+      5.135010047058824,
+      7.300928594117646
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/502937321"
+  },
+  {
+    "id": "node/11937589755",
+    "name": "Chemistry Lab 2",
+    "category": "Academic",
+    "coordinate": [
+      5.1340414,
+      7.3017144
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937589755"
+  },
+  {
+    "id": "node/11937557693",
+    "name": "Chemistry Laboratory 1",
+    "category": "Academic",
+    "coordinate": [
+      5.1342167,
+      7.302208
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937557693"
+  },
+  {
+    "id": "node/11937538908",
+    "name": "Chemistry Research Laboratory",
+    "category": "Academic",
+    "coordinate": [
+      5.1338925,
+      7.3022782
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937538908"
+  },
+  {
+    "id": "way/714448766",
+    "name": "christian star lodge 1",
+    "category": "Places",
+    "coordinate": [
+      5.141953677777778,
+      7.308273288888889
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/714448766"
+  },
+  {
+    "id": "way/714448767",
+    "name": "christian star lodge 2",
+    "category": "Places",
+    "coordinate": [
+      5.142333066666667,
+      7.308128166666666
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/714448767"
+  },
+  {
+    "id": "way/716662975",
+    "name": "CMS COOPERATIVE SOCIETY OFFICE",
+    "category": "Places",
+    "coordinate": [
+      5.149334088888889,
+      7.293224733333334
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/716662975"
+  },
+  {
+    "id": "node/11937591537",
+    "name": "Convenience Store",
+    "category": "Places",
+    "coordinate": [
+      5.1356487,
+      7.3009393
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937591537"
+  },
+  {
+    "id": "way/713604426",
+    "name": "CRC",
+    "category": "Places",
+    "coordinate": [
+      5.1459868,
+      7.295836283333334
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/713604426"
+  },
+  {
+    "id": "way/584170126",
+    "name": "CRC OBAKEKERE",
+    "category": "Places",
+    "coordinate": [
+      5.14890106,
+      7.29351432
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/584170126"
+  },
+  {
+    "id": "way/713879259",
+    "name": "De-Rich Hostel",
+    "category": "Hostels",
+    "coordinate": [
+      5.1330213166666665,
+      7.31279155
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/713879259"
+  },
+  {
+    "id": "node/11178540479",
+    "name": "Deeper Life Campground, Akure South",
+    "category": "Places",
+    "coordinate": [
+      5.1432471,
+      7.314668
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11178540479"
+  },
+  {
+    "id": "node/11937542775",
+    "name": "Department Of Biology",
+    "category": "Academic",
+    "coordinate": [
+      5.1339113,
+      7.302273
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937542775"
+  },
+  {
+    "id": "node/11939613258",
+    "name": "Department Of Chemistry(Laboratory)",
+    "category": "Academic",
+    "coordinate": [
+      5.1491962,
+      7.2957605
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11939613258"
+  },
+  {
+    "id": "way/711288910",
+    "name": "DLCF POSTGRAUDATE FELLOWSHIP",
+    "category": "Places",
+    "coordinate": [
+      5.12943704,
+      7.30518942
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/711288910"
+  },
+  {
+    "id": "way/708311024",
+    "name": "E T F Lecture Theatre",
+    "category": "Academic",
+    "coordinate": [
+      5.135641942857142,
+      7.302346200000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708311024"
+  },
+  {
+    "id": "node/11937564401",
+    "name": "Electrical Electronics Laboratory",
+    "category": "Academic",
+    "coordinate": [
+      5.1331937,
+      7.3024037
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937564401"
+  },
+  {
+    "id": "way/713113765",
+    "name": "ENT Lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.135046661538462,
+      7.297008300000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/713113765"
+  },
+  {
+    "id": "way/1548809004",
+    "name": "Entrepreneurship Building",
+    "category": "Places",
+    "coordinate": [
+      5.1344891,
+      7.307262700000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1548809004"
+  },
+  {
+    "id": "way/708311022",
+    "name": "ETF rest room",
+    "category": "Places",
+    "coordinate": [
+      5.1360811,
+      7.3021985
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708311022"
+  },
+  {
+    "id": "node/11939659264",
+    "name": "EWM Hospitality Restaurant and Catering Services",
+    "category": "Food",
+    "coordinate": [
+      5.1463906,
+      7.2966761
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11939659264"
+  },
+  {
+    "id": "way/584170108",
+    "name": "Federal university of technogy Health Center",
+    "category": "Places",
+    "coordinate": [
+      5.14936888,
+      7.2958181600000005
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/584170108"
+  },
+  {
+    "id": "way/711995935",
+    "name": "Federal University of Technology Akure",
+    "category": "Academic",
+    "coordinate": [
+      5.133983729508194,
+      7.302542154098361
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/711995935"
+  },
+  {
+    "id": "node/11569815833",
+    "name": "Federal University of Technology, Akure",
+    "category": "Academic",
+    "coordinate": [
+      5.149673,
+      7.293082
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11569815833"
+  },
+  {
+    "id": "node/11962871291",
+    "name": "Feed Mill",
+    "category": "Places",
+    "coordinate": [
+      5.1449266,
+      7.2987588
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11962871291"
+  },
+  {
+    "id": "way/713113764",
+    "name": "female hostel",
+    "category": "Hostels",
+    "coordinate": [
+      5.13461895882353,
+      7.295995276470589
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/713113764"
+  },
+  {
+    "id": "way/709619050",
+    "name": "filling station and power house",
+    "category": "Places",
+    "coordinate": [
+      5.13656596,
+      7.300742959999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/709619050"
+  },
+  {
+    "id": "way/709052030",
+    "name": "First bank Nigeria",
+    "category": "Places",
+    "coordinate": [
+      5.1389178,
+      7.299886600000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/709052030"
+  },
+  {
+    "id": "way/709601147",
+    "name": "First bank Nigeria ATM",
+    "category": "Places",
+    "coordinate": [
+      5.139029089999999,
+      7.29970496
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/709601147"
+  },
+  {
+    "id": "node/7416015078",
+    "name": "First Bank Parking space",
+    "category": "Places",
+    "coordinate": [
+      5.1391024,
+      7.2998018
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/7416015078"
+  },
+  {
+    "id": "way/708287153",
+    "name": "FirstBank Lecture Theatre",
+    "category": "Academic",
+    "coordinate": [
+      5.132941300000001,
+      7.29789312
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708287153"
+  },
+  {
+    "id": "node/11937602098",
+    "name": "Fruit Spot",
+    "category": "Food",
+    "coordinate": [
+      5.1364137,
+      7.3012509
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937602098"
+  },
+  {
+    "id": "node/7413564492",
+    "name": "Fruits Spot",
+    "category": "Places",
+    "coordinate": [
+      5.1359635,
+      7.3012424
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/7413564492"
+  },
+  {
+    "id": "way/711288920",
+    "name": "FUTA BAKERY",
+    "category": "Places",
+    "coordinate": [
+      5.129452722222222,
+      7.3045519444444444
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/711288920"
+  },
+  {
+    "id": "way/793090593",
+    "name": "FUTA Brea(07)",
+    "category": "Places",
+    "coordinate": [
+      5.13981322,
+      7.3017436
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/793090593"
+  },
+  {
+    "id": "node/7413682226",
+    "name": "FUTA Bread",
+    "category": "Places",
+    "coordinate": [
+      5.1363583,
+      7.3031659
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/7413682226"
+  },
+  {
+    "id": "way/711995936",
+    "name": "FUTA BREAD",
+    "category": "Places",
+    "coordinate": [
+      5.13992796,
+      7.3064064800000015
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/711995936"
+  },
+  {
+    "id": "node/7416684158",
+    "name": "FUTA BREAD",
+    "category": "Places",
+    "coordinate": [
+      5.1357762,
+      7.299074
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/7416684158"
+  },
+  {
+    "id": "node/7418855951",
+    "name": "FUTA BREAD",
+    "category": "Places",
+    "coordinate": [
+      5.135547,
+      7.2985541
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/7418855951"
+  },
+  {
+    "id": "node/11934318085",
+    "name": "Futa Bread (3)",
+    "category": "Places",
+    "coordinate": [
+      5.1483261,
+      7.2963865
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11934318085"
+  },
+  {
+    "id": "way/708311020",
+    "name": "Futa Bread Kiosk No 4",
+    "category": "Places",
+    "coordinate": [
+      5.1359058200000005,
+      7.30202142
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708311020"
+  },
+  {
+    "id": "node/7416193861",
+    "name": "FUTA BREAD(NO 2)",
+    "category": "Places",
+    "coordinate": [
+      5.1357781,
+      7.2988412
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/7416193861"
+  },
+  {
+    "id": "way/708311031",
+    "name": "FUTA Car Wash",
+    "category": "Places",
+    "coordinate": [
+      5.135651642857143,
+      7.300892742857143
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708311031"
+  },
+  {
+    "id": "node/11939624345",
+    "name": "FUTA DAYCARE CENTRE",
+    "category": "Places",
+    "coordinate": [
+      5.1462078,
+      7.2966721
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11939624345"
+  },
+  {
+    "id": "node/11937537358",
+    "name": "FUTA Fire Station",
+    "category": "Places",
+    "coordinate": [
+      5.1318661,
+      7.3015764
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937537358"
+  },
+  {
+    "id": "node/11937574335",
+    "name": "FUTA Geotechnical Lab",
+    "category": "Academic",
+    "coordinate": [
+      5.1328157,
+      7.3025335
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937574335"
+  },
+  {
+    "id": "way/791903674",
+    "name": "FUTA GYM BUILDING",
+    "category": "Places",
+    "coordinate": [
+      5.13933032,
+      7.304085720000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/791903674"
+  },
+  {
+    "id": "node/7400942455",
+    "name": "FUTA GYM CENTER",
+    "category": "Places",
+    "coordinate": [
+      5.1394182,
+      7.30405
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/7400942455"
+  },
+  {
+    "id": "way/711998137",
+    "name": "Futa Main Pitch",
+    "category": "Places",
+    "coordinate": [
+      5.1372220793103445,
+      7.305467889655173
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/711998137"
+  },
+  {
+    "id": "node/8142014390",
+    "name": "Futa Mini Pitch",
+    "category": "Places",
+    "coordinate": [
+      5.1380517,
+      7.3047654
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/8142014390"
+  },
+  {
+    "id": "way/710693839",
+    "name": "FUTA MULTIPURPOSE HALL",
+    "category": "Places",
+    "coordinate": [
+      5.13499966,
+      7.3072619
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/710693839"
+  },
+  {
+    "id": "node/11962874732",
+    "name": "FUTA Printing Press",
+    "category": "Places",
+    "coordinate": [
+      5.1492497,
+      7.2944025
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11962874732"
+  },
+  {
+    "id": "node/7438178798",
+    "name": "FUTA RADIO(93.1 FM)",
+    "category": "Places",
+    "coordinate": [
+      5.134322,
+      7.3048747
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/7438178798"
+  },
+  {
+    "id": "way/584170119",
+    "name": "FUTA SECONDARY SCHOOL",
+    "category": "Academic",
+    "coordinate": [
+      5.1491522,
+      7.293905153846154
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/584170119"
+  },
+  {
+    "id": "way/584170173",
+    "name": "FUTA secondary Shool Boarding House",
+    "category": "Places",
+    "coordinate": [
+      5.14663464,
+      7.293225819999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/584170173"
+  },
+  {
+    "id": "way/709052021",
+    "name": "FUTA STAFF COOPERATIVE SOCIETY SECTERIAT",
+    "category": "Places",
+    "coordinate": [
+      5.137550722222222,
+      7.298241466666667
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/709052021"
+  },
+  {
+    "id": "node/11939606485",
+    "name": "Futa Staff Primary School(PTA BUILDING)",
+    "category": "Academic",
+    "coordinate": [
+      5.1479794,
+      7.2958538
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11939606485"
+  },
+  {
+    "id": "way/584170103",
+    "name": "FUTA Staff School.",
+    "category": "Academic",
+    "coordinate": [
+      5.1474036375,
+      7.2959056875
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/584170103"
+  },
+  {
+    "id": "node/7400942454",
+    "name": "FUTA TABLE TENNIS COURT",
+    "category": "Places",
+    "coordinate": [
+      5.139547,
+      7.3039808
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/7400942454"
+  },
+  {
+    "id": "way/713609348",
+    "name": "futascoop",
+    "category": "Hostels",
+    "coordinate": [
+      5.143611909523811,
+      7.30116770952381
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/713609348"
+  },
+  {
+    "id": "way/713609347",
+    "name": "Futascoop Hostel",
+    "category": "Hostels",
+    "coordinate": [
+      5.1432737375,
+      7.3009791875
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/713609347"
+  },
+  {
+    "id": "node/11962847130",
+    "name": "FUTASCOOPS Female Hostel",
+    "category": "Hostels",
+    "coordinate": [
+      5.1436555,
+      7.301213
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11962847130"
+  },
+  {
+    "id": "way/793780915",
+    "name": "GENERATOR HOUSE",
+    "category": "Places",
+    "coordinate": [
+      5.140826028571428,
+      7.303747728571429
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/793780915"
+  },
+  {
+    "id": "node/11178521269",
+    "name": "Glofes Filling Station",
+    "category": "Places",
+    "coordinate": [
+      5.13858,
+      7.3078453
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11178521269"
+  },
+  {
+    "id": "way/708271366",
+    "name": "GNS Building",
+    "category": "Places",
+    "coordinate": [
+      5.1329655222222215,
+      7.299436433333335
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708271366"
+  },
+  {
+    "id": "way/708271363",
+    "name": "Graduate research Lab (Phase 2)",
+    "category": "Places",
+    "coordinate": [
+      5.134325363636363,
+      7.299048627272726
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708271363"
+  },
+  {
+    "id": "way/584170102",
+    "name": "Great Hall",
+    "category": "Places",
+    "coordinate": [
+      5.14679026,
+      7.296056639999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/584170102"
+  },
+  {
+    "id": "way/709052022",
+    "name": "GTBank",
+    "category": "Places",
+    "coordinate": [
+      5.1398887111111105,
+      7.300978666666666
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/709052022"
+  },
+  {
+    "id": "way/1253623191",
+    "name": "Habitation of peace Hostel",
+    "category": "Hostels",
+    "coordinate": [
+      5.13336782,
+      7.312428399999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1253623191"
+  },
+  {
+    "id": "way/711995949",
+    "name": "Handball Court",
+    "category": "Places",
+    "coordinate": [
+      5.13869618,
+      7.30606298
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/711995949"
+  },
+  {
+    "id": "way/709616970",
+    "name": "Heritage Bank",
+    "category": "Places",
+    "coordinate": [
+      5.13895574,
+      7.300288719999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/709616970"
+  },
+  {
+    "id": "way/714525974",
+    "name": "Heritage Bank",
+    "category": "Places",
+    "coordinate": [
+      5.139049045454546,
+      7.300304709090909
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/714525974"
+  },
+  {
+    "id": "way/711995946",
+    "name": "Hill Top Auditorium",
+    "category": "Places",
+    "coordinate": [
+      5.136153753333334,
+      7.3053633866666665
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/711995946"
+  },
+  {
+    "id": "way/713609338",
+    "name": "hutches",
+    "category": "Places",
+    "coordinate": [
+      5.14424444,
+      7.30011256
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/713609338"
+  },
+  {
+    "id": "way/716663071",
+    "name": "IDD STUDIO",
+    "category": "Places",
+    "coordinate": [
+      5.149249521875002,
+      7.296935331249999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/716663071"
+  },
+  {
+    "id": "way/711995952",
+    "name": "INDOOR GAMES BUILDING",
+    "category": "Places",
+    "coordinate": [
+      5.13957914,
+      7.30398682
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/711995952"
+  },
+  {
+    "id": "way/714679520",
+    "name": "Indoor Sport House",
+    "category": "Places",
+    "coordinate": [
+      5.138306805882352,
+      7.305712929411764
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/714679520"
+  },
+  {
+    "id": "way/503311401",
+    "name": "Industrial Building",
+    "category": "Places",
+    "coordinate": [
+      5.132965919999999,
+      7.30299872
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/503311401"
+  },
+  {
+    "id": "way/712000502",
+    "name": "Industrial Building",
+    "category": "Places",
+    "coordinate": [
+      5.1332104,
+      7.3030849
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/712000502"
+  },
+  {
+    "id": "way/712000503",
+    "name": "Industrial Building",
+    "category": "Places",
+    "coordinate": [
+      5.13327004,
+      7.30324734
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/712000503"
+  },
+  {
+    "id": "way/712000505",
+    "name": "Industrial Building",
+    "category": "Places",
+    "coordinate": [
+      5.13309402,
+      7.30330962
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/712000505"
+  },
+  {
+    "id": "way/680578416",
+    "name": "International Building",
+    "category": "Places",
+    "coordinate": [
+      5.13525334,
+      7.297777620000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/680578416"
+  },
+  {
+    "id": "way/711995939",
+    "name": "IYA BOLA RESTAURANT",
+    "category": "Food",
+    "coordinate": [
+      5.138749880000001,
+      7.306879739999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/711995939"
+  },
+  {
+    "id": "way/502927360",
+    "name": "JIBOWU AND ABIOLA ENTRANCE",
+    "category": "Places",
+    "coordinate": [
+      5.141702571428572,
+      7.304022457142857
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/502927360"
+  },
+  {
+    "id": "way/502937330",
+    "name": "JIBOWU CAR PARK",
+    "category": "Places",
+    "coordinate": [
+      5.14137828,
+      7.303937960000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/502937330"
+  },
+  {
+    "id": "way/584170109",
+    "name": "Laboratory",
+    "category": "Academic",
+    "coordinate": [
+      5.1491883875,
+      7.295749600000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/584170109"
+  },
+  {
+    "id": "way/582042860",
+    "name": "Lecture Building",
+    "category": "Academic",
+    "coordinate": [
+      5.127596272727273,
+      7.304910490909091
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/582042860"
+  },
+  {
+    "id": "way/582042879",
+    "name": "Lecture Building",
+    "category": "Academic",
+    "coordinate": [
+      5.127684244444445,
+      7.304195255555555
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/582042879"
+  },
+  {
+    "id": "way/708287151",
+    "name": "Lecture Building",
+    "category": "Academic",
+    "coordinate": [
+      5.13169598,
+      7.297502880000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708287151"
+  },
+  {
+    "id": "way/711288903",
+    "name": "Lecture Building",
+    "category": "Academic",
+    "coordinate": [
+      5.12698844,
+      7.30518704
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/711288903"
+  },
+  {
+    "id": "way/711288904",
+    "name": "Lecture Building",
+    "category": "Academic",
+    "coordinate": [
+      5.127040138461538,
+      7.305018853846154
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/711288904"
+  },
+  {
+    "id": "way/711288922",
+    "name": "Lecture Building",
+    "category": "Academic",
+    "coordinate": [
+      5.12772358,
+      7.3044274
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/711288922"
+  },
+  {
+    "id": "way/711288923",
+    "name": "Lecture Building",
+    "category": "Academic",
+    "coordinate": [
+      5.1271691,
+      7.30434534
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/711288923"
+  },
+  {
+    "id": "way/711288924",
+    "name": "Lecture Building",
+    "category": "Academic",
+    "coordinate": [
+      5.12766364,
+      7.30471552
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/711288924"
+  },
+  {
+    "id": "way/711288925",
+    "name": "Lecture Building",
+    "category": "Academic",
+    "coordinate": [
+      5.127105345454545,
+      7.304525545454546
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/711288925"
+  },
+  {
+    "id": "way/783273204",
+    "name": "Lecture house",
+    "category": "Academic",
+    "coordinate": [
+      5.148296922222222,
+      7.297568200000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/783273204"
+  },
+  {
+    "id": "way/712000506",
+    "name": "Lecture House",
+    "category": "Academic",
+    "coordinate": [
+      5.1311431800000005,
+      7.3029652800000004
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/712000506"
+  },
+  {
+    "id": "way/712000507",
+    "name": "Lecture House",
+    "category": "Academic",
+    "coordinate": [
+      5.1308963,
+      7.303529879999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/712000507"
+  },
+  {
+    "id": "way/712000509",
+    "name": "Lecture House",
+    "category": "Academic",
+    "coordinate": [
+      5.130660971428571,
+      7.30389802857143
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/712000509"
+  },
+  {
+    "id": "way/712000511",
+    "name": "Lecture House",
+    "category": "Academic",
+    "coordinate": [
+      5.130871539999999,
+      7.3038628
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/712000511"
+  },
+  {
+    "id": "way/716663072",
+    "name": "Lecture House",
+    "category": "Academic",
+    "coordinate": [
+      5.148664355555555,
+      7.297025177777777
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/716663072"
+  },
+  {
+    "id": "way/783273203",
+    "name": "Lecture House",
+    "category": "Academic",
+    "coordinate": [
+      5.1486510222222215,
+      7.297366
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/783273203"
+  },
+  {
+    "id": "way/471957342",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.133418410526315,
+      7.302658105263158
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/471957342"
+  },
+  {
+    "id": "way/502932733",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.1364824625,
+      7.299512283333333
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/502932733"
+  },
+  {
+    "id": "way/502932735",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.135912173684211,
+      7.298363857894738
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/502932735"
+  },
+  {
+    "id": "way/502932738",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.135042372727273,
+      7.298967363636364
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/502932738"
+  },
+  {
+    "id": "way/502937314",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.133128209090909,
+      7.302219736363637
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/502937314"
+  },
+  {
+    "id": "way/502937319",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.1361064,
+      7.3042801176470595
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/502937319"
+  },
+  {
+    "id": "way/503311402",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.132755471428571,
+      7.3024717
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/503311402"
+  },
+  {
+    "id": "way/582042858",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.12888008,
+      7.303678819999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/582042858"
+  },
+  {
+    "id": "way/582042859",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.1280317272727265,
+      7.3045933454545455
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/582042859"
+  },
+  {
+    "id": "way/708271364",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.135204700000001,
+      7.299170157142858
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708271364"
+  },
+  {
+    "id": "way/708271367",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.1321108,
+      7.299520120000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708271367"
+  },
+  {
+    "id": "way/708271369",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.13188624,
+      7.29976066
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708271369"
+  },
+  {
+    "id": "way/708287152",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.13357548,
+      7.29798706
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708287152"
+  },
+  {
+    "id": "way/708287154",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.13257352,
+      7.29750308
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708287154"
+  },
+  {
+    "id": "way/708291774",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.134181090909092,
+      7.298019381818182
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708291774"
+  },
+  {
+    "id": "way/708291775",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.1338798,
+      7.297972140000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708291775"
+  },
+  {
+    "id": "way/708291776",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.1339119,
+      7.2979014399999995
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708291776"
+  },
+  {
+    "id": "way/708294458",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.135898523529411,
+      7.297701376470589
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708294458"
+  },
+  {
+    "id": "way/708294470",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.134567639999999,
+      7.299245239999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708294470"
+  },
+  {
+    "id": "way/708294471",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.1346421200000005,
+      7.299201479999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708294471"
+  },
+  {
+    "id": "way/708296702",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.134439423529412,
+      7.297456817647058
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708296702"
+  },
+  {
+    "id": "way/708311025",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.134056807692308,
+      7.301511884615385
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708311025"
+  },
+  {
+    "id": "way/708311026",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.13375938,
+      7.301541040000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708311026"
+  },
+  {
+    "id": "way/708311027",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.13360874,
+      7.30169068
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708311027"
+  },
+  {
+    "id": "way/708311028",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.133779819999999,
+      7.3016236800000005
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708311028"
+  },
+  {
+    "id": "way/708311029",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.132188315384615,
+      7.302376915384615
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708311029"
+  },
+  {
+    "id": "way/711288919",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.1286410600000005,
+      7.30424766
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/711288919"
+  },
+  {
+    "id": "way/712000495",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.1307622111111115,
+      7.304710333333334
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/712000495"
+  },
+  {
+    "id": "way/712000496",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.1314584000000005,
+      7.305070000000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/712000496"
+  },
+  {
+    "id": "way/712000497",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.1311759,
+      7.305047
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/712000497"
+  },
+  {
+    "id": "way/712000498",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.131132022222222,
+      7.30482258888889
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/712000498"
+  },
+  {
+    "id": "way/712000501",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.1336542357142845,
+      7.304496942857141
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/712000501"
+  },
+  {
+    "id": "way/712000504",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.13312334,
+      7.303435959999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/712000504"
+  },
+  {
+    "id": "way/712000508",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.1306970142857145,
+      7.303538314285714
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/712000508"
+  },
+  {
+    "id": "way/712000510",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.13077998,
+      7.3039675399999995
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/712000510"
+  },
+  {
+    "id": "way/712000512",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.13152962,
+      7.303988080000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/712000512"
+  },
+  {
+    "id": "way/712000513",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.131565628571429,
+      7.304151985714286
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/712000513"
+  },
+  {
+    "id": "way/712000514",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.131232971428572,
+      7.304108157142857
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/712000514"
+  },
+  {
+    "id": "way/712000518",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.13506821724138,
+      7.304729172413793
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/712000518"
+  },
+  {
+    "id": "way/794619189",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.128595342857143,
+      7.304413185714286
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/794619189"
+  },
+  {
+    "id": "way/794653875",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.12809588,
+      7.30439808
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/794653875"
+  },
+  {
+    "id": "way/823823878",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.134506709523811,
+      7.296964485714286
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/823823878"
+  },
+  {
+    "id": "way/1020771465",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.137875076923076,
+      7.2997159384615395
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1020771465"
+  },
+  {
+    "id": "way/1020771467",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.137887555555555,
+      7.299874155555555
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1020771467"
+  },
+  {
+    "id": "way/1020771469",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.13790286,
+      7.3002211
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1020771469"
+  },
+  {
+    "id": "way/1021067585",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.1320299999999985,
+      7.303735671428571
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1021067585"
+  },
+  {
+    "id": "way/1169557937",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.13782716,
+      7.299487760000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557937"
+  },
+  {
+    "id": "way/1169557946",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.13306752,
+      7.30343778
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557946"
+  },
+  {
+    "id": "way/1215519040",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.13617052,
+      7.297675179999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1215519040"
+  },
+  {
+    "id": "way/1293009735",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.135968579999999,
+      7.3027748
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1293009735"
+  },
+  {
+    "id": "way/1297200006",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.134764199999999,
+      7.297578420000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1297200006"
+  },
+  {
+    "id": "way/1297200007",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.13468922,
+      7.2975469
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1297200007"
+  },
+  {
+    "id": "way/1548809003",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.1322648,
+      7.30566758
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1548809003"
+  },
+  {
+    "id": "way/1548809008",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.134182771428572,
+      7.297095957142859
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1548809008"
+  },
+  {
+    "id": "way/1548809009",
+    "name": "lecture room",
+    "category": "Academic",
+    "coordinate": [
+      5.134060963636364,
+      7.297479500000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1548809009"
+  },
+  {
+    "id": "way/584170105",
+    "name": "lecture Room",
+    "category": "Academic",
+    "coordinate": [
+      5.14834276,
+      7.29614164
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/584170105"
+  },
+  {
+    "id": "way/713609341",
+    "name": "loafing shed",
+    "category": "Places",
+    "coordinate": [
+      5.14420694,
+      7.3002518
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/713609341"
+  },
+  {
+    "id": "way/502937322",
+    "name": "LT 1",
+    "category": "Places",
+    "coordinate": [
+      5.13496696,
+      7.302551439999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/502937322"
+  },
+  {
+    "id": "way/502937323",
+    "name": "LT 2",
+    "category": "Places",
+    "coordinate": [
+      5.13460656,
+      7.3025692399999995
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/502937323"
+  },
+  {
+    "id": "node/11937538769",
+    "name": "LT 2 MOSQUE",
+    "category": "Places",
+    "coordinate": [
+      5.1345979,
+      7.3024555
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937538769"
+  },
+  {
+    "id": "node/7401025179",
+    "name": "MAN O WAR OFFICE",
+    "category": "Places",
+    "coordinate": [
+      5.1395624,
+      7.3043926
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/7401025179"
+  },
+  {
+    "id": "way/714408279",
+    "name": "Marble Lodge",
+    "category": "Places",
+    "coordinate": [
+      5.141871272222223,
+      7.307869661111109
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/714408279"
+  },
+  {
+    "id": "node/7400942457",
+    "name": "MEGA",
+    "category": "Food",
+    "coordinate": [
+      5.1395068,
+      7.3044145
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/7400942457"
+  },
+  {
+    "id": "node/7400942459",
+    "name": "MEGA EATERY",
+    "category": "Food",
+    "coordinate": [
+      5.1394826,
+      7.3043267
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/7400942459"
+  },
+  {
+    "id": "node/11939624319",
+    "name": "Metallurgical And Materials Engineering Mineral Processing Laboratory",
+    "category": "Academic",
+    "coordinate": [
+      5.1490277,
+      7.2961375
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11939624319"
+  },
+  {
+    "id": "node/11939574106",
+    "name": "Microbiology Department",
+    "category": "Academic",
+    "coordinate": [
+      5.1484108,
+      7.2961255
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11939574106"
+  },
+  {
+    "id": "way/714408339",
+    "name": "MKO ABIOLA HOSTEL PORTER'S LODGE",
+    "category": "Hostels",
+    "coordinate": [
+      5.14240408,
+      7.30446314
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/714408339"
+  },
+  {
+    "id": "node/11937829454",
+    "name": "MOC Ventures",
+    "category": "Places",
+    "coordinate": [
+      5.1399977,
+      7.3013374
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937829454"
+  },
+  {
+    "id": "way/713890788",
+    "name": "Mountian of Fire (MFMFUTA)",
+    "category": "Places",
+    "coordinate": [
+      5.139262723076923,
+      7.3095331
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/713890788"
+  },
+  {
+    "id": "way/708311021",
+    "name": "Mtn mini shop",
+    "category": "Places",
+    "coordinate": [
+      5.13582638,
+      7.30191604
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708311021"
+  },
+  {
+    "id": "node/11937794223",
+    "name": "Multipurpose Hall",
+    "category": "Places",
+    "coordinate": [
+      5.1350322,
+      7.3071927
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937794223"
+  },
+  {
+    "id": "way/712000500",
+    "name": "Museum",
+    "category": "Places",
+    "coordinate": [
+      5.133957709999999,
+      7.3043816249999995
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/712000500"
+  },
+  {
+    "id": "way/716662976",
+    "name": "NASU SECTERIAT OBAKEKERE",
+    "category": "Places",
+    "coordinate": [
+      5.14921848,
+      7.293344
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/716662976"
+  },
+  {
+    "id": "way/708287150",
+    "name": "NEW 1000 Lecture Theater",
+    "category": "Academic",
+    "coordinate": [
+      5.13174835882353,
+      7.2978185
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708287150"
+  },
+  {
+    "id": "way/709601156",
+    "name": "New building",
+    "category": "Places",
+    "coordinate": [
+      5.1362171000000005,
+      7.2998384000000005
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/709601156"
+  },
+  {
+    "id": "way/1169558004",
+    "name": "New FUTA Clinic",
+    "category": "Health",
+    "coordinate": [
+      5.145134866666667,
+      7.297647906666666
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169558004"
+  },
+  {
+    "id": "way/791750651",
+    "name": "New Senate Building",
+    "category": "Places",
+    "coordinate": [
+      5.139481863157895,
+      7.302201289473684
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/791750651"
+  },
+  {
+    "id": "node/11937585706",
+    "name": "NIN Enrôlment Centre",
+    "category": "Places",
+    "coordinate": [
+      5.1339845,
+      7.3044017
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937585706"
+  },
+  {
+    "id": "way/1169560765",
+    "name": "North Gate Security Post",
+    "category": "Places",
+    "coordinate": [
+      5.139587499999999,
+      7.30649746
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169560765"
+  },
+  {
+    "id": "way/711998140",
+    "name": "Northgate Garage",
+    "category": "Places",
+    "coordinate": [
+      5.1386990363636365,
+      7.3076902
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/711998140"
+  },
+  {
+    "id": "way/714448762",
+    "name": "NTK LODGE 1",
+    "category": "Places",
+    "coordinate": [
+      5.14244656,
+      7.309149639999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/714448762"
+  },
+  {
+    "id": "way/714448761",
+    "name": "NTK LODGE 2",
+    "category": "Places",
+    "coordinate": [
+      5.14230614,
+      7.309135900000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/714448761"
+  },
+  {
+    "id": "way/714448763",
+    "name": "NTK LODGE 3",
+    "category": "Places",
+    "coordinate": [
+      5.14236008,
+      7.30897124
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/714448763"
+  },
+  {
+    "id": "node/11937829756",
+    "name": "Oba Adebiyi Adesida Hall",
+    "category": "Places",
+    "coordinate": [
+      5.1413554,
+      7.3042292
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937829756"
+  },
+  {
+    "id": "way/680580056",
+    "name": "Obafemi Awolowo Auditorium(2500 Capacity)",
+    "category": "Places",
+    "coordinate": [
+      5.136945516129033,
+      7.304169506451613
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/680580056"
+  },
+  {
+    "id": "way/793096002",
+    "name": "Obakekere Mosque",
+    "category": "Places",
+    "coordinate": [
+      5.14887886,
+      7.2950598200000005
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/793096002"
+  },
+  {
+    "id": "way/708287149",
+    "name": "OLD 1000 Lecture Theater",
+    "category": "Academic",
+    "coordinate": [
+      5.132620723529413,
+      7.297812511764705
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708287149"
+  },
+  {
+    "id": "way/502937315",
+    "name": "OLD 3-IN-1 LECTURE THEATRE",
+    "category": "Academic",
+    "coordinate": [
+      5.133796107692309,
+      7.301119092307693
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/502937315"
+  },
+  {
+    "id": "way/716662977",
+    "name": "OLD BUS STATION",
+    "category": "Places",
+    "coordinate": [
+      5.149050683333333,
+      7.2931986
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/716662977"
+  },
+  {
+    "id": "way/584170120",
+    "name": "Old Federal university of technogy Health Center",
+    "category": "Places",
+    "coordinate": [
+      5.149305907692308,
+      7.295131830769232
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/584170120"
+  },
+  {
+    "id": "way/709619057",
+    "name": "Old Senate Building",
+    "category": "Places",
+    "coordinate": [
+      5.1390652947368425,
+      7.302379768421054
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/709619057"
+  },
+  {
+    "id": "node/11178545482",
+    "name": "Opposite FUTA Campus",
+    "category": "Places",
+    "coordinate": [
+      5.1388217,
+      7.3075583
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11178545482"
+  },
+  {
+    "id": "node/11934612358",
+    "name": "Pastor E.A Adeboye",
+    "category": "Places",
+    "coordinate": [
+      5.1347282,
+      7.2950395
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11934612358"
+  },
+  {
+    "id": "way/710693841",
+    "name": "PHD Building",
+    "category": "Places",
+    "coordinate": [
+      5.134585329411765,
+      7.304886494117646
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/710693841"
+  },
+  {
+    "id": "node/7400942460",
+    "name": "PHONE REPAIR STORE",
+    "category": "Places",
+    "coordinate": [
+      5.1395336,
+      7.3043985
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/7400942460"
+  },
+  {
+    "id": "way/584170106",
+    "name": "Physics and physics Electronic",
+    "category": "Places",
+    "coordinate": [
+      5.148381280000001,
+      7.295840060000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/584170106"
+  },
+  {
+    "id": "way/584170124",
+    "name": "Physics lab",
+    "category": "Places",
+    "coordinate": [
+      5.14899158,
+      7.2961488
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/584170124"
+  },
+  {
+    "id": "way/584170107",
+    "name": "Physics Laboratory",
+    "category": "Academic",
+    "coordinate": [
+      5.148597840000001,
+      7.295803739999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/584170107"
+  },
+  {
+    "id": "way/713609346",
+    "name": "piggery",
+    "category": "Places",
+    "coordinate": [
+      5.14427554,
+      7.30085538
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/713609346"
+  },
+  {
+    "id": "node/11937595308",
+    "name": "Post Graduate Research Lab",
+    "category": "Academic",
+    "coordinate": [
+      5.1341314,
+      7.3014585
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937595308"
+  },
+  {
+    "id": "way/713113739",
+    "name": "Postgraduate Hostel",
+    "category": "Hostels",
+    "coordinate": [
+      5.131565633333334,
+      7.296156011111112
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/713113739"
+  },
+  {
+    "id": "way/713609343",
+    "name": "poultry",
+    "category": "Places",
+    "coordinate": [
+      5.144262866666667,
+      7.300490483333333
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/713609343"
+  },
+  {
+    "id": "way/584170111",
+    "name": "Printing Press",
+    "category": "Places",
+    "coordinate": [
+      5.14924377,
+      7.294486770000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/584170111"
+  },
+  {
+    "id": "way/713879221",
+    "name": "Prison Break Hostel",
+    "category": "Hostels",
+    "coordinate": [
+      5.13579354,
+      7.310226640000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/713879221"
+  },
+  {
+    "id": "node/11962862838",
+    "name": "Prof. Adebisi Balogun Postgraduates Hall",
+    "category": "Places",
+    "coordinate": [
+      5.1462391,
+      7.2977987
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11962862838"
+  },
+  {
+    "id": "node/11962837291",
+    "name": "Prof. Jadesola Female Hostel",
+    "category": "Hostels",
+    "coordinate": [
+      5.1439623,
+      7.3019849
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11962837291"
+  },
+  {
+    "id": "node/11962844650",
+    "name": "Prof. Peter Adeniyi Male Hostel",
+    "category": "Hostels",
+    "coordinate": [
+      5.1431571,
+      7.3020008
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11962844650"
+  },
+  {
+    "id": "way/708311032",
+    "name": "Public Restroom",
+    "category": "Places",
+    "coordinate": [
+      5.13467332,
+      7.300839380000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708311032"
+  },
+  {
+    "id": "way/708271368",
+    "name": "Recreative center",
+    "category": "Places",
+    "coordinate": [
+      5.132239660000001,
+      7.29967042
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708271368"
+  },
+  {
+    "id": "node/7413556578",
+    "name": "RELAXATION SPOT",
+    "category": "Places",
+    "coordinate": [
+      5.1352195,
+      7.3024336
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/7413556578"
+  },
+  {
+    "id": "node/11937777916",
+    "name": "Religious Ground",
+    "category": "Places",
+    "coordinate": [
+      5.1333587,
+      7.3064149
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937777916"
+  },
+  {
+    "id": "way/708311023",
+    "name": "Rest room",
+    "category": "Places",
+    "coordinate": [
+      5.136029,
+      7.302100299999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708311023"
+  },
+  {
+    "id": "way/708271365",
+    "name": "SAAT ANEX",
+    "category": "Places",
+    "coordinate": [
+      5.133562855555556,
+      7.2992216333333335
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708271365"
+  },
+  {
+    "id": "node/11937804183",
+    "name": "SAAT Library",
+    "category": "Libraries",
+    "coordinate": [
+      5.1355217,
+      7.3013006
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937804183"
+  },
+  {
+    "id": "way/502934197",
+    "name": "SCHOOL OF AGRICULTURE AND AGRICULTURAL TECHNOLOGY",
+    "category": "Academic",
+    "coordinate": [
+      5.135298156250001,
+      7.3015398
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/502934197"
+  },
+  {
+    "id": "node/11939624971",
+    "name": "School Of Basic Medical Sciences(SBMS)",
+    "category": "Academic",
+    "coordinate": [
+      5.1489061,
+      7.2956088
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11939624971"
+  },
+  {
+    "id": "node/11937731494",
+    "name": "School of Computing",
+    "category": "Academic",
+    "coordinate": [
+      5.1321332,
+      7.3047192
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937731494"
+  },
+  {
+    "id": "way/710693843",
+    "name": "School of Computing (SCOM)",
+    "category": "Academic",
+    "coordinate": [
+      5.133775076923077,
+      7.305174215384615
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/710693843"
+  },
+  {
+    "id": "way/1021067586",
+    "name": "School of Computing (SCOM)",
+    "category": "Academic",
+    "coordinate": [
+      5.13196602,
+      7.30478234
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1021067586"
+  },
+  {
+    "id": "way/1169557943",
+    "name": "School of Computing (SOC)",
+    "category": "Academic",
+    "coordinate": [
+      5.13240184,
+      7.30464252
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557943"
+  },
+  {
+    "id": "way/1169557947",
+    "name": "School of Electrical Systems Engineering(SESE)",
+    "category": "Academic",
+    "coordinate": [
+      5.130719544444444,
+      7.298977900000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557947"
+  },
+  {
+    "id": "way/793365356",
+    "name": "School of Health and Health Technology (SHHT)",
+    "category": "Academic",
+    "coordinate": [
+      5.14890881764706,
+      7.295795988235293
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/793365356"
+  },
+  {
+    "id": "way/502933494",
+    "name": "School of Infrastructure, Minerals and Manufacturing Engineering(SIMME)",
+    "category": "Academic",
+    "coordinate": [
+      5.13567744,
+      7.303127600000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/502933494"
+  },
+  {
+    "id": "node/11937542774",
+    "name": "School Of Life Sciences",
+    "category": "Academic",
+    "coordinate": [
+      5.1339652,
+      7.3019856
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937542774"
+  },
+  {
+    "id": "way/708294457",
+    "name": "School of Logistics and Innovation Technology",
+    "category": "Academic",
+    "coordinate": [
+      5.134844992307691,
+      7.298046215384616
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708294457"
+  },
+  {
+    "id": "way/708296703",
+    "name": "School of Management (SMAT BUILDING)",
+    "category": "Academic",
+    "coordinate": [
+      5.134811306666667,
+      7.297705926666666
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708296703"
+  },
+  {
+    "id": "node/11947453352",
+    "name": "School Of Postgraduates ( Phase 1)",
+    "category": "Academic",
+    "coordinate": [
+      5.1349758,
+      7.2989675
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11947453352"
+  },
+  {
+    "id": "node/11947404327",
+    "name": "School Of Postgraduates (Phase 2)",
+    "category": "Academic",
+    "coordinate": [
+      5.1349286,
+      7.2993362
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11947404327"
+  },
+  {
+    "id": "way/708298886",
+    "name": "School of Sciences",
+    "category": "Academic",
+    "coordinate": [
+      5.13389058,
+      7.30222094
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708298886"
+  },
+  {
+    "id": "way/1293009732",
+    "name": "School of Sciences",
+    "category": "Academic",
+    "coordinate": [
+      5.13382058,
+      7.30193926
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1293009732"
+  },
+  {
+    "id": "way/1293009733",
+    "name": "School of Sciences",
+    "category": "Academic",
+    "coordinate": [
+      5.134085659999999,
+      7.30182834
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1293009733"
+  },
+  {
+    "id": "way/1293009734",
+    "name": "School of Sciences",
+    "category": "Academic",
+    "coordinate": [
+      5.13419764,
+      7.302118439999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1293009734"
+  },
+  {
+    "id": "way/712000516",
+    "name": "Security Building",
+    "category": "Places",
+    "coordinate": [
+      5.13227512,
+      7.3028879799999995
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/712000516"
+  },
+  {
+    "id": "way/708761381",
+    "name": "Security house",
+    "category": "Places",
+    "coordinate": [
+      5.12416068,
+      7.30355666
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708761381"
+  },
+  {
+    "id": "way/708761382",
+    "name": "Security house",
+    "category": "Places",
+    "coordinate": [
+      5.124382600000001,
+      7.3030740000000005
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708761382"
+  },
+  {
+    "id": "node/11937760917",
+    "name": "SEET Library",
+    "category": "Libraries",
+    "coordinate": [
+      5.1359784,
+      7.3027927
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937760917"
+  },
+  {
+    "id": "way/792822305",
+    "name": "SEMS Walk Way",
+    "category": "Places",
+    "coordinate": [
+      5.1359520000000005,
+      7.298062160000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/792822305"
+  },
+  {
+    "id": "way/792829416",
+    "name": "Senate Bus Stop",
+    "category": "Places",
+    "coordinate": [
+      5.14014506,
+      7.301901259999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/792829416"
+  },
+  {
+    "id": "way/709609959",
+    "name": "SET Phase 2",
+    "category": "Places",
+    "coordinate": [
+      5.1370533,
+      7.2996973999999994
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/709609959"
+  },
+  {
+    "id": "way/792299120",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.14796912,
+      7.292562860000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/792299120"
+  },
+  {
+    "id": "way/1169557948",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.14168538,
+      7.30235182
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557948"
+  },
+  {
+    "id": "way/1169557949",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.14092656,
+      7.303066939999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557949"
+  },
+  {
+    "id": "way/1169557950",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.140894980000001,
+      7.3031152399999995
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557950"
+  },
+  {
+    "id": "way/1169557951",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.14203618,
+      7.3020499
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557951"
+  },
+  {
+    "id": "way/1169557952",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.14197814,
+      7.302020519999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557952"
+  },
+  {
+    "id": "way/1169557953",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.14187578,
+      7.30217258
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557953"
+  },
+  {
+    "id": "way/1169557954",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.141547839999999,
+      7.3023425
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557954"
+  },
+  {
+    "id": "way/1169557955",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.14148116,
+      7.30239884
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557955"
+  },
+  {
+    "id": "way/1169557956",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.1414489,
+      7.3024276200000005
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557956"
+  },
+  {
+    "id": "way/1169557957",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.1415437399999995,
+      7.30243854
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557957"
+  },
+  {
+    "id": "way/1169557958",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.1414476,
+      7.30249686
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557958"
+  },
+  {
+    "id": "way/1169557959",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.141412560000001,
+      7.302528100000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557959"
+  },
+  {
+    "id": "way/1169557960",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.14136684,
+      7.302560679999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557960"
+  },
+  {
+    "id": "way/1169557961",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.1412865,
+      7.30265144
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557961"
+  },
+  {
+    "id": "way/1169557962",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.141156700000001,
+      7.3027434200000005
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557962"
+  },
+  {
+    "id": "way/1169557963",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.1411968,
+      7.3026881
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557963"
+  },
+  {
+    "id": "way/1169557964",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.14126378,
+      7.302694700000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557964"
+  },
+  {
+    "id": "way/1169557965",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.1412187,
+      7.302638759999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557965"
+  },
+  {
+    "id": "way/1169557966",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.141309260000001,
+      7.3025797
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557966"
+  },
+  {
+    "id": "way/1169557967",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.1413248,
+      7.3025364800000006
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557967"
+  },
+  {
+    "id": "way/1169557968",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.14150326,
+      7.302466699999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557968"
+  },
+  {
+    "id": "way/1169557969",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.141188219999999,
+      7.30277928
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557969"
+  },
+  {
+    "id": "way/1169557970",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.141231960000001,
+      7.3027356
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557970"
+  },
+  {
+    "id": "way/1169557971",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.14110534,
+      7.30278986
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557971"
+  },
+  {
+    "id": "way/1169557972",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.14115722,
+      7.302830039999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557972"
+  },
+  {
+    "id": "way/1169557973",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.1410728400000005,
+      7.30290628
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557973"
+  },
+  {
+    "id": "way/1169557974",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.1410284,
+      7.30287958
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557974"
+  },
+  {
+    "id": "way/1169557975",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.14097638,
+      7.3028294
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557975"
+  },
+  {
+    "id": "way/1169557976",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.140933599999999,
+      7.30284056
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557976"
+  },
+  {
+    "id": "way/1169557977",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.14098966,
+      7.30291448
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557977"
+  },
+  {
+    "id": "way/1169557978",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.1410737,
+      7.30284342
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557978"
+  },
+  {
+    "id": "way/1169557979",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.1409404599999995,
+      7.30299304
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557979"
+  },
+  {
+    "id": "way/1169557980",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.141,
+      7.302975399999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557980"
+  },
+  {
+    "id": "way/1169557981",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.1408827,
+      7.30315914
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557981"
+  },
+  {
+    "id": "way/1169557982",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.14079354,
+      7.30326958
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557982"
+  },
+  {
+    "id": "way/1169557985",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.1416866,
+      7.302247779999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557985"
+  },
+  {
+    "id": "way/1169557986",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.14166168,
+      7.30221626
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557986"
+  },
+  {
+    "id": "way/1169557987",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.1417885,
+      7.302251180000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557987"
+  },
+  {
+    "id": "way/1169557988",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.14176516,
+      7.3022744
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557988"
+  },
+  {
+    "id": "way/1169557989",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.14172322,
+      7.302294460000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557989"
+  },
+  {
+    "id": "way/1169557990",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.14162786,
+      7.302377099999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557990"
+  },
+  {
+    "id": "way/1169557991",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.14162408,
+      7.302268099999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557991"
+  },
+  {
+    "id": "way/1169557992",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.14166264,
+      7.30231452
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557992"
+  },
+  {
+    "id": "way/1169557993",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.1417931800000005,
+      7.3021833
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557993"
+  },
+  {
+    "id": "way/1169557994",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.141827300000001,
+      7.30220908
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557994"
+  },
+  {
+    "id": "way/1169557995",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.141931560000001,
+      7.302095940000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557995"
+  },
+  {
+    "id": "way/1169557996",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.1419029,
+      7.302127080000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557996"
+  },
+  {
+    "id": "way/1169557997",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.14198234,
+      7.30209134
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557997"
+  },
+  {
+    "id": "way/1169557998",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.1421619,
+      7.30197388
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557998"
+  },
+  {
+    "id": "way/1169557999",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.14210516,
+      7.3019784
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169557999"
+  },
+  {
+    "id": "way/1169558000",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.14201056,
+      7.3019801200000005
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169558000"
+  },
+  {
+    "id": "way/1169558001",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.142034560000001,
+      7.30187474
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169558001"
+  },
+  {
+    "id": "way/1169560766",
+    "name": "Shop",
+    "category": "Places",
+    "coordinate": [
+      5.14085264,
+      7.3031891
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1169560766"
+  },
+  {
+    "id": "way/793229058",
+    "name": "Shopping complex",
+    "category": "Places",
+    "coordinate": [
+      5.1497084399999995,
+      7.292565059999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/793229058"
+  },
+  {
+    "id": "node/11937833814",
+    "name": "Shopping Complex",
+    "category": "Places",
+    "coordinate": [
+      5.1401008,
+      7.3014883
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937833814"
+  },
+  {
+    "id": "way/716662963",
+    "name": "SHUTTLE BUS PARK",
+    "category": "Places",
+    "coordinate": [
+      5.14917042,
+      7.29301592
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/716662963"
+  },
+  {
+    "id": "way/708298884",
+    "name": "SLS Extension",
+    "category": "Places",
+    "coordinate": [
+      5.133626315384616,
+      7.302096353846154
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/708298884"
+  },
+  {
+    "id": "way/1548848226",
+    "name": "SOC 3 in 1 A",
+    "category": "Places",
+    "coordinate": [
+      5.13336500625,
+      7.3042226687500005
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1548848226"
+  },
+  {
+    "id": "way/1548848227",
+    "name": "SOC 3 IN 1 B",
+    "category": "Places",
+    "coordinate": [
+      5.133068306249999,
+      7.30385576875
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1548848227"
+  },
+  {
+    "id": "way/1548848228",
+    "name": "SOC 3 IN 1 C",
+    "category": "Places",
+    "coordinate": [
+      5.13353650625,
+      7.30372126875
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1548848228"
+  },
+  {
+    "id": "way/783273190",
+    "name": "Solar Powered Buldings",
+    "category": "Places",
+    "coordinate": [
+      5.135183476190475,
+      7.302997304761904
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/783273190"
+  },
+  {
+    "id": "node/11937559020",
+    "name": "SOS Chemical Store",
+    "category": "Academic",
+    "coordinate": [
+      5.1338098,
+      7.3016406
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937559020"
+  },
+  {
+    "id": "node/7418484525",
+    "name": "Sport complex shop",
+    "category": "Places",
+    "coordinate": [
+      5.1364321,
+      7.3058266
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/7418484525"
+  },
+  {
+    "id": "way/711995945",
+    "name": "Sport sitting ground",
+    "category": "Places",
+    "coordinate": [
+      5.13658902,
+      7.305635099999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/711995945"
+  },
+  {
+    "id": "way/510548906",
+    "name": "st Albert chatholic church",
+    "category": "Places",
+    "coordinate": [
+      5.13451885,
+      7.306432816666667
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/510548906"
+  },
+  {
+    "id": "way/582042855",
+    "name": "STAFF QUARTERS",
+    "category": "Places",
+    "coordinate": [
+      5.12909136,
+      7.303428719999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/582042855"
+  },
+  {
+    "id": "way/582042856",
+    "name": "STAFF QUARTERS",
+    "category": "Places",
+    "coordinate": [
+      5.128568057142857,
+      7.303385242857142
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/582042856"
+  },
+  {
+    "id": "way/582042857",
+    "name": "STAFF QUARTERS",
+    "category": "Places",
+    "coordinate": [
+      5.12902126,
+      7.3035837400000005
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/582042857"
+  },
+  {
+    "id": "way/582042877",
+    "name": "STAFF QUARTERS",
+    "category": "Places",
+    "coordinate": [
+      5.128780357142857,
+      7.303842728571429
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/582042877"
+  },
+  {
+    "id": "way/711288913",
+    "name": "STAFF QUARTERS",
+    "category": "Places",
+    "coordinate": [
+      5.129737185714285,
+      7.305053871428571
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/711288913"
+  },
+  {
+    "id": "way/711288914",
+    "name": "STAFF QUARTERS",
+    "category": "Places",
+    "coordinate": [
+      5.12959106,
+      7.3050181
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/711288914"
+  },
+  {
+    "id": "way/711288915",
+    "name": "STAFF QUARTERS",
+    "category": "Places",
+    "coordinate": [
+      5.12940474,
+      7.3050201
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/711288915"
+  },
+  {
+    "id": "way/711288916",
+    "name": "STAFF QUARTERS",
+    "category": "Places",
+    "coordinate": [
+      5.129634757142858,
+      7.3048227428571435
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/711288916"
+  },
+  {
+    "id": "way/711288918",
+    "name": "STAFF QUARTERS",
+    "category": "Places",
+    "coordinate": [
+      5.1297540857142865,
+      7.304624842857144
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/711288918"
+  },
+  {
+    "id": "way/712000489",
+    "name": "STAFF QUARTERS",
+    "category": "Places",
+    "coordinate": [
+      5.1308078,
+      7.30656524
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/712000489"
+  },
+  {
+    "id": "way/712000491",
+    "name": "STAFF QUARTERS",
+    "category": "Places",
+    "coordinate": [
+      5.130956320000001,
+      7.3059666199999995
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/712000491"
+  },
+  {
+    "id": "way/713609326",
+    "name": "STAFF QUARTERS",
+    "category": "Places",
+    "coordinate": [
+      5.14639282,
+      7.298415539999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/713609326"
+  },
+  {
+    "id": "way/713609328",
+    "name": "STAFF QUARTERS",
+    "category": "Places",
+    "coordinate": [
+      5.14607404,
+      7.2985082199999995
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/713609328"
+  },
+  {
+    "id": "way/713609329",
+    "name": "STAFF QUARTERS",
+    "category": "Places",
+    "coordinate": [
+      5.14605768,
+      7.29863122
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/713609329"
+  },
+  {
+    "id": "way/713609330",
+    "name": "STAFF QUARTERS",
+    "category": "Places",
+    "coordinate": [
+      5.14561542,
+      7.2986242599999995
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/713609330"
+  },
+  {
+    "id": "way/713609331",
+    "name": "STAFF QUARTERS",
+    "category": "Places",
+    "coordinate": [
+      5.1455889,
+      7.2987857599999995
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/713609331"
+  },
+  {
+    "id": "way/709052028",
+    "name": "Student Affairs Building",
+    "category": "Places",
+    "coordinate": [
+      5.1382756800000005,
+      7.30093502
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/709052028"
+  },
+  {
+    "id": "way/502926798",
+    "name": "Student Union Building(PART)",
+    "category": "Places",
+    "coordinate": [
+      5.139513979999999,
+      7.304289020000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/502926798"
+  },
+  {
+    "id": "way/502927357",
+    "name": "Student Union Building(PART)",
+    "category": "Places",
+    "coordinate": [
+      5.139437218181819,
+      7.30453180909091
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/502927357"
+  },
+  {
+    "id": "way/711995953",
+    "name": "Student Union Building(PART)",
+    "category": "Places",
+    "coordinate": [
+      5.13938596,
+      7.3043949800000005
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/711995953"
+  },
+  {
+    "id": "node/11939630654",
+    "name": "Students Affairs",
+    "category": "Academic",
+    "coordinate": [
+      5.1382415,
+      7.3009297
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11939630654"
+  },
+  {
+    "id": "node/7400942456",
+    "name": "SWEET SAVOUR",
+    "category": "Food",
+    "coordinate": [
+      5.1395845,
+      7.3045049
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/7400942456"
+  },
+  {
+    "id": "way/502937326",
+    "name": "T.I FRANCIS",
+    "category": "Places",
+    "coordinate": [
+      5.138058511111112,
+      7.3013564777777775
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/502937326"
+  },
+  {
+    "id": "node/11939717345",
+    "name": "T.I FRANCIS",
+    "category": "Places",
+    "coordinate": [
+      5.1380852,
+      7.3013109
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11939717345"
+  },
+  {
+    "id": "way/444144731",
+    "name": "Tantalizer",
+    "category": "Places",
+    "coordinate": [
+      5.1399254999999995,
+      7.30701426
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/444144731"
+  },
+  {
+    "id": "node/11939610268",
+    "name": "Teaching And Research Farm(Department of Fisheries And Aquaculture Technology)",
+    "category": "Academic",
+    "coordinate": [
+      5.1457675,
+      7.2940965
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11939610268"
+  },
+  {
+    "id": "way/471958282",
+    "name": "Tennis Court",
+    "category": "Places",
+    "coordinate": [
+      5.136396966666666,
+      7.306496849999999
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/471958282"
+  },
+  {
+    "id": "node/11937585643",
+    "name": "The Chapel Of Faith",
+    "category": "Places",
+    "coordinate": [
+      5.1336424,
+      7.306046
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937585643"
+  },
+  {
+    "id": "node/11937598753",
+    "name": "The Chapel Of Faith Second Building",
+    "category": "Places",
+    "coordinate": [
+      5.1336298,
+      7.3063731
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937598753"
+  },
+  {
+    "id": "node/7416109910",
+    "name": "Tinas Eatery",
+    "category": "Food",
+    "coordinate": [
+      5.1402081,
+      7.3024979
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/7416109910"
+  },
+  {
+    "id": "node/11937545211",
+    "name": "Toppers Restaurant",
+    "category": "Food",
+    "coordinate": [
+      5.1350287,
+      7.302658
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937545211"
+  },
+  {
+    "id": "way/712000515",
+    "name": "Transformer",
+    "category": "Places",
+    "coordinate": [
+      5.13264114,
+      7.3036276
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/712000515"
+  },
+  {
+    "id": "way/1253791972",
+    "name": "Triple A Hostel",
+    "category": "Hostels",
+    "coordinate": [
+      5.135127533333334,
+      7.3102328666666665
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1253791972"
+  },
+  {
+    "id": "way/709052034",
+    "name": "UBA",
+    "category": "Places",
+    "coordinate": [
+      5.13970026,
+      7.30056504
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/709052034"
+  },
+  {
+    "id": "way/709616967",
+    "name": "UBA ATM post",
+    "category": "Places",
+    "coordinate": [
+      5.139612728571429,
+      7.300846171428572
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/709616967"
+  },
+  {
+    "id": "way/710693842",
+    "name": "University Bookshop",
+    "category": "Places",
+    "coordinate": [
+      5.134285586666667,
+      7.304886613333334
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/710693842"
+  },
+  {
+    "id": "way/794643824",
+    "name": "UNIVERSITY SHUTTLE BUS STATION",
+    "category": "Places",
+    "coordinate": [
+      5.134982040000001,
+      7.30411574
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/794643824"
+  },
+  {
+    "id": "node/11937810400",
+    "name": "University SPORT COMPLEX",
+    "category": "Places",
+    "coordinate": [
+      5.1378249,
+      7.3055238
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937810400"
+  },
+  {
+    "id": "way/502927356",
+    "name": "Unnamed Buiilding",
+    "category": "Places",
+    "coordinate": [
+      5.1397819,
+      7.304216185714286
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/502927356"
+  },
+  {
+    "id": "way/709052023",
+    "name": "Wema Bank",
+    "category": "Places",
+    "coordinate": [
+      5.139144920000001,
+      7.30068354
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/709052023"
+  },
+  {
+    "id": "way/1533931631",
+    "name": "Wild Life Park",
+    "category": "Places",
+    "coordinate": [
+      5.1430335,
+      7.29571284
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1533931631"
+  },
+  {
+    "id": "way/713604432",
+    "name": "Wildlife Musuem",
+    "category": "Places",
+    "coordinate": [
+      5.143452180000001,
+      7.296616340000002
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/713604432"
+  },
+  {
+    "id": "way/1039275501",
+    "name": "Wildlife Park Grasscutter Building",
+    "category": "Places",
+    "coordinate": [
+      5.143869666666666,
+      7.296466250000001
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/1039275501"
+  },
+  {
+    "id": "way/793096004",
+    "name": "Zenith Bank ATM Machine",
+    "category": "Places",
+    "coordinate": [
+      5.14876218,
+      7.2943997
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/way/793096004"
+  },
+  {
+    "id": "node/11939767143",
+    "name": "Zion Gate",
+    "category": "Food",
+    "coordinate": [
+      5.1393948,
+      7.3043404
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11939767143"
+  },
+  {
+    "id": "node/11937843402",
+    "name": "ZTF Kitchen",
+    "category": "Food",
+    "coordinate": [
+      5.1398796,
+      7.3014844
+    ],
+    "sourceUrl": "https://www.openstreetmap.org/node/11937843402"
+  }
+]

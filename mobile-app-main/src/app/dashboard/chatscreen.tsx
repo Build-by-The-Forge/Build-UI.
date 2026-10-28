@@ -1,0 +1,344 @@
+import React, { useState, useRef } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  ScrollView,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
+import { useRouter, useLocalSearchParams } from 'expo-router';
+import DashboardBottomNav from '@/components/DashboardBottomNav';
+import { Fonts } from '@/constants/theme';
+import { ChatMessage } from '@/types/dashboard';
+
+const COLORS = {
+  primary: '#2563EB',
+  primaryDark: '#1D4ED8',
+  textPrimary: '#111827',
+  textSecondary: '#6B7280',
+  textMuted: '#9CA3AF',
+  border: '#E5E7EB',
+  background: '#FFFFFF',
+  surface: '#F3F4F6',
+  online: '#22C55E',
+};
+
+interface Message {
+  id: string;
+  sender: 'me' | 'them';
+  text: string;
+  time: string;
+  image?: boolean;
+  read?: boolean;
+}
+
+const INITIAL_MESSAGES: Message[] = [
+  {
+    id: 'm1',
+    sender: 'them',
+    text: 'Hey! Have you seen the new Python challenge posted in the group? 🐍',
+    time: '10:24 AM',
+  },
+  {
+    id: 'm2',
+    sender: 'me',
+    text: 'Not yet! Just finished the Integration Techniques notes. Is it about data structures?',
+    time: '10:26 AM',
+    read: true,
+  },
+  {
+    id: 'm3',
+    sender: 'them',
+    image: true,
+    text: "Exactly! It's focused on Big O optimization. Check this snippet.",
+    time: '10:27 AM',
+  },
+  {
+    id: 'm4',
+    sender: 'me',
+    text: "Looks great! I'll test it in the study workspace now.",
+    time: '10:28 AM',
+    read: true,
+  },
+];
+
+export default function ChatScreen() {
+  const router = useRouter();
+  const params = useLocalSearchParams<{ name?: string }>();
+  const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
+  const [draft, setDraft] = useState('');
+  const scrollViewRef = useRef<ScrollView>(null);
+
+  const contactName = params.name || 'Sarah Jenkins';
+
+  const sendMessage = () => {
+    if (!draft.trim()) return;
+
+    const newMsg: Message = {
+      id: `msg-${Date.now()}`,
+      sender: 'me',
+      text: draft.trim(),
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      read: true,
+    };
+
+    setMessages((prev) => [...prev, newMsg]);
+    setDraft('');
+    setTimeout(() => {
+      scrollViewRef.current?.scrollToEnd({ animated: true });
+    }, 100);
+  };
+
+  return (
+    <SafeAreaView style={styles.safeArea}>
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+        {/* Header */}
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => router.back()} hitSlop={8}>
+            <Text style={styles.backArrow}>←</Text>
+          </TouchableOpacity>
+          <View style={styles.headerAvatarWrap}>
+            <View style={styles.headerAvatar}>
+              <Text style={styles.headerAvatarInitials}>
+                {contactName
+                  .split(' ')
+                  .map((n) => n[0])
+                  .join('')
+                  .slice(0, 2)}
+              </Text>
+            </View>
+            <View style={styles.onlineDot} />
+          </View>
+          <View style={styles.headerTitles}>
+            <Text style={styles.headerName}>{contactName}</Text>
+            <Text style={styles.headerStatus}>Online · Study Partner</Text>
+          </View>
+          <TouchableOpacity style={styles.headerIcon}>
+            <Text style={styles.headerIconText}>📞</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.headerIcon}>
+            <Text style={styles.headerIconText}>🎥</Text>
+          </TouchableOpacity>
+        </View>
+
+        <ScrollView
+          ref={scrollViewRef}
+          contentContainerStyle={styles.messagesContent}
+          showsVerticalScrollIndicator={false}
+          keyboardDismissMode="on-drag"
+          keyboardShouldPersistTaps="handled"
+        >
+          <View style={styles.dayDividerWrap}>
+            <View style={styles.dayDividerPill}>
+              <Text style={styles.dayDividerText}>TODAY</Text>
+            </View>
+          </View>
+
+          {messages.map((msg) => {
+            const isMe = msg.sender === 'me';
+            return (
+              <View
+                key={msg.id}
+                style={[styles.messageRow, isMe ? styles.messageRowMe : styles.messageRowThem]}
+              >
+                {!isMe && (
+                  <View style={styles.messageAvatar}>
+                    <Text style={styles.messageAvatarText}>SJ</Text>
+                  </View>
+                )}
+                <View style={{ maxWidth: '75%' }}>
+                  <View
+                    style={[
+                      styles.bubble,
+                      isMe ? styles.bubbleMe : styles.bubbleThem,
+                      msg.image && styles.bubbleWithImage,
+                    ]}
+                  >
+                    {msg.image && (
+                      <View style={styles.codeImage}>
+                        <Text style={styles.codeImageText}>{'</> function bigO(n) { return O(1); }'}</Text>
+                      </View>
+                    )}
+                    <Text style={[styles.bubbleText, isMe && styles.bubbleTextMe]}>{msg.text}</Text>
+                  </View>
+                  <View style={[styles.metaRow, isMe && styles.metaRowMe]}>
+                    <Text style={styles.timeText}>{msg.time}</Text>
+                    {isMe && msg.read && <Text style={styles.readTick}> ✓✓</Text>}
+                  </View>
+                </View>
+              </View>
+            );
+          })}
+
+          <View style={[styles.messageRow, styles.messageRowThem]}>
+            <View style={styles.messageAvatar}>
+              <Text style={styles.messageAvatarText}>SJ</Text>
+            </View>
+            <View style={[styles.bubble, styles.bubbleThem, styles.typingBubble]}>
+              <Text style={styles.typingDots}>•••</Text>
+            </View>
+          </View>
+        </ScrollView>
+
+        {/* Input bar */}
+        <View style={styles.inputBar}>
+          <TouchableOpacity hitSlop={8}>
+            <Text style={styles.inputIcon}>📎</Text>
+          </TouchableOpacity>
+          <TextInput
+            style={styles.textInput}
+            placeholder="Type a message..."
+            placeholderTextColor={COLORS.textMuted}
+            value={draft}
+            onChangeText={setDraft}
+            onSubmitEditing={sendMessage}
+          />
+          <TouchableOpacity hitSlop={8}>
+            <Text style={styles.inputIcon}>🙂</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.sendButton} onPress={sendMessage} activeOpacity={0.8}>
+            <Text style={styles.sendIcon}>➤</Text>
+          </TouchableOpacity>
+        </View>
+
+        <DashboardBottomNav activeTab="chat" />
+      </KeyboardAvoidingView>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  safeArea: { flex: 1, backgroundColor: COLORS.background },
+
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingTop: 10,
+    paddingBottom: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+    backgroundColor: COLORS.background,
+  },
+  backArrow: { fontSize: 22, color: COLORS.textPrimary, marginRight: 10, fontWeight: '700' },
+  headerAvatarWrap: { position: 'relative', marginRight: 10 },
+  headerAvatar: {
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    backgroundColor: '#DBEAFE',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  headerAvatarInitials: { color: COLORS.primary, fontWeight: '800', fontSize: 13 },
+  onlineDot: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    width: 11,
+    height: 11,
+    borderRadius: 5.5,
+    backgroundColor: COLORS.online,
+    borderWidth: 2,
+    borderColor: '#fff',
+  },
+  headerTitles: { flex: 1 },
+  headerName: { fontSize: 15, fontWeight: '800', fontFamily: Fonts.bold, color: COLORS.textPrimary },
+  headerStatus: { fontSize: 11.5, color: COLORS.online, marginTop: 1, fontFamily: Fonts.medium, fontWeight: '600' },
+  headerIcon: { marginLeft: 14 },
+  headerIconText: { fontSize: 18 },
+
+  messagesContent: { paddingHorizontal: 16, paddingTop: 14, paddingBottom: 140 },
+
+  dayDividerWrap: { alignItems: 'center', marginBottom: 16 },
+  dayDividerPill: {
+    backgroundColor: COLORS.surface,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+  },
+  dayDividerText: { fontSize: 10, color: COLORS.textMuted, fontWeight: '800', fontFamily: Fonts.bold, letterSpacing: 0.5 },
+
+  messageRow: { flexDirection: 'row', alignItems: 'flex-end', marginBottom: 14 },
+  messageRowThem: { justifyContent: 'flex-start' },
+  messageRowMe: { justifyContent: 'flex-end' },
+  messageAvatar: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    backgroundColor: '#E0E7FF',
+    marginRight: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  messageAvatarText: { color: '#4338CA', fontSize: 10, fontWeight: '800', fontFamily: Fonts.bold },
+
+  bubble: { borderRadius: 16, paddingHorizontal: 14, paddingVertical: 10 },
+  bubbleThem: {
+    backgroundColor: COLORS.surface,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderBottomLeftRadius: 4,
+  },
+  bubbleMe: { backgroundColor: COLORS.primary, borderBottomRightRadius: 4 },
+  bubbleWithImage: { padding: 10 },
+  bubbleText: { fontSize: 14, color: COLORS.textPrimary, fontFamily: Fonts.regular, lineHeight: 20 },
+  bubbleTextMe: { color: '#fff', fontWeight: '500', fontFamily: Fonts.medium },
+
+  codeImage: {
+    backgroundColor: '#0F172A',
+    borderRadius: 10,
+    padding: 12,
+    marginBottom: 8,
+    minHeight: 60,
+    justifyContent: 'center',
+  },
+  codeImageText: { color: '#38BDF8', fontSize: 12, fontFamily: Platform.select({ ios: 'Menlo', android: 'monospace' }) },
+
+  metaRow: { flexDirection: 'row', marginTop: 4, paddingHorizontal: 2 },
+  metaRowMe: { justifyContent: 'flex-end' },
+  timeText: { fontSize: 10.5, color: COLORS.textMuted, fontWeight: '500' },
+  readTick: { fontSize: 10.5, color: COLORS.primary, fontWeight: '700' },
+
+  typingBubble: { paddingVertical: 10, paddingHorizontal: 14 },
+  typingDots: { fontSize: 14, color: COLORS.textMuted, letterSpacing: 2 },
+
+  inputBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    borderTopWidth: 1,
+    borderTopColor: COLORS.border,
+    backgroundColor: COLORS.background,
+    gap: 8,
+    marginBottom: 60,
+  },
+  inputIcon: { fontSize: 20 },
+  textInput: {
+    flex: 1,
+    backgroundColor: COLORS.surface,
+    borderRadius: 20,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    fontSize: 14,
+    color: COLORS.textPrimary,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+  },
+  sendButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: COLORS.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  sendIcon: { color: '#fff', fontSize: 14, fontWeight: '700' },
+});

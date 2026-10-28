@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { createRequire } from 'node:module';
+const require=createRequire(import.meta.url);
+const source=path.dirname(require.resolve('maplibre-gl/package.json'));
+const target=new URL('../public/maplibre/',import.meta.url);
+fs.mkdirSync(target,{recursive:true});
+for(const name of ['maplibre-gl-worker.mjs','maplibre-gl-shared.mjs'])fs.copyFileSync(path.join(source,'dist',name),new URL(name,target));
+fs.copyFileSync(path.join(source,'LICENSE.txt'),new URL('LICENSE.txt',target));
+console.log('Prepared local MapLibre web worker.');
