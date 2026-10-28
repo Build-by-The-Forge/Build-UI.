@@ -22,7 +22,7 @@ export function campusStyle(threeD: boolean, selectedId?: string, userLocation?:
     version: 8,
     glyphs: 'https://fonts.openmaptiles.org/{fontstack}/{range}.pbf',
     sources: {
-      campus: { type: 'geojson', data: geometry as GeoJSON.FeatureCollection, attribution: '© OpenStreetMap contributors' },
+      campus: { type: 'geojson', data: geometry as GeoJSON.FeatureCollection },
       places: { type: 'geojson', data: { type: 'FeatureCollection', features: places.map(p => ({ type: 'Feature', geometry: { type: 'Point', coordinates: p.coordinate }, properties: { id: p.id, name: p.name } })) } },
       user: { type: 'geojson', data: { type: 'FeatureCollection', features: userLocation ? [{ type: 'Feature', geometry: { type: 'Point', coordinates: userLocation }, properties: {} }] : [] } },
     },
