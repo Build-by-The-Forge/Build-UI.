@@ -7,15 +7,15 @@ import CampusMap from '@/components/campus/CampusMap';
 import type { CampusPlace } from '@/components/campus/mapStyle';
 import places from '@/data/campus/places.json';
 
-const categories=['All','Academic','Libraries','Hostels','Food','Health'];
-const icons:Record<string,React.ComponentProps<typeof Ionicons>['name']>={All:'grid-outline',Academic:'school-outline',Libraries:'book-outline',Hostels:'bed-outline',Food:'restaurant-outline',Health:'medkit-outline',Places:'location-outline'};
+const categories=['All','Buildings','Academic','Libraries','Hostels','Food','Health'];
+const icons:Record<string,React.ComponentProps<typeof Ionicons>['name']>={All:'grid-outline',Buildings:'business-outline',Academic:'school-outline',Libraries:'book-outline',Hostels:'bed-outline',Food:'restaurant-outline',Health:'medkit-outline',Places:'location-outline'};
 export default function MapScreen(){
   const insets=useSafeAreaInsets();const {width,height}=useWindowDimensions();const wide=width>=850;
   const [query,setQuery]=useState('');const [category,setCategory]=useState('All');
   const [threeD,setThreeD]=useState(true);const [selected,setSelected]=useState<CampusPlace|null>(null);
   const [expanded,setExpanded]=useState(false);const [resetKey,setResetKey]=useState(0);
   const [status,setStatus]=useState<'loading'|'ready'|'error'>('loading');const [retry,setRetry]=useState(0);
-  const results=useMemo(()=>places.filter(p=>(category==='All'||p.category===category)&&p.name.toLowerCase().includes(query.trim().toLowerCase())),[query,category]);
+  const results=useMemo(()=>places.filter(p=>(category==='All'||(category==='Buildings'?p.kind==='building':p.category===category))&&p.name.toLowerCase().includes(query.trim().toLowerCase())),[query,category]);
   const select=(p:CampusPlace)=>{setSelected(p);setExpanded(true);};
   return <View style={s.page}>
     <CampusMap key={retry} threeD={threeD} selected={selected} resetKey={resetKey} onSelect={id=>{const p=places.find(p=>p.id===id);if(p)select(p);}} onReady={()=>setStatus('ready')} onError={()=>setStatus('error')}/>
