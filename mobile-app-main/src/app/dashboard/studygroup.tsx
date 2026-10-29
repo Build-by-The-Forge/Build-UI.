@@ -12,6 +12,7 @@ import {
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import DashboardBottomNav from '@/components/DashboardBottomNav';
+import { useThemedStyles } from '@/hooks/useThemedStyles';
 import { Fonts } from '@/constants/theme';
 import { StudyGroup } from '@/types/dashboard';
 
@@ -63,6 +64,7 @@ const GROUPS = [
 ];
 
 export default function StudyGroupsScreen() {
+  const ui = useThemedStyles(styles);
   const router = useRouter();
   const [query, setQuery] = useState('');
 
@@ -90,26 +92,26 @@ export default function StudyGroupsScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-        <View style={styles.headerRow}>
+    <SafeAreaView style={ui.safeArea}>
+      <ScrollView contentContainerStyle={ui.scrollContent} showsVerticalScrollIndicator={false}>
+        <View style={ui.headerRow}>
           <View>
-            <Text style={styles.title}>Study Groups</Text>
-            <Text style={styles.subtitle}>Connect and learn together</Text>
+            <Text style={ui.title}>Study Groups</Text>
+            <Text style={ui.subtitle}>Connect and learn together</Text>
           </View>
           <TouchableOpacity
-            style={styles.addButton}
+            style={ui.addButton}
             onPress={handleCreateGroup}
             activeOpacity={0.8}
           >
-            <Text style={styles.addButtonText}>+</Text>
+            <Text style={ui.addButtonText}>+</Text>
           </TouchableOpacity>
         </View>
 
-        <View style={styles.searchRow}>
-          <Ionicons name="search-outline" size={19} color={COLORS.textMuted} style={styles.searchIcon} />
+        <View style={ui.searchRow}>
+          <Ionicons name="search-outline" size={19} color={COLORS.textMuted} style={ui.searchIcon} />
           <TextInput
-            style={styles.searchInput}
+            style={ui.searchInput}
             placeholder="Find a study group..."
             placeholderTextColor={COLORS.textMuted}
             value={query}
@@ -119,48 +121,48 @@ export default function StudyGroupsScreen() {
         </View>
 
         {filteredGroups.length === 0 ? (
-          <View style={styles.emptyState}>
-            <Ionicons name="search-outline" size={36} color={COLORS.textMuted} style={styles.emptyIcon} />
-            <Text style={styles.emptyTitle}>No study groups found</Text>
-            <Text style={styles.emptySubtitle}>Try searching for a different course or create a new group.</Text>
+          <View style={ui.emptyState}>
+            <Ionicons name="search-outline" size={36} color={COLORS.textMuted} style={ui.emptyIcon} />
+            <Text style={ui.emptyTitle}>No study groups found</Text>
+            <Text style={ui.emptySubtitle}>Try searching for a different course or create a new group.</Text>
           </View>
         ) : (
           filteredGroups.map((group) => (
-            <View key={group.id} style={styles.card}>
-              <View style={styles.cardTopRow}>
-                <View style={[styles.thumb, { backgroundColor: group.thumbBg }]}>
+            <View key={group.id} style={ui.card}>
+              <View style={ui.cardTopRow}>
+                <View style={[ui.thumb, { backgroundColor: group.thumbBg }]}>
                   <Ionicons name="people" size={24} color="#FFFFFF" />
                 </View>
-                <View style={styles.cardTitleWrap}>
-                  <View style={styles.cardTitleRow}>
-                    <Text style={styles.cardTitle}>{group.name}</Text>
-                    <View style={[styles.tag, { backgroundColor: group.tagBg }]}>
-                      <Text style={[styles.tagText, { color: group.tagColor }]}>{group.tag}</Text>
+                <View style={ui.cardTitleWrap}>
+                  <View style={ui.cardTitleRow}>
+                    <Text style={ui.cardTitle}>{group.name}</Text>
+                    <View style={[ui.tag, { backgroundColor: group.tagBg }]}>
+                      <Text style={[ui.tagText, { color: group.tagColor }]}>{group.tag}</Text>
                     </View>
                   </View>
-                  <View style={styles.membersRow}><Ionicons name="people-outline" size={13} color={COLORS.textMuted} /><Text style={styles.membersText}>{group.members}</Text></View>
+                  <View style={ui.membersRow}><Ionicons name="people-outline" size={13} color={COLORS.textMuted} /><Text style={ui.membersText}>{group.members}</Text></View>
                 </View>
               </View>
 
-              <View style={styles.previewBox}>
-                <Text style={styles.previewText}>{group.preview}</Text>
+              <View style={ui.previewBox}>
+                <Text style={ui.previewText}>{group.preview}</Text>
               </View>
 
-              <View style={styles.cardBottomRow}>
-                <View style={styles.avatarStack}>
+              <View style={ui.cardBottomRow}>
+                <View style={ui.avatarStack}>
                   {[0, 1, 2].map((i) => (
-                    <View key={i} style={[styles.avatarCircle, { marginLeft: i === 0 ? 0 : -10, backgroundColor: ['#38BDF8', '#A78BFA', '#FB7185'][i] }]} />
+                    <View key={i} style={[ui.avatarCircle, { marginLeft: i === 0 ? 0 : -10, backgroundColor: ['#38BDF8', '#A78BFA', '#FB7185'][i] }]} />
                   ))}
-                  <View style={[styles.avatarCircle, styles.avatarExtra, { marginLeft: -10 }]}>
-                    <Text style={styles.avatarExtraText}>+{group.extraAvatars}</Text>
+                  <View style={[ui.avatarCircle, ui.avatarExtra, { marginLeft: -10 }]}>
+                    <Text style={ui.avatarExtraText}>+{group.extraAvatars}</Text>
                   </View>
                 </View>
                 <TouchableOpacity
-                  style={styles.joinButton}
+                  style={ui.joinButton}
                   activeOpacity={0.85}
                   onPress={() => handleJoinGroup(group)}
                 >
-                  <Text style={styles.joinButtonText}>Open Group Chat</Text>
+                  <Text style={ui.joinButtonText}>Open Group Chat</Text>
                 </TouchableOpacity>
               </View>
             </View>

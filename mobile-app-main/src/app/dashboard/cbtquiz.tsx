@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useThemedStyles } from '@/hooks/useThemedStyles';
 import {
   View,
   Text,
@@ -77,6 +78,7 @@ function formatTime(totalSeconds: number): string {
 }
 
 export default function CbtQuizScreen() {
+  const ui = useThemedStyles(styles);
   const router = useRouter();
   const [secondsLeft, setSecondsLeft] = useState(44 * 60 + 12);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(1);
@@ -123,51 +125,51 @@ export default function CbtQuizScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={ui.safeArea}>
       {/* Top bar */}
-      <View style={styles.topBar}>
+      <View style={ui.topBar}>
         <TouchableOpacity onPress={close} hitSlop={8}>
-          <Text style={styles.closeIcon}>✕</Text>
+          <Text style={ui.closeIcon}>✕</Text>
         </TouchableOpacity>
-        <View style={styles.timerPill}>
-          <Text style={styles.timerText}>⏱ {formatTime(secondsLeft)}</Text>
+        <View style={ui.timerPill}>
+          <Text style={ui.timerText}>⏱ {formatTime(secondsLeft)}</Text>
         </View>
         <TouchableOpacity onPress={submitQuiz}>
-          <Text style={styles.submitText}>Submit</Text>
+          <Text style={ui.submitText}>Submit</Text>
         </TouchableOpacity>
       </View>
 
-      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-        <View style={styles.metaRow}>
-          <Text style={styles.questionMeta}>
+      <ScrollView contentContainerStyle={ui.scrollContent} showsVerticalScrollIndicator={false}>
+        <View style={ui.metaRow}>
+          <Text style={ui.questionMeta}>
             QUESTION {String(currentQuestionIndex).padStart(2, '0')} OF {TOTAL_QUESTIONS}
           </Text>
-          <View style={styles.difficultyPill}>
-            <Text style={styles.difficultyText}>ⓘ {activeQuestion.difficulty}</Text>
+          <View style={ui.difficultyPill}>
+            <Text style={ui.difficultyText}>ⓘ {activeQuestion.difficulty}</Text>
           </View>
         </View>
 
-        <Text style={styles.prompt}>{activeQuestion.prompt}</Text>
+        <Text style={ui.prompt}>{activeQuestion.prompt}</Text>
 
-        <View style={styles.optionsList}>
+        <View style={ui.optionsList}>
           {activeQuestion.options.map((option) => {
             const isSelected = selectedOptionId === option.id;
             return (
               <TouchableOpacity
                 key={option.id}
-                style={[styles.optionCard, isSelected && styles.optionCardSelected]}
+                style={[ui.optionCard, isSelected && ui.optionCardSelected]}
                 activeOpacity={0.8}
                 onPress={() => handleSelectOption(option.id)}
               >
-                <View style={[styles.optionLetter, isSelected && styles.optionLetterSelected]}>
-                  <Text style={[styles.optionLetterText, isSelected && styles.optionLetterTextSelected]}>
+                <View style={[ui.optionLetter, isSelected && ui.optionLetterSelected]}>
+                  <Text style={[ui.optionLetterText, isSelected && ui.optionLetterTextSelected]}>
                     {option.id}
                   </Text>
                 </View>
-                <Text style={styles.optionText}>{option.text}</Text>
+                <Text style={ui.optionText}>{option.text}</Text>
                 {isSelected && (
-                  <View style={styles.optionCheck}>
-                    <Text style={styles.optionCheckText}>✓</Text>
+                  <View style={ui.optionCheck}>
+                    <Text style={ui.optionCheckText}>✓</Text>
                   </View>
                 )}
               </TouchableOpacity>
@@ -175,14 +177,14 @@ export default function CbtQuizScreen() {
           })}
         </View>
 
-        <View style={styles.paletteHeaderRow}>
-          <Text style={styles.paletteHeading}>QUESTION PALETTE</Text>
-          <Text style={styles.paletteRemaining}>
+        <View style={ui.paletteHeaderRow}>
+          <Text style={ui.paletteHeading}>QUESTION PALETTE</Text>
+          <Text style={ui.paletteRemaining}>
             {TOTAL_QUESTIONS - Object.keys(userAnswers).length} left
           </Text>
         </View>
 
-        <View style={styles.paletteGrid}>
+        <View style={ui.paletteGrid}>
           {Array.from({ length: TOTAL_QUESTIONS }, (_, i) => i + 1).map((num) => {
             const isCurrent = num === currentQuestionIndex;
             const isAnswered = !!userAnswers[num] && !isCurrent;
@@ -190,17 +192,17 @@ export default function CbtQuizScreen() {
               <TouchableOpacity
                 key={num}
                 style={[
-                  styles.paletteItem,
-                  isAnswered && styles.paletteItemAnswered,
-                  isCurrent && styles.paletteItemCurrent,
+                  ui.paletteItem,
+                  isAnswered && ui.paletteItemAnswered,
+                  isCurrent && ui.paletteItemCurrent,
                 ]}
                 onPress={() => setCurrentQuestionIndex(num)}
               >
                 <Text
                   style={[
-                    styles.paletteItemText,
-                    isAnswered && styles.paletteItemTextAnswered,
-                    isCurrent && styles.paletteItemTextCurrent,
+                    ui.paletteItemText,
+                    isAnswered && ui.paletteItemTextAnswered,
+                    isCurrent && ui.paletteItemTextCurrent,
                   ]}
                 >
                   {num}
@@ -211,18 +213,18 @@ export default function CbtQuizScreen() {
         </View>
       </ScrollView>
 
-      <View style={styles.footer}>
+      <View style={ui.footer}>
         <TouchableOpacity
-          style={styles.previousButton}
+          style={ui.previousButton}
           onPress={() => setCurrentQuestionIndex((q) => Math.max(1, q - 1))}
         >
-          <Text style={styles.previousButtonText}>←  Previous</Text>
+          <Text style={ui.previousButtonText}>←  Previous</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.nextButton}
+          style={ui.nextButton}
           onPress={() => setCurrentQuestionIndex((q) => Math.min(TOTAL_QUESTIONS, q + 1))}
         >
-          <Text style={styles.nextButtonText}>Next Question  →</Text>
+          <Text style={ui.nextButtonText}>Next Question  →</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

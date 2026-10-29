@@ -13,6 +13,7 @@ import {
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import DashboardBottomNav from '@/components/DashboardBottomNav';
+import { useThemedStyles } from '@/hooks/useThemedStyles';
 import { Fonts } from '@/constants/theme';
 import { ChatMessage } from '@/types/dashboard';
 
@@ -75,24 +76,26 @@ const FRIENDS = [
 ];
 
 function ChatInbox() {
+  const ui = useThemedStyles(styles);
   const router = useRouter();
   const [query, setQuery] = useState('');
   const friends = FRIENDS.filter(friend => friend.name.toLowerCase().includes(query.toLowerCase()));
-  return <SafeAreaView style={styles.safeArea}>
-    <View style={styles.inboxHeader}><View><Text style={styles.inboxTitle}>Chats</Text><Text style={styles.inboxSubtitle}>Stay connected with your friends</Text></View><Ionicons name="chatbubbles-outline" size={24} color={COLORS.primary} /></View>
-    <View style={styles.inboxSearch}><Ionicons name="search-outline" size={20} color={COLORS.textMuted} /><TextInput value={query} onChangeText={setQuery} placeholder="Search friends" placeholderTextColor={COLORS.textMuted} style={styles.inboxSearchInput} /></View>
-    <ScrollView contentContainerStyle={styles.inboxList} keyboardShouldPersistTaps="handled">
-      <Text style={styles.inboxLabel}>MESSAGES</Text>
-      {friends.length ? friends.map(friend => <TouchableOpacity key={friend.name} style={styles.friendRow} onPress={() => router.push({ pathname: '/dashboard/chatscreen', params: { name: friend.name } })} activeOpacity={0.75}>
-        <View style={[styles.friendAvatar, { backgroundColor: friend.color }]}><Text style={styles.friendInitials}>{friend.name.split(' ').map(part => part[0]).join('')}</Text></View>
-        <View style={styles.friendInfo}><View style={styles.friendTop}><Text style={styles.friendName}>{friend.name}</Text><Text style={styles.friendTime}>{friend.time}</Text></View><View style={styles.friendBottom}><Text style={styles.friendPreview} numberOfLines={1}>{friend.preview}</Text>{friend.unread > 0 && <View style={styles.unreadBadge}><Text style={styles.unreadText}>{friend.unread}</Text></View>}</View></View>
-      </TouchableOpacity>) : <Text style={styles.noFriends}>No friends match your search.</Text>}
+  return <SafeAreaView style={ui.safeArea}>
+    <View style={ui.inboxHeader}><View><Text style={ui.inboxTitle}>Chats</Text><Text style={ui.inboxSubtitle}>Stay connected with your friends</Text></View><Ionicons name="chatbubbles-outline" size={24} color={COLORS.primary} /></View>
+    <View style={ui.inboxSearch}><Ionicons name="search-outline" size={20} color={COLORS.textMuted} /><TextInput value={query} onChangeText={setQuery} placeholder="Search friends" placeholderTextColor={COLORS.textMuted} style={ui.inboxSearchInput} /></View>
+    <ScrollView contentContainerStyle={ui.inboxList} keyboardShouldPersistTaps="handled">
+      <Text style={ui.inboxLabel}>MESSAGES</Text>
+      {friends.length ? friends.map(friend => <TouchableOpacity key={friend.name} style={ui.friendRow} onPress={() => router.push({ pathname: '/dashboard/chatscreen', params: { name: friend.name } })} activeOpacity={0.75}>
+        <View style={[ui.friendAvatar, { backgroundColor: friend.color }]}><Text style={ui.friendInitials}>{friend.name.split(' ').map(part => part[0]).join('')}</Text></View>
+        <View style={ui.friendInfo}><View style={ui.friendTop}><Text style={ui.friendName}>{friend.name}</Text><Text style={ui.friendTime}>{friend.time}</Text></View><View style={ui.friendBottom}><Text style={ui.friendPreview} numberOfLines={1}>{friend.preview}</Text>{friend.unread > 0 && <View style={ui.unreadBadge}><Text style={ui.unreadText}>{friend.unread}</Text></View>}</View></View>
+      </TouchableOpacity>) : <Text style={ui.noFriends}>No friends match your search.</Text>}
     </ScrollView>
     <DashboardBottomNav activeTab="chat" />
   </SafeAreaView>;
 }
 
 export default function ChatScreen() {
+  const ui = useThemedStyles(styles);
   const router = useRouter();
   const params = useLocalSearchParams<{ name?: string }>();
   const [messages, setMessages] = useState<Message[]>(params.name === 'Sarah Jenkins' ? INITIAL_MESSAGES : []);
@@ -123,16 +126,16 @@ export default function ChatScreen() {
   if (!contactName) return <ChatInbox />;
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={ui.safeArea}>
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         {/* Header */}
-        <View style={styles.header}>
-          <TouchableOpacity onPress={() => router.replace('/dashboard/chatscreen')} hitSlop={8} style={styles.backButton} accessibilityLabel="Back to chats">
+        <View style={ui.header}>
+          <TouchableOpacity onPress={() => router.replace('/dashboard/chatscreen')} hitSlop={8} style={ui.backButton} accessibilityLabel="Back to chats">
             <Ionicons name="arrow-back" size={22} color={COLORS.textPrimary} />
           </TouchableOpacity>
-          <View style={styles.headerAvatarWrap}>
-            <View style={styles.headerAvatar}>
-              <Text style={styles.headerAvatarInitials}>
+          <View style={ui.headerAvatarWrap}>
+            <View style={ui.headerAvatar}>
+              <Text style={ui.headerAvatarInitials}>
                 {contactName
                   .split(' ')
                   .map((n) => n[0])
@@ -141,28 +144,28 @@ export default function ChatScreen() {
               </Text>
             </View>
           </View>
-          <View style={styles.headerTitles}>
-            <Text style={styles.headerName}>{contactName}</Text>
-            <Text style={styles.headerStatus}>Conversation</Text>
+          <View style={ui.headerTitles}>
+            <Text style={ui.headerName}>{contactName}</Text>
+            <Text style={ui.headerStatus}>Conversation</Text>
           </View>
-          <TouchableOpacity style={styles.headerIcon} accessibilityLabel="Voice call">
+          <TouchableOpacity style={ui.headerIcon} accessibilityLabel="Voice call">
             <Ionicons name="call-outline" size={20} color={COLORS.textPrimary} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.headerIcon} accessibilityLabel="Video call">
+          <TouchableOpacity style={ui.headerIcon} accessibilityLabel="Video call">
             <Ionicons name="videocam-outline" size={22} color={COLORS.textPrimary} />
           </TouchableOpacity>
         </View>
 
         <ScrollView
           ref={scrollViewRef}
-          contentContainerStyle={styles.messagesContent}
+          contentContainerStyle={ui.messagesContent}
           showsVerticalScrollIndicator={false}
           keyboardDismissMode="on-drag"
           keyboardShouldPersistTaps="handled"
         >
-          <View style={styles.dayDividerWrap}>
-            <View style={styles.dayDividerPill}>
-              <Text style={styles.dayDividerText}>TODAY</Text>
+          <View style={ui.dayDividerWrap}>
+            <View style={ui.dayDividerPill}>
+              <Text style={ui.dayDividerText}>TODAY</Text>
             </View>
           </View>
 
@@ -171,57 +174,57 @@ export default function ChatScreen() {
             return (
               <View
                 key={msg.id}
-                style={[styles.messageRow, isMe ? styles.messageRowMe : styles.messageRowThem]}
+                style={[ui.messageRow, isMe ? ui.messageRowMe : ui.messageRowThem]}
               >
                 {!isMe && (
-                  <View style={styles.messageAvatar}>
-                    <Text style={styles.messageAvatarText}>{contactName.split(' ').map(part => part[0]).join('').slice(0, 2)}</Text>
+                  <View style={ui.messageAvatar}>
+                    <Text style={ui.messageAvatarText}>{contactName.split(' ').map(part => part[0]).join('').slice(0, 2)}</Text>
                   </View>
                 )}
                 <View style={{ maxWidth: '75%' }}>
                   <View
                     style={[
-                      styles.bubble,
-                      isMe ? styles.bubbleMe : styles.bubbleThem,
-                      msg.image && styles.bubbleWithImage,
+                      ui.bubble,
+                      isMe ? ui.bubbleMe : ui.bubbleThem,
+                      msg.image && ui.bubbleWithImage,
                     ]}
                   >
                     {msg.image && (
-                      <View style={styles.codeImage}>
-                        <Text style={styles.codeImageText}>{'</> function bigO(n) { return O(1); }'}</Text>
+                      <View style={ui.codeImage}>
+                        <Text style={ui.codeImageText}>{'</> function bigO(n) { return O(1); }'}</Text>
                       </View>
                     )}
-                    <Text style={[styles.bubbleText, isMe && styles.bubbleTextMe]}>{msg.text}</Text>
+                    <Text style={[ui.bubbleText, isMe && ui.bubbleTextMe]}>{msg.text}</Text>
                   </View>
-                  <View style={[styles.metaRow, isMe && styles.metaRowMe]}>
-                    <Text style={styles.timeText}>{msg.time}</Text>
-                    {isMe && msg.read && <Text style={styles.readTick}> ✓✓</Text>}
+                  <View style={[ui.metaRow, isMe && ui.metaRowMe]}>
+                    <Text style={ui.timeText}>{msg.time}</Text>
+                    {isMe && msg.read && <Text style={ui.readTick}> ✓✓</Text>}
                   </View>
                 </View>
               </View>
             );
           })}
 
-          {messages.length === 0 && <Text style={styles.emptyConversation}>Start your conversation with {contactName}.</Text>}
+          {messages.length === 0 && <Text style={ui.emptyConversation}>Start your conversation with {contactName}.</Text>}
         </ScrollView>
 
         {/* Input bar */}
-        <View style={styles.inputBar}>
-          <TouchableOpacity style={styles.attachmentButton} hitSlop={8} accessibilityLabel="Attach a file">
+        <View style={ui.inputBar}>
+          <TouchableOpacity style={ui.attachmentButton} hitSlop={8} accessibilityLabel="Attach a file">
             <Ionicons name="attach" size={22} color={COLORS.primary} />
           </TouchableOpacity>
           <TextInput
-            style={styles.textInput}
+            style={ui.textInput}
             placeholder="Type a message..."
             placeholderTextColor={COLORS.textMuted}
             value={draft}
             onChangeText={setDraft}
             onSubmitEditing={sendMessage}
           />
-          <TouchableOpacity style={styles.emojiButton} hitSlop={8} accessibilityLabel="Choose an emoji">
+          <TouchableOpacity style={ui.emojiButton} hitSlop={8} accessibilityLabel="Choose an emoji">
             <Ionicons name="happy-outline" size={22} color="#64748B" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.sendButton} onPress={sendMessage} activeOpacity={0.8}>
+          <TouchableOpacity style={ui.sendButton} onPress={sendMessage} activeOpacity={0.8}>
             <Ionicons name="send" size={17} color="#FFFFFF" />
           </TouchableOpacity>
         </View>

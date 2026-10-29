@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useThemedStyles } from '@/hooks/useThemedStyles';
 import {
   View,
   Text,
@@ -31,6 +32,7 @@ const AMENITIES = [
 ];
 
 export default function PlaceDetailScreen() {
+  const ui = useThemedStyles(styles);
   const router = useRouter();
   const params = useLocalSearchParams<{ name?: string; status?: string; distance?: string }>();
   const [isCheckedIn, setIsCheckedIn] = useState(false);
@@ -50,53 +52,53 @@ export default function PlaceDetailScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-        <View style={styles.photoWrap}>
-          <View style={styles.photoPlaceholder}>
-            <Text style={styles.photoPlaceholderIcon}>🏛️</Text>
-            <Text style={styles.photoPlaceholderText}>{placeName}</Text>
+    <SafeAreaView style={ui.safeArea}>
+      <ScrollView contentContainerStyle={ui.scrollContent} showsVerticalScrollIndicator={false}>
+        <View style={ui.photoWrap}>
+          <View style={ui.photoPlaceholder}>
+            <Text style={ui.photoPlaceholderIcon}>🏛️</Text>
+            <Text style={ui.photoPlaceholderText}>{placeName}</Text>
           </View>
-          <TouchableOpacity style={styles.backButton} onPress={() => router.back()} hitSlop={8}>
-            <Text style={styles.backArrow}>←</Text>
+          <TouchableOpacity style={ui.backButton} onPress={() => router.back()} hitSlop={8}>
+            <Text style={ui.backArrow}>←</Text>
           </TouchableOpacity>
         </View>
 
-        <View style={styles.infoBlock}>
-          <Text style={styles.placeName}>{placeName}</Text>
-          <View style={styles.statusTag}>
-            <Text style={styles.statusTagText}>{placeStatus}</Text>
+        <View style={ui.infoBlock}>
+          <Text style={ui.placeName}>{placeName}</Text>
+          <View style={ui.statusTag}>
+            <Text style={ui.statusTagText}>{placeStatus}</Text>
           </View>
-          <Text style={styles.distanceText}>{placeDistance}</Text>
+          <Text style={ui.distanceText}>{placeDistance}</Text>
 
           {/* Action buttons */}
-          <View style={styles.actionRow}>
+          <View style={ui.actionRow}>
             <TouchableOpacity
-              style={[styles.primaryAction, isCheckedIn && styles.checkedInAction]}
+              style={[ui.primaryAction, isCheckedIn && ui.checkedInAction]}
               activeOpacity={0.85}
               onPress={handleCheckIn}
             >
-              <Text style={styles.primaryActionText}>
+              <Text style={ui.primaryActionText}>
                 {isCheckedIn ? '✓ Checked In' : 'Check In Here'}
               </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={styles.secondaryAction}
+              style={ui.secondaryAction}
               activeOpacity={0.85}
               onPress={() => router.push('/dashboard/studygroup')}
             >
-              <Text style={styles.secondaryActionText}>Find Groups</Text>
+              <Text style={ui.secondaryActionText}>Find Groups</Text>
             </TouchableOpacity>
           </View>
 
           {/* Amenities */}
-          <Text style={styles.sectionHeader}>LOCATION AMENITIES</Text>
-          <View style={styles.amenitiesGrid}>
+          <Text style={ui.sectionHeader}>LOCATION AMENITIES</Text>
+          <View style={ui.amenitiesGrid}>
             {AMENITIES.map((item, idx) => (
-              <View key={idx} style={styles.amenityItem}>
-                <Text style={styles.amenityIcon}>{item.icon}</Text>
-                <Text style={styles.amenityLabel}>{item.label}</Text>
+              <View key={idx} style={ui.amenityItem}>
+                <Text style={ui.amenityIcon}>{item.icon}</Text>
+                <Text style={ui.amenityLabel}>{item.label}</Text>
               </View>
             ))}
           </View>

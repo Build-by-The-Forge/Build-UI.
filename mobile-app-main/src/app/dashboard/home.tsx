@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import DashboardBottomNav from '@/components/DashboardBottomNav';
+import { useThemedStyles } from '@/hooks/useThemedStyles';
 import { useOnboarding } from '@/context/Onboardingcontext';
 import { Fonts } from '@/constants/theme';
 
@@ -45,6 +46,7 @@ const UPCOMING_TESTS = [
 ];
 
 export default function HomeScreen() {
+  const ui = useThemedStyles(styles);
   const router = useRouter();
   const { data, getAvailableCourses } = useOnboarding();
   const [activeUpcomingTab, setActiveUpcomingTab] = useState('Tests');
@@ -61,92 +63,92 @@ export default function HomeScreen() {
   const deptCode = data.department?.code || '';
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+    <SafeAreaView style={ui.safeArea}>
+      <ScrollView contentContainerStyle={ui.scrollContent} showsVerticalScrollIndicator={false}>
         {/* Header */}
-        <View style={styles.headerRow}>
+        <View style={ui.headerRow}>
           <View>
-            <Text style={styles.greeting}>Good day, Scholar 👋</Text>
-            <Text style={styles.dateLine}>
+            <Text style={ui.greeting}>Good day, Scholar 👋</Text>
+            <Text style={ui.dateLine}>
               {data.department ? `${deptName} (${deptCode})` : deptName} · {data.academicLevel?.title || 'Choose your level'}
             </Text>
           </View>
           <TouchableOpacity
-            style={styles.avatar}
+            style={ui.avatar}
             onPress={() => router.push('/dashboard/settings')}
             accessibilityLabel="Open settings"
             activeOpacity={0.8}
           >
-            <Text style={styles.avatarText}>{deptCode.substring(0, 2)}</Text>
+            <Text style={ui.avatarText}>{deptCode.substring(0, 2)}</Text>
           </TouchableOpacity>
         </View>
 
         {/* Continue learning card */}
-        <View style={styles.continueCard}>
-          <View style={styles.continueTitleRow}>
-            <View style={styles.blueDot} />
-            <Text style={styles.continueTitle}>{activeCourse.code} · {activeCourse.name}</Text>
+        <View style={ui.continueCard}>
+          <View style={ui.continueTitleRow}>
+            <View style={ui.blueDot} />
+            <Text style={ui.continueTitle}>{activeCourse.code} · {activeCourse.name}</Text>
           </View>
-          <View style={styles.continueSubRow}>
+          <View style={ui.continueSubRow}>
             <View style={{ flex: 1 }}>
-              <Text style={styles.continueSubtitle}>Module 3: Core Concepts & Practice</Text>
+              <Text style={ui.continueSubtitle}>Module 3: Core Concepts & Practice</Text>
             </View>
             <TouchableOpacity
-              style={styles.continueButton}
+              style={ui.continueButton}
               onPress={() => router.push('/dashboard/readmode')}
               activeOpacity={0.8}
             >
-              <Text style={styles.continueButtonText}>Continue  →</Text>
+              <Text style={ui.continueButtonText}>Continue  →</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.progressTrack}>
-            <View style={[styles.progressFill, { width: '68%' }]} />
+          <View style={ui.progressTrack}>
+            <View style={[ui.progressFill, { width: '68%' }]} />
           </View>
-          <Text style={styles.progressLabel}>68% complete</Text>
+          <Text style={ui.progressLabel}>68% complete</Text>
         </View>
 
         {/* Today's Plan */}
-        <View style={styles.sectionHeaderRow}>
-          <Text style={styles.sectionHeading}>Today's Plan</Text>
+        <View style={ui.sectionHeaderRow}>
+          <Text style={ui.sectionHeading}>Today's Plan</Text>
           <TouchableOpacity onPress={() => router.push('/dashboard/studymode')}>
-            <Text style={styles.seeAll}>See all</Text>
+            <Text style={ui.seeAll}>See all</Text>
           </TouchableOpacity>
         </View>
 
-        <View style={styles.timeline}>
+        <View style={ui.timeline}>
           {TODAYS_PLAN.map((item, index) => (
             <TouchableOpacity
               key={item.id}
-              style={styles.timelineRow}
+              style={ui.timelineRow}
               activeOpacity={0.7}
               onPress={() => router.push(item.route as any)}
             >
-              <View style={styles.timelineLeft}>
-                <Text style={styles.timelineTime}>{item.time}</Text>
-                <View style={styles.timelineDotCol}>
-                  <View style={styles.timelineDot} />
-                  {index !== TODAYS_PLAN.length - 1 && <View style={styles.timelineLine} />}
+              <View style={ui.timelineLeft}>
+                <Text style={ui.timelineTime}>{item.time}</Text>
+                <View style={ui.timelineDotCol}>
+                  <View style={ui.timelineDot} />
+                  {index !== TODAYS_PLAN.length - 1 && <View style={ui.timelineLine} />}
                 </View>
               </View>
-              <View style={styles.timelineContent}>
-                <Text style={styles.timelineTitle}>{item.title}</Text>
+              <View style={ui.timelineContent}>
+                <Text style={ui.timelineTitle}>{item.title}</Text>
               </View>
-              <View style={[styles.tag, { backgroundColor: item.tagBg }]}>
-                <Text style={[styles.tagText, { color: item.tagColor }]}>{item.tag}</Text>
+              <View style={[ui.tag, { backgroundColor: item.tagBg }]}>
+                <Text style={[ui.tagText, { color: item.tagColor }]}>{item.tag}</Text>
               </View>
             </TouchableOpacity>
           ))}
         </View>
 
         {/* Your Courses */}
-        <View style={styles.sectionHeaderRow}>
-          <Text style={styles.sectionHeading}>Your Enrolled Courses</Text>
+        <View style={ui.sectionHeaderRow}>
+          <Text style={ui.sectionHeading}>Your Enrolled Courses</Text>
           <TouchableOpacity onPress={() => router.push('/dashboard/studymode')}>
-            <Text style={styles.seeAll}>See all</Text>
+            <Text style={ui.seeAll}>See all</Text>
           </TouchableOpacity>
         </View>
 
-        <View style={styles.coursesGrid}>
+        <View style={ui.coursesGrid}>
           {displayedCourses.map((course, idx) => {
             const barColors = ['#2563EB', '#F97316', '#10B981', '#8B5CF6'];
             const barColor = barColors[idx % barColors.length];
@@ -156,68 +158,68 @@ export default function HomeScreen() {
             return (
               <TouchableOpacity
                 key={course.id}
-                style={styles.courseCard}
+                style={ui.courseCard}
                 activeOpacity={0.8}
                 onPress={() => router.push('/dashboard/readmode')}
               >
-                <Text style={styles.courseCode}>{course.code}</Text>
-                <Text style={styles.courseName} numberOfLines={2}>{course.name}</Text>
-                <View style={styles.courseProgressTrack}>
+                <Text style={ui.courseCode}>{course.code}</Text>
+                <Text style={ui.courseName} numberOfLines={2}>{course.name}</Text>
+                <View style={ui.courseProgressTrack}>
                   <View
                     style={[
-                      styles.courseProgressFill,
+                      ui.courseProgressFill,
                       { width: `${progress * 100}%`, backgroundColor: barColor },
                     ]}
                   />
                 </View>
-                <Text style={styles.coursePercent}>{percent}</Text>
+                <Text style={ui.coursePercent}>{percent}</Text>
               </TouchableOpacity>
             );
           })}
         </View>
 
         {/* Quick Study */}
-        <Text style={[styles.sectionHeading, { marginTop: 18 }]}>Quick Study</Text>
-        <View style={styles.quickStudyRow}>
+        <Text style={[ui.sectionHeading, { marginTop: 18 }]}>Quick Study</Text>
+        <View style={ui.quickStudyRow}>
           {QUICK_STUDY.map((item) => (
             <TouchableOpacity
               key={item.id}
-              style={[styles.quickStudyPill, { backgroundColor: item.bg }]}
+              style={[ui.quickStudyPill, { backgroundColor: item.bg }]}
               activeOpacity={0.8}
               onPress={() => router.push(item.route)}
             >
-              <Text style={styles.quickStudyIcon}>{item.icon}</Text>
-              <Text style={[styles.quickStudyLabel, { color: item.textColor }]}>{item.label}</Text>
+              <Text style={ui.quickStudyIcon}>{item.icon}</Text>
+              <Text style={[ui.quickStudyLabel, { color: item.textColor }]}>{item.label}</Text>
             </TouchableOpacity>
           ))}
         </View>
 
         {/* BUILD AI insight card */}
-        <View style={styles.aiHeadingRow}>
-          <Image source={require('@/assets/images/build-ai-logo.png')} resizeMode="contain" style={styles.aiLogo} />
-          <Text style={styles.sectionHeading}>BUILD AI for {deptCode}</Text>
+        <View style={ui.aiHeadingRow}>
+          <Image source={require('@/assets/images/build-ai-logo.png')} resizeMode="contain" style={ui.aiLogo} />
+          <Text style={ui.sectionHeading}>BUILD AI for {deptCode}</Text>
         </View>
-        <View style={styles.aiCard}>
-          <Text style={styles.aiCardText}>
+        <View style={ui.aiCard}>
+          <Text style={ui.aiCardText}>
             Personalized study recommendation: Review {activeCourse.code} past questions and high-yield topics before the upcoming quiz.
           </Text>
           <TouchableOpacity onPress={() => router.push('/dashboard/cbtquiz')}>
-            <Text style={styles.aiCardLink}>Practice CBT quiz  →</Text>
+            <Text style={ui.aiCardLink}>Practice CBT quiz  →</Text>
           </TouchableOpacity>
         </View>
 
         {/* Upcoming */}
-        <Text style={[styles.sectionHeading, { marginTop: 18 }]}>Upcoming</Text>
-        <View style={styles.upcomingTabsRow}>
+        <Text style={[ui.sectionHeading, { marginTop: 18 }]}>Upcoming</Text>
+        <View style={ui.upcomingTabsRow}>
           {UPCOMING_TABS.map((tab) => {
             const isActive = activeUpcomingTab === tab;
             return (
               <TouchableOpacity
                 key={tab}
-                style={[styles.upcomingTab, isActive && styles.upcomingTabActive]}
+                style={[ui.upcomingTab, isActive && ui.upcomingTabActive]}
                 onPress={() => setActiveUpcomingTab(tab)}
               >
-                <Text style={[styles.upcomingTabText, isActive && styles.upcomingTabTextActive]}>
+                <Text style={[ui.upcomingTabText, isActive && ui.upcomingTabTextActive]}>
                   {tab}
                 </Text>
               </TouchableOpacity>
@@ -225,21 +227,21 @@ export default function HomeScreen() {
           })}
         </View>
 
-        <View style={styles.upcomingList}>
+        <View style={ui.upcomingList}>
           {UPCOMING_TESTS.map((item) => (
             <TouchableOpacity
               key={item.id}
-              style={styles.upcomingRow}
+              style={ui.upcomingRow}
               activeOpacity={0.8}
               onPress={() => router.push('/dashboard/cbtquiz')}
             >
-              <View style={[styles.upcomingDot, { backgroundColor: item.dotColor }]} />
+              <View style={[ui.upcomingDot, { backgroundColor: item.dotColor }]} />
               <View style={{ flex: 1 }}>
-                <Text style={styles.upcomingTitle}>{item.title}</Text>
-                <Text style={styles.upcomingMeta}>{deptCode} · {item.meta}</Text>
+                <Text style={ui.upcomingTitle}>{item.title}</Text>
+                <Text style={ui.upcomingMeta}>{deptCode} · {item.meta}</Text>
               </View>
-              <View style={[styles.tag, { backgroundColor: item.tagBg }]}>
-                <Text style={[styles.tagText, { color: item.tagColor }]}>{item.tag}</Text>
+              <View style={[ui.tag, { backgroundColor: item.tagBg }]}>
+                <Text style={[ui.tagText, { color: item.tagColor }]}>{item.tag}</Text>
               </View>
             </TouchableOpacity>
           ))}

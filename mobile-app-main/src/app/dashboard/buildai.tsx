@@ -2,12 +2,14 @@ import React, { useRef, useState } from 'react';
 import { ActivityIndicator, Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import DashboardBottomNav from '@/components/DashboardBottomNav';
+import { useThemedStyles } from '@/hooks/useThemedStyles';
 
 type Message = { id: number; role: 'user' | 'assistant'; content: string };
 const prompts = ['Explain a difficult topic', 'Help me plan my study time', 'Quiz me on a course'];
 const endpoint = process.env.EXPO_PUBLIC_BUILD_AI_API_URL;
 
 export default function BuildAIScreen() {
+  const ui = useThemedStyles(styles);
   const { width } = useWindowDimensions();
   const [draft, setDraft] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
@@ -46,27 +48,27 @@ export default function BuildAIScreen() {
   }
 
   return (
-    <View style={styles.page}>
-      <KeyboardAvoidingView style={styles.fill} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-        <View style={[styles.content, { maxWidth: narrow ? undefined : 820 }]}>
-          <View style={styles.header}>
-            <Image source={require('@/assets/images/build-ai-logo.png')} resizeMode="contain" style={styles.logo} />
-            <View><Text style={styles.title}>BUILD AI</Text><Text style={styles.subtitle}>Your campus study companion</Text></View>
+    <View style={ui.page}>
+      <KeyboardAvoidingView style={ui.fill} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+        <View style={[ui.content, { maxWidth: narrow ? undefined : 820 }]}>
+          <View style={ui.header}>
+            <Image source={require('@/assets/images/build-ai-logo.png')} resizeMode="contain" style={ui.logo} />
+            <View><Text style={ui.title}>BUILD AI</Text><Text style={ui.subtitle}>Your campus study companion</Text></View>
           </View>
-          <ScrollView ref={scroll} style={styles.fill} contentContainerStyle={styles.messages} onContentSizeChange={() => scroll.current?.scrollToEnd({ animated: true })} keyboardShouldPersistTaps="handled">
+          <ScrollView ref={scroll} style={ui.fill} contentContainerStyle={ui.messages} onContentSizeChange={() => scroll.current?.scrollToEnd({ animated: true })} keyboardShouldPersistTaps="handled">
             {messages.length === 0 ? (
-              <View style={styles.welcome}>
-                <Image source={require('@/assets/images/build-ai-logo.png')} resizeMode="contain" style={styles.welcomeLogo} />
-                <Text style={styles.welcomeTitle}>What can I help you learn?</Text>
-                <Text style={styles.welcomeText}>Ask a question, work through a concept, or make a plan for your next study session.</Text>
-                <View style={styles.prompts}>{prompts.map(prompt => <TouchableOpacity key={prompt} style={styles.prompt} onPress={() => send(prompt)}><Text style={styles.promptText}>{prompt}</Text><Ionicons name="arrow-up-outline" size={16} color="#2563EB" /></TouchableOpacity>)}</View>
+              <View style={ui.welcome}>
+                <Image source={require('@/assets/images/build-ai-logo.png')} resizeMode="contain" style={ui.welcomeLogo} />
+                <Text style={ui.welcomeTitle}>What can I help you learn?</Text>
+                <Text style={ui.welcomeText}>Ask a question, work through a concept, or make a plan for your next study session.</Text>
+                <View style={ui.prompts}>{prompts.map(prompt => <TouchableOpacity key={prompt} style={ui.prompt} onPress={() => send(prompt)}><Text style={ui.promptText}>{prompt}</Text><Ionicons name="arrow-up-outline" size={16} color="#2563EB" /></TouchableOpacity>)}</View>
               </View>
-            ) : messages.map(message => <View key={message.id} style={[styles.bubble, message.role === 'user' ? styles.userBubble : styles.aiBubble]}><Text style={[styles.bubbleText, message.role === 'user' && styles.userText]}>{message.content}</Text></View>)}
-            {busy && <ActivityIndicator style={styles.loading} color="#2563EB" />}
-            {!!error && <Text style={styles.error}>{error}</Text>}
+            ) : messages.map(message => <View key={message.id} style={[ui.bubble, message.role === 'user' ? ui.userBubble : ui.aiBubble]}><Text style={[ui.bubbleText, message.role === 'user' && ui.userText]}>{message.content}</Text></View>)}
+            {busy && <ActivityIndicator style={ui.loading} color="#2563EB" />}
+            {!!error && <Text style={ui.error}>{error}</Text>}
           </ScrollView>
-          <View style={styles.composer}><TextInput value={draft} onChangeText={setDraft} placeholder="Message BUILD AI" placeholderTextColor="#94A3B8" multiline style={styles.input} accessibilityLabel="Message BUILD AI" /><TouchableOpacity onPress={() => send()} disabled={!draft.trim() || busy} style={[styles.send, (!draft.trim() || busy) && styles.sendDisabled]} accessibilityLabel="Send message"><Ionicons name="arrow-up" size={20} color="#FFFFFF" /></TouchableOpacity></View>
-          <Text style={styles.note}>Check important answers against your course materials.</Text>
+          <View style={ui.composer}><TextInput value={draft} onChangeText={setDraft} placeholder="Message BUILD AI" placeholderTextColor="#94A3B8" multiline style={ui.input} accessibilityLabel="Message BUILD AI" /><TouchableOpacity onPress={() => send()} disabled={!draft.trim() || busy} style={[ui.send, (!draft.trim() || busy) && ui.sendDisabled]} accessibilityLabel="Send message"><Ionicons name="arrow-up" size={20} color="#FFFFFF" /></TouchableOpacity></View>
+          <Text style={ui.note}>Check important answers against your course materials.</Text>
         </View>
       </KeyboardAvoidingView>
       <DashboardBottomNav />

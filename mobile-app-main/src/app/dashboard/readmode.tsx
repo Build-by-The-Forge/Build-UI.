@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useThemedStyles } from '@/hooks/useThemedStyles';
 import {
   View,
   Text,
@@ -30,6 +31,7 @@ const BULLET_POINTS = [
 ];
 
 export default function ReadModeScreen() {
+  const ui = useThemedStyles(styles);
   const router = useRouter();
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [fontSizeScale, setFontSizeScale] = useState<number>(1);
@@ -51,100 +53,100 @@ export default function ReadModeScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={ui.safeArea}>
       {/* Header */}
-      <View style={styles.header}>
+      <View style={ui.header}>
         <TouchableOpacity onPress={() => router.back()} hitSlop={8}>
-          <Text style={styles.backArrow}>←</Text>
+          <Text style={ui.backArrow}>←</Text>
         </TouchableOpacity>
-        <View style={styles.headerTitles}>
-          <Text style={styles.headerTitle} numberOfLines={1}>
+        <View style={ui.headerTitles}>
+          <Text style={ui.headerTitle} numberOfLines={1}>
             Module 4: Market Dynamics
           </Text>
-          <Text style={styles.headerSubtitle}>UNIT 2: COMPETITIVE ANALYSIS</Text>
+          <Text style={ui.headerSubtitle}>UNIT 2: COMPETITIVE ANALYSIS</Text>
         </View>
-        <View style={styles.headerActions}>
-          <TouchableOpacity hitSlop={8} onPress={toggleFontSize} style={styles.headerActionButton}>
-            <Text style={styles.headerActionIcon}>A±</Text>
+        <View style={ui.headerActions}>
+          <TouchableOpacity hitSlop={8} onPress={toggleFontSize} style={ui.headerActionButton}>
+            <Text style={ui.headerActionIcon}>A±</Text>
           </TouchableOpacity>
-          <TouchableOpacity hitSlop={8} onPress={toggleBookmark} style={styles.headerActionButton}>
-            <Text style={[styles.headerActionIcon, isBookmarked && { color: COLORS.primary }]}>
+          <TouchableOpacity hitSlop={8} onPress={toggleBookmark} style={ui.headerActionButton}>
+            <Text style={[ui.headerActionIcon, isBookmarked && { color: COLORS.primary }]}>
               {isBookmarked ? '★' : '☆'}
             </Text>
           </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.headerProgress}>
-        <View style={styles.headerProgressFill} />
+      <View style={ui.headerProgress}>
+        <View style={ui.headerProgressFill} />
       </View>
 
-      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+      <ScrollView contentContainerStyle={ui.scrollContent} showsVerticalScrollIndicator={false}>
         {/* Hero banner */}
-        <View style={styles.hero}>
-          <View style={[styles.heroShape, styles.heroShapeA]} />
-          <View style={[styles.heroShape, styles.heroShapeB]} />
-          <View style={[styles.heroShape, styles.heroShapeC]} />
-          <Text style={styles.heroTag}>VERIFIED STUDY GUIDE</Text>
+        <View style={ui.hero}>
+          <View style={[ui.heroShape, ui.heroShapeA]} />
+          <View style={[ui.heroShape, ui.heroShapeB]} />
+          <View style={[ui.heroShape, ui.heroShapeC]} />
+          <Text style={ui.heroTag}>VERIFIED STUDY GUIDE</Text>
         </View>
 
-        <Text style={[styles.articleTitle, { fontSize: 21 * fontSizeScale }]}>
+        <Text style={[ui.articleTitle, { fontSize: 21 * fontSizeScale }]}>
           Understanding Porter's Five Forces in Modern Tech
         </Text>
 
-        <View style={styles.bylineRow}>
-          <View style={styles.avatar}>
-            <Text style={styles.avatarText}>BD</Text>
+        <View style={ui.bylineRow}>
+          <View style={ui.avatar}>
+            <Text style={ui.avatarText}>BD</Text>
           </View>
-          <Text style={styles.bylineText}>8 min read · Curated by BUILD</Text>
+          <Text style={ui.bylineText}>8 min read · Curated by BUILD</Text>
         </View>
 
-        <Text style={[styles.paragraph, { fontSize: 14 * fontSizeScale, lineHeight: 22 * fontSizeScale }]}>
+        <Text style={[ui.paragraph, { fontSize: 14 * fontSizeScale, lineHeight: 22 * fontSizeScale }]}>
           In today's hyper-fast technology landscape, the traditional frameworks of competitive
           strategy are more relevant than ever. Michael Porter's Five Forces provides a structured
           way to analyze the intensity of competition and the attractiveness of a market.
         </Text>
 
         <SectionHeading number="1" title="Threat of New Entrants" />
-        <Text style={[styles.paragraph, { fontSize: 14 * fontSizeScale, lineHeight: 22 * fontSizeScale }]}>
+        <Text style={[ui.paragraph, { fontSize: 14 * fontSizeScale, lineHeight: 22 * fontSizeScale }]}>
           The ease with which new competitors can enter a market defines its long-term
           profitability. In the SaaS world, where capital requirements are lower, brand equity and
           network effects act as major barriers.
         </Text>
 
-        <View style={styles.bulletList}>
+        <View style={ui.bulletList}>
           {BULLET_POINTS.map((point) => (
-            <View key={point.id} style={styles.bulletRow}>
-              <Text style={styles.bulletCheck}>✔</Text>
-              <Text style={[styles.bulletText, { fontSize: 13.5 * fontSizeScale }]}>
-                <Text style={styles.bulletTitle}>{point.title}</Text> {point.text}
+            <View key={point.id} style={ui.bulletRow}>
+              <Text style={ui.bulletCheck}>✔</Text>
+              <Text style={[ui.bulletText, { fontSize: 13.5 * fontSizeScale }]}>
+                <Text style={ui.bulletTitle}>{point.title}</Text> {point.text}
               </Text>
             </View>
           ))}
         </View>
 
-        <View style={styles.quoteCard}>
-          <Text style={styles.quoteText}>
+        <View style={ui.quoteCard}>
+          <Text style={ui.quoteText}>
             "Strategy is about making choices, trade-offs; it's about deliberately choosing to be
             different."
           </Text>
         </View>
 
         <SectionHeading number="2" title="Bargaining Power of Buyers" />
-        <Text style={[styles.paragraph, { fontSize: 14 * fontSizeScale, lineHeight: 22 * fontSizeScale }]}>
+        <Text style={[ui.paragraph, { fontSize: 14 * fontSizeScale, lineHeight: 22 * fontSizeScale }]}>
           Customers have power when they are few in number but purchase in high volumes, or when
           switching costs to a competitor's product are low.
         </Text>
 
-        <View style={styles.tipBox}>
-          <Text style={styles.tipLabel}>💡 PRO TIP</Text>
-          <Text style={styles.tipText}>
+        <View style={ui.tipBox}>
+          <Text style={ui.tipLabel}>💡 PRO TIP</Text>
+          <Text style={ui.tipText}>
             Modern platforms reduce buyer power by creating "sticky" ecosystems where data
             portability is difficult.
           </Text>
         </View>
 
-        <TouchableOpacity style={styles.summaryLink} activeOpacity={0.8} onPress={handleAiSummary}>
-          <Text style={styles.summaryLinkText}>✦ Ask BUILD AI for a 30-sec summary</Text>
+        <TouchableOpacity style={ui.summaryLink} activeOpacity={0.8} onPress={handleAiSummary}>
+          <Text style={ui.summaryLinkText}>✦ Ask BUILD AI for a 30-sec summary</Text>
         </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
@@ -152,10 +154,11 @@ export default function ReadModeScreen() {
 }
 
 function SectionHeading({ number, title }: { number: string; title: string }) {
+  const ui = useThemedStyles(styles);
   return (
-    <View style={styles.sectionHeadingRow}>
-      <View style={styles.sectionBar} />
-      <Text style={styles.sectionHeadingText}>
+    <View style={ui.sectionHeadingRow}>
+      <View style={ui.sectionBar} />
+      <Text style={ui.sectionHeadingText}>
         {number}. {title}
       </Text>
     </View>

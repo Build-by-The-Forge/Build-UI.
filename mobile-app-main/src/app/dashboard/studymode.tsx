@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import DashboardBottomNav from '@/components/DashboardBottomNav';
+import { useThemedStyles } from '@/hooks/useThemedStyles';
 import { Fonts } from '@/constants/theme';
 
 const COLORS = {
@@ -81,6 +82,7 @@ const MODES: StudyModeItem[] = [
 ];
 
 export default function StudyModesScreen() {
+  const ui = useThemedStyles(styles);
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('All Modes');
 
@@ -89,58 +91,58 @@ export default function StudyModesScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.header}>
+    <SafeAreaView style={ui.safeArea}>
+      <View style={ui.header}>
         <TouchableOpacity onPress={() => router.back()} hitSlop={8}>
-          <Text style={styles.backArrow}>←</Text>
+          <Text style={ui.backArrow}>←</Text>
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Study Modes</Text>
+        <Text style={ui.headerTitle}>Study Modes</Text>
         <View style={{ width: 24 }} />
       </View>
 
-      <View style={styles.tabsRow}>
+      <View style={ui.tabsRow}>
         {TABS.map((tab) => {
           const isActive = activeTab === tab;
           return (
-            <TouchableOpacity key={tab} style={styles.tabItem} onPress={() => setActiveTab(tab)}>
-              <Text style={[styles.tabText, isActive && styles.tabTextActive]}>{tab}</Text>
-              {isActive && <View style={styles.tabUnderline} />}
+            <TouchableOpacity key={tab} style={ui.tabItem} onPress={() => setActiveTab(tab)}>
+              <Text style={[ui.tabText, isActive && ui.tabTextActive]}>{tab}</Text>
+              {isActive && <View style={ui.tabUnderline} />}
             </TouchableOpacity>
           );
         })}
       </View>
 
-      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+      <ScrollView contentContainerStyle={ui.scrollContent} showsVerticalScrollIndicator={false}>
         {MODES.map((mode) => (
-          <View key={mode.id} style={styles.card}>
+          <View key={mode.id} style={ui.card}>
             {mode.badge && (
-              <View style={[styles.badge, { backgroundColor: mode.badgeBg }]}>
-                <Text style={[styles.badgeText, { color: mode.badgeColor }]}>{mode.badge}</Text>
+              <View style={[ui.badge, { backgroundColor: mode.badgeBg }]}>
+                <Text style={[ui.badgeText, { color: mode.badgeColor }]}>{mode.badge}</Text>
               </View>
             )}
-            <View style={[styles.iconWrap, { backgroundColor: mode.iconBg }]}>
-              <Text style={styles.iconText}>{mode.icon}</Text>
+            <View style={[ui.iconWrap, { backgroundColor: mode.iconBg }]}>
+              <Text style={ui.iconText}>{mode.icon}</Text>
             </View>
-            <Text style={styles.cardTitle}>{mode.title}</Text>
-            <Text style={styles.cardDescription}>{mode.description}</Text>
+            <Text style={ui.cardTitle}>{mode.title}</Text>
+            <Text style={ui.cardDescription}>{mode.description}</Text>
             <TouchableOpacity
               activeOpacity={0.8}
               onPress={() => router.push(mode.route)}
-              style={styles.ctaButton}
+              style={ui.ctaButton}
             >
-              <Text style={[styles.cardCta, { color: mode.ctaColor }]}>{mode.cta}  →</Text>
+              <Text style={[ui.cardCta, { color: mode.ctaColor }]}>{mode.cta}  →</Text>
             </TouchableOpacity>
           </View>
         ))}
 
         <TouchableOpacity
-          style={styles.customPlanCard}
+          style={ui.customPlanCard}
           activeOpacity={0.85}
           onPress={handleCustomPlan}
         >
-          <Text style={styles.customPlanLabel}>PERSONALIZED FOR YOU</Text>
-          <Text style={styles.customPlanTitle}>✦ Need a custom study plan?</Text>
-          <Text style={styles.customPlanText}>
+          <Text style={ui.customPlanLabel}>PERSONALIZED FOR YOU</Text>
+          <Text style={ui.customPlanTitle}>✦ Need a custom study plan?</Text>
+          <Text style={ui.customPlanText}>
             Let BUILD AI curate your study materials based on your recent performance.
           </Text>
         </TouchableOpacity>

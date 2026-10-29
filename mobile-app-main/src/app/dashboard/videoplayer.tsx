@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useThemedStyles } from '@/hooks/useThemedStyles';
 import {
   View,
   Text,
@@ -35,6 +36,7 @@ const UP_NEXT = [
 ];
 
 export default function VideoPlayerScreen() {
+  const ui = useThemedStyles(styles);
   const router = useRouter();
   const [isPlaying, setIsPlaying] = useState(false);
   const [autoplay, setAutoplay] = useState(true);
@@ -54,38 +56,38 @@ export default function VideoPlayerScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+    <SafeAreaView style={ui.safeArea}>
+      <ScrollView contentContainerStyle={ui.scrollContent} showsVerticalScrollIndicator={false}>
         {/* Video Player Display */}
-        <View style={styles.videoArea}>
-          <View style={styles.videoTopRow}>
+        <View style={ui.videoArea}>
+          <View style={ui.videoTopRow}>
             <TouchableOpacity onPress={() => router.back()} hitSlop={8}>
-              <Text style={styles.videoTopIcon}>‹</Text>
+              <Text style={ui.videoTopIcon}>‹</Text>
             </TouchableOpacity>
-            <View style={styles.videoTopRight}>
-              <View style={styles.ccBadge}>
-                <Text style={styles.ccBadgeText}>CC</Text>
+            <View style={ui.videoTopRight}>
+              <View style={ui.ccBadge}>
+                <Text style={ui.ccBadgeText}>CC</Text>
               </View>
-              <Text style={[styles.videoTopIcon, { marginLeft: 12 }]}>⚙</Text>
+              <Text style={[ui.videoTopIcon, { marginLeft: 12 }]}>⚙</Text>
             </View>
           </View>
 
-          <View style={styles.videoControlsRow}>
+          <View style={ui.videoControlsRow}>
             <TouchableOpacity
               onPress={() => {
                 const idx = UP_NEXT.findIndex((v) => v.id === currentVideoId);
                 if (idx > 0) setCurrentVideoId(UP_NEXT[idx - 1].id);
               }}
             >
-              <Text style={styles.controlIcon}>⏮</Text>
+              <Text style={ui.controlIcon}>⏮</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={styles.playButton}
+              style={ui.playButton}
               onPress={() => setIsPlaying((p) => !p)}
               activeOpacity={0.8}
             >
-              <Text style={styles.playButtonIcon}>{isPlaying ? '⏸' : '▶'}</Text>
+              <Text style={ui.playButtonIcon}>{isPlaying ? '⏸' : '▶'}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -96,53 +98,53 @@ export default function VideoPlayerScreen() {
                 }
               }}
             >
-              <Text style={styles.controlIcon}>⏭</Text>
+              <Text style={ui.controlIcon}>⏭</Text>
             </TouchableOpacity>
           </View>
 
-          <View style={styles.videoBottomRow}>
-            <Text style={styles.videoTime}>{isPlaying ? '06:15' : '04:12'} / {activeVideo.duration}</Text>
-            <Text style={styles.videoQuality}>1080p HD</Text>
+          <View style={ui.videoBottomRow}>
+            <Text style={ui.videoTime}>{isPlaying ? '06:15' : '04:12'} / {activeVideo.duration}</Text>
+            <Text style={ui.videoQuality}>1080p HD</Text>
           </View>
-          <View style={styles.videoProgressTrack}>
-            <View style={[styles.videoProgressFill, { width: isPlaying ? '52%' : '34%' }]} />
+          <View style={ui.videoProgressTrack}>
+            <View style={[ui.videoProgressFill, { width: isPlaying ? '52%' : '34%' }]} />
           </View>
         </View>
 
         {/* Video Meta Info */}
-        <View style={styles.infoRow}>
+        <View style={ui.infoRow}>
           <View style={{ flex: 1 }}>
-            <Text style={styles.videoTitle}>
+            <Text style={ui.videoTitle}>
               {activeVideo.number}. {activeVideo.title}
             </Text>
-            <Text style={styles.videoSubtitle}>Module 2: Advanced Leadership Mastery</Text>
+            <Text style={ui.videoSubtitle}>Module 2: Advanced Leadership Mastery</Text>
           </View>
           <TouchableOpacity
-            style={styles.shareButton}
+            style={ui.shareButton}
             onPress={() => router.push('/dashboard/chatscreen')}
           >
-            <Text style={styles.shareIcon}>💬</Text>
+            <Text style={ui.shareIcon}>💬</Text>
           </TouchableOpacity>
         </View>
 
-        <View style={styles.statsRow}>
-          <Text style={styles.statText}>👁 1.2k views</Text>
+        <View style={ui.statsRow}>
+          <Text style={ui.statText}>👁 1.2k views</Text>
           <TouchableOpacity onPress={toggleLike}>
-            <Text style={[styles.statText, hasLiked && { color: COLORS.primary, fontWeight: '700' }]}>
+            <Text style={[ui.statText, hasLiked && { color: COLORS.primary, fontWeight: '700' }]}>
               👍 {likesCount} likes
             </Text>
           </TouchableOpacity>
           <View style={{ flex: 1 }} />
-          <TouchableOpacity style={styles.downloadButton} onPress={handleDownload}>
-            <Text style={styles.downloadText}>⬇ Download</Text>
+          <TouchableOpacity style={ui.downloadButton} onPress={handleDownload}>
+            <Text style={ui.downloadText}>⬇ Download</Text>
           </TouchableOpacity>
         </View>
 
         {/* Up Next List */}
-        <View style={styles.upNextHeaderRow}>
-          <Text style={styles.sectionHeading}>Course Playlist</Text>
-          <View style={styles.autoplayRow}>
-            <Text style={styles.autoplayLabel}>AUTOPLAY</Text>
+        <View style={ui.upNextHeaderRow}>
+          <Text style={ui.sectionHeading}>Course Playlist</Text>
+          <View style={ui.autoplayRow}>
+            <Text style={ui.autoplayLabel}>AUTOPLAY</Text>
             <Switch
               value={autoplay}
               onValueChange={setAutoplay}
@@ -152,13 +154,13 @@ export default function VideoPlayerScreen() {
           </View>
         </View>
 
-        <View style={styles.upNextList}>
+        <View style={ui.upNextList}>
           {UP_NEXT.map((item) => {
             const isCurrent = item.id === currentVideoId;
             return (
               <TouchableOpacity
                 key={item.id}
-                style={[styles.upNextRow, isCurrent && styles.upNextRowActive]}
+                style={[ui.upNextRow, isCurrent && ui.upNextRowActive]}
                 activeOpacity={item.locked ? 1 : 0.8}
                 disabled={item.locked}
                 onPress={() => {
@@ -166,22 +168,22 @@ export default function VideoPlayerScreen() {
                   setIsPlaying(true);
                 }}
               >
-                {isCurrent && <View style={styles.upNextActiveBar} />}
-                <View style={[styles.thumb, { backgroundColor: item.thumbBg }]}>
-                  {isCurrent && <Text style={styles.thumbIcon}>🔊</Text>}
-                  {item.locked && <Text style={styles.thumbIcon}>🔒</Text>}
+                {isCurrent && <View style={ui.upNextActiveBar} />}
+                <View style={[ui.thumb, { backgroundColor: item.thumbBg }]}>
+                  {isCurrent && <Text style={ui.thumbIcon}>🔊</Text>}
+                  {item.locked && <Text style={ui.thumbIcon}>🔒</Text>}
                   {!isCurrent && !item.locked && (
-                    <Text style={styles.thumbDuration}>{item.duration}</Text>
+                    <Text style={ui.thumbDuration}>{item.duration}</Text>
                   )}
                 </View>
-                <View style={styles.upNextTextWrap}>
+                <View style={ui.upNextTextWrap}>
                   <Text
-                    style={[styles.upNextTitle, isCurrent && { color: COLORS.primary, fontWeight: '800' }]}
+                    style={[ui.upNextTitle, isCurrent && { color: COLORS.primary, fontWeight: '800' }]}
                     numberOfLines={1}
                   >
                     {item.number}. {item.title}
                   </Text>
-                  <Text style={[styles.upNextStatus, { color: isCurrent ? COLORS.primary : item.statusColor }]}>
+                  <Text style={[ui.upNextStatus, { color: isCurrent ? COLORS.primary : item.statusColor }]}>
                     {item.duration ? `${item.duration} · ` : ''}
                     {isCurrent ? 'Playing Now' : item.status}
                   </Text>
