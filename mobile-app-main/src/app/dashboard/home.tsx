@@ -4,6 +4,7 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
+  Image,
   StyleSheet,
   SafeAreaView,
 } from 'react-native';
@@ -192,7 +193,7 @@ export default function HomeScreen() {
 
         {/* BUILD AI insight card */}
         <View style={styles.aiHeadingRow}>
-          <Text style={styles.aiDiamond}>✦</Text>
+          <Image source={require('@/assets/images/build-ai-logo.png')} resizeMode="contain" style={styles.aiLogo} />
           <Text style={styles.sectionHeading}>BUILD AI for {deptCode}</Text>
         </View>
         <View style={styles.aiCard}>
@@ -342,7 +343,7 @@ const styles = StyleSheet.create({
   quickStudyLabel: { fontSize: 12, fontWeight: '800' },
 
   aiHeadingRow: { flexDirection: 'row', alignItems: 'center', marginTop: 22, gap: 6 },
-  aiDiamond: { color: COLORS.primary, fontSize: 15 },
+  aiLogo: { width: 18, height: 20 },
   aiCard: {
     backgroundColor: COLORS.primaryTint,
     borderWidth: 1.5,

@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
+import { View, Image, StyleSheet, Platform } from 'react-native';
 import { useRouter, usePathname } from 'expo-router';
-import { Ionicons, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons, Feather } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FloatingDock, FloatingDockItem } from '@/components/ui/floating-dock';
 
@@ -110,10 +110,10 @@ export default function DashboardBottomNav({
     {
       title: 'BUILD AI',
       icon: (
-        <MaterialCommunityIcons
-          name="creation"
-          size={22}
-          color="#FBBF24"
+        <Image
+          source={require('@/assets/images/build-ai-logo.png')}
+          resizeMode="contain"
+          style={styles.aiLogo}
         />
       ),
       isSpecial: true,
@@ -155,6 +155,7 @@ export default function DashboardBottomNav({
 }
 
 const styles = StyleSheet.create({
+  aiLogo: { width: 28, height: 30 },
   container: {
     position: 'absolute',
     left: 0,

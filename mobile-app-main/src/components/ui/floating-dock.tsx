@@ -264,7 +264,7 @@ const styles = StyleSheet.create({
     elevation: 6,
   },
   iconButtonSpecial: {
-    backgroundColor: '#1D4ED8',
+    backgroundColor: '#FFFFFF',
     borderColor: '#93C5FD',
     borderWidth: 1.5,
     shadowColor: '#3B82F6',
