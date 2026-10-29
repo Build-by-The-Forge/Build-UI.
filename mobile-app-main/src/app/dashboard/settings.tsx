@@ -46,7 +46,7 @@ export default function SettingsScreen() {
   return <SafeAreaView style={[styles.page, { backgroundColor: dark ? '#0B1220' : '#F7F9FC' }]}>
     <ScrollView contentContainerStyle={[styles.content, { maxWidth: width >= 700 ? 760 : undefined }]} showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()} style={[styles.back, { backgroundColor: surface, borderColor: border }]} accessibilityLabel="Back"><Ionicons name="arrow-back" size={21} color={ink} /></TouchableOpacity>
+        <TouchableOpacity onPress={() => router.replace('/dashboard/home')} style={[styles.back, { backgroundColor: surface, borderColor: border }]} accessibilityLabel="Back to home"><Ionicons name="arrow-back" size={21} color={ink} /></TouchableOpacity>
         <View><Text style={[styles.title, { color: ink }]}>Settings</Text><Text style={[styles.subtitle, { color: muted }]}>Make BUILD work your way.</Text></View>
       </View>
       <View style={[styles.identity, { backgroundColor: dark ? '#172B4C' : '#EAF2FF', borderColor: dark ? '#28456B' : '#D5E6FF' }]}>
