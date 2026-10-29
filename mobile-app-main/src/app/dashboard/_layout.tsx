@@ -10,6 +10,7 @@ export default function DashboardLayout() {
       <Stack.Screen name="mapscreen" />
       <Stack.Screen name="placdetailscreen" />
       <Stack.Screen name="readmode" />
+      <Stack.Screen name="settings" />
       <Stack.Screen name="studygroup" />
       <Stack.Screen name="studymode" />
       <Stack.Screen name="videoplayer" />

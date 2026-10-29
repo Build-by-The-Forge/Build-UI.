@@ -55,7 +55,7 @@ export default function DashboardBottomNav({
         router.push('/dashboard/chatscreen');
         break;
       case 'profile':
-        router.push('/dashboard/home');
+        router.push('/dashboard/settings');
         break;
       default:
         router.push('/dashboard/home');

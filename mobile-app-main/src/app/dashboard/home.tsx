@@ -73,7 +73,8 @@ export default function HomeScreen() {
           </View>
           <TouchableOpacity
             style={styles.avatar}
-            onPress={() => router.push('/dashboard/chatscreen')}
+            onPress={() => router.push('/dashboard/settings')}
+            accessibilityLabel="Open settings"
             activeOpacity={0.8}
           >
             <Text style={styles.avatarText}>{deptCode.substring(0, 2)}</Text>
