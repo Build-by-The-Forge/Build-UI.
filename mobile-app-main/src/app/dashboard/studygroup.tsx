@@ -10,6 +10,7 @@ import {
   Alert,
 } from 'react-native';
 import { useRouter } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 import DashboardBottomNav from '@/components/DashboardBottomNav';
 import { Fonts } from '@/constants/theme';
 import { StudyGroup } from '@/types/dashboard';
@@ -106,7 +107,7 @@ export default function StudyGroupsScreen() {
         </View>
 
         <View style={styles.searchRow}>
-          <Text style={styles.searchIcon}>🔍</Text>
+          <Ionicons name="search-outline" size={19} color={COLORS.textMuted} style={styles.searchIcon} />
           <TextInput
             style={styles.searchInput}
             placeholder="Find a study group..."
@@ -114,12 +115,12 @@ export default function StudyGroupsScreen() {
             value={query}
             onChangeText={setQuery}
           />
-          <Text style={styles.filterIcon}>⚙</Text>
+          <Ionicons name="options-outline" size={20} color={COLORS.textSecondary} />
         </View>
 
         {filteredGroups.length === 0 ? (
           <View style={styles.emptyState}>
-            <Text style={styles.emptyIcon}>🔍</Text>
+            <Ionicons name="search-outline" size={36} color={COLORS.textMuted} style={styles.emptyIcon} />
             <Text style={styles.emptyTitle}>No study groups found</Text>
             <Text style={styles.emptySubtitle}>Try searching for a different course or create a new group.</Text>
           </View>
@@ -128,7 +129,7 @@ export default function StudyGroupsScreen() {
             <View key={group.id} style={styles.card}>
               <View style={styles.cardTopRow}>
                 <View style={[styles.thumb, { backgroundColor: group.thumbBg }]}>
-                  <Text style={styles.thumbText}>👥</Text>
+                  <Ionicons name="people-outline" size={24} color={COLORS.primary} />
                 </View>
                 <View style={styles.cardTitleWrap}>
                   <View style={styles.cardTitleRow}>

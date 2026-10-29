@@ -98,8 +98,8 @@ export default function ChatScreen() {
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         {/* Header */}
         <View style={styles.header}>
-          <TouchableOpacity onPress={() => router.back()} hitSlop={8}>
-            <Text style={styles.backArrow}>←</Text>
+          <TouchableOpacity onPress={() => router.back()} hitSlop={8} style={styles.backButton} accessibilityLabel="Back">
+            <Ionicons name="arrow-back" size={22} color={COLORS.textPrimary} />
           </TouchableOpacity>
           <View style={styles.headerAvatarWrap}>
             <View style={styles.headerAvatar}>
@@ -117,11 +117,11 @@ export default function ChatScreen() {
             <Text style={styles.headerName}>{contactName}</Text>
             <Text style={styles.headerStatus}>Online · Study Partner</Text>
           </View>
-          <TouchableOpacity style={styles.headerIcon}>
-            <Text style={styles.headerIconText}>📞</Text>
+          <TouchableOpacity style={styles.headerIcon} accessibilityLabel="Voice call">
+            <Ionicons name="call-outline" size={20} color={COLORS.textPrimary} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.headerIcon}>
-            <Text style={styles.headerIconText}>🎥</Text>
+          <TouchableOpacity style={styles.headerIcon} accessibilityLabel="Video call">
+            <Ionicons name="videocam-outline" size={22} color={COLORS.textPrimary} />
           </TouchableOpacity>
         </View>
 
@@ -201,7 +201,7 @@ export default function ChatScreen() {
             <Ionicons name="happy-outline" size={22} color="#64748B" />
           </TouchableOpacity>
           <TouchableOpacity style={styles.sendButton} onPress={sendMessage} activeOpacity={0.8}>
-            <Text style={styles.sendIcon}>➤</Text>
+            <Ionicons name="send" size={17} color="#FFFFFF" />
           </TouchableOpacity>
         </View>
 
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
     borderBottomColor: COLORS.border,
     backgroundColor: COLORS.background,
   },
-  backArrow: { fontSize: 22, color: COLORS.textPrimary, marginRight: 10, fontWeight: '700' },
+  backButton: { width: 32, height: 38, alignItems: 'flex-start', justifyContent: 'center', marginRight: 4 },
   headerAvatarWrap: { position: 'relative', marginRight: 10 },
   headerAvatar: {
     width: 38,
@@ -248,8 +248,7 @@ const styles = StyleSheet.create({
   headerTitles: { flex: 1 },
   headerName: { fontSize: 15, fontWeight: '800', fontFamily: Fonts.bold, color: COLORS.textPrimary },
   headerStatus: { fontSize: 11.5, color: COLORS.online, marginTop: 1, fontFamily: Fonts.medium, fontWeight: '600' },
-  headerIcon: { marginLeft: 14 },
-  headerIconText: { fontSize: 18 },
+  headerIcon: { width: 38, height: 38, alignItems: 'center', justifyContent: 'center', marginLeft: 4, borderRadius: 19, backgroundColor: '#F1F5F9' },
 
   messagesContent: { paddingHorizontal: 16, paddingTop: 14, paddingBottom: 140 },
 
@@ -348,5 +347,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  sendIcon: { color: '#fff', fontSize: 14, fontWeight: '700' },
 });
