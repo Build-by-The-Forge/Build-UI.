@@ -36,7 +36,7 @@ const GROUPS = [
     members: '1.2k members',
     preview: 'Sarah: "Just uploaded the week 4 summary notes for everyone!"',
     extraAvatars: 8,
-    thumbBg: '#0F766E',
+    thumbBg: '#0D9488',
   },
   {
     id: 'python',
@@ -47,7 +47,7 @@ const GROUPS = [
     members: '856 members',
     preview: 'Mike: "Who\'s up for a coding challenge tonight at 8 PM?"',
     extraAvatars: 12,
-    thumbBg: '#1E3A8A',
+    thumbBg: '#2563EB',
   },
   {
     id: 'history',
@@ -58,7 +58,7 @@ const GROUPS = [
     members: '420 members',
     preview: 'Jason: "Check out the past questions compilation from last year."',
     extraAvatars: 3,
-    thumbBg: '#92400E',
+    thumbBg: '#F59E0B',
   },
 ];
 
@@ -129,7 +129,7 @@ export default function StudyGroupsScreen() {
             <View key={group.id} style={styles.card}>
               <View style={styles.cardTopRow}>
                 <View style={[styles.thumb, { backgroundColor: group.thumbBg }]}>
-                  <Ionicons name="people-outline" size={24} color={COLORS.primary} />
+                  <Ionicons name="people" size={24} color="#FFFFFF" />
                 </View>
                 <View style={styles.cardTitleWrap}>
                   <View style={styles.cardTitleRow}>
@@ -138,7 +138,7 @@ export default function StudyGroupsScreen() {
                       <Text style={[styles.tagText, { color: group.tagColor }]}>{group.tag}</Text>
                     </View>
                   </View>
-                  <Text style={styles.membersText}>👥 {group.members}</Text>
+                  <View style={styles.membersRow}><Ionicons name="people-outline" size={13} color={COLORS.textMuted} /><Text style={styles.membersText}>{group.members}</Text></View>
                 </View>
               </View>
 
@@ -149,7 +149,7 @@ export default function StudyGroupsScreen() {
               <View style={styles.cardBottomRow}>
                 <View style={styles.avatarStack}>
                   {[0, 1, 2].map((i) => (
-                    <View key={i} style={[styles.avatarCircle, { marginLeft: i === 0 ? 0 : -10 }]} />
+                    <View key={i} style={[styles.avatarCircle, { marginLeft: i === 0 ? 0 : -10, backgroundColor: ['#38BDF8', '#A78BFA', '#FB7185'][i] }]} />
                   ))}
                   <View style={[styles.avatarCircle, styles.avatarExtra, { marginLeft: -10 }]}>
                     <Text style={styles.avatarExtraText}>+{group.extraAvatars}</Text>
@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
   thumb: {
     width: 46,
     height: 46,
-    borderRadius: 12,
+    borderRadius: 23,
     marginRight: 12,
     alignItems: 'center',
     justifyContent: 'center',
@@ -228,7 +228,8 @@ const styles = StyleSheet.create({
   cardTitle: { fontSize: 15, fontWeight: '800', fontFamily: Fonts.bold, color: COLORS.textPrimary, flexShrink: 1, marginRight: 8 },
   tag: { paddingHorizontal: 8, paddingVertical: 3, borderRadius: 8 },
   tagText: { fontSize: 10, fontWeight: '800', fontFamily: Fonts.bold },
-  membersText: { fontSize: 12, color: COLORS.textMuted, marginTop: 4, fontFamily: Fonts.medium, fontWeight: '600' },
+  membersRow: { flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 4 },
+  membersText: { fontSize: 12, color: COLORS.textMuted, fontFamily: Fonts.medium, fontWeight: '600' },
 
   previewBox: { backgroundColor: COLORS.surface, borderRadius: 10, padding: 10, marginTop: 12 },
   previewText: { fontSize: 12, color: COLORS.textSecondary, fontFamily: Fonts.regular, fontStyle: 'italic', lineHeight: 18 },
