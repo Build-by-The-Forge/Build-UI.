@@ -23,14 +23,10 @@ const STYLES: StyleItem[] = [
   { id: 'group', title: 'Group Study', subtitle: 'Learn Together', icon: '👥', iconBg: '#E0E7FF' },
 ];
 
-const DEFAULT_SELECTED = ['reading', 'videos', 'ai', 'flashcards'];
-
 export default function Step4LearningStyle() {
   const router = useRouter();
   const { data, updateData } = useOnboarding();
-  const [selectedStyles, setSelectedStyles] = useState<string[]>(
-    data.learningStyles.length ? data.learningStyles : DEFAULT_SELECTED
-  );
+  const [selectedStyles, setSelectedStyles] = useState<string[]>(data.learningStyles);
 
   const toggleStyle = (id: string) => {
     setSelectedStyles((prev) =>

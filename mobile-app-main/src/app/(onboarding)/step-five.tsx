@@ -47,7 +47,7 @@ export default function Step5Summary() {
       icon: '🏫',
       iconBg: '#CCFBF1',
       label: 'School / Faculty',
-      value: data.school?.name || data.faculty || 'School of Computing',
+      value: data.school?.name || data.faculty || 'Not set',
     },
     {
       id: 'department',
@@ -56,7 +56,7 @@ export default function Step5Summary() {
       label: 'Department',
       value: data.department
         ? `${data.department.name} (${data.department.code})`
-        : 'Computer Science (CSC)',
+        : 'Not set',
     },
     {
       id: 'courses',

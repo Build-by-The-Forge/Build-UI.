@@ -33,25 +33,27 @@ export default function Step1AcademicLevel() {
   const { data, setSchool, setDepartment, setAcademicLevel } = useOnboarding();
 
   const [selectedLevelId, setSelectedLevelId] = useState<string>(
-    data.academicLevel?.id || '300'
+    data.academicLevel?.id || ''
   );
 
   const [showPickerModal, setShowPickerModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedSchoolCode, setSelectedSchoolCode] = useState<string>(
-    data.school?.code || 'SOC'
+    data.school?.code || ''
   );
 
   const schools = getSchools();
   const currentSchool = schools.find((s) => s.code === selectedSchoolCode) || schools[0];
 
   const handleSelectDept = (school: School, dept: Department) => {
+    setSelectedSchoolCode(school.code);
     setSchool(school.code);
     setDepartment(dept.code);
     setShowPickerModal(false);
   };
 
   const handleContinue = () => {
+    if (!selectedLevelId || !data.department) return;
     const level = LEVELS.find((l) => l.id === selectedLevelId) || null;
     setAcademicLevel(level);
     router.push('/(onboarding)/step-two');
@@ -130,7 +132,7 @@ export default function Step1AcademicLevel() {
               </View>
               <View style={styles.deptTextWrapper}>
                 <Text style={styles.deptSchoolText}>
-                  {data.school?.name || 'School of Computing (SOC)'}
+                  {data.school?.name || 'Select your school and department'}
                 </Text>
                 <Text style={styles.deptNameText}>
                   {data.department
@@ -145,7 +147,7 @@ export default function Step1AcademicLevel() {
       </ScrollView>
 
       <View style={styles.footer}>
-        <PrimaryButton label="Continue" onPress={handleContinue} />
+        <PrimaryButton label="Continue" onPress={handleContinue} disabled={!selectedLevelId || !data.department} />
       </View>
 
       {/* School & Department Modal Picker */}

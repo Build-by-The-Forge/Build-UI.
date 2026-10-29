@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import ProgressHeader from '@/components/ProgressHeader';
@@ -14,20 +14,7 @@ export default function Step2Courses() {
   const [activeTab, setActiveTab] = useState('All Courses');
 
   const availableCourses = getAvailableCourses();
-  const [selectedCourses, setSelectedCourses] = useState<string[]>(() => {
-    if (data.courses && data.courses.length > 0) {
-      return data.courses;
-    }
-    // Default select first 3 courses
-    return availableCourses.slice(0, 3).map((c) => c.id);
-  });
-
-  // Re-sync when department or level changes
-  useEffect(() => {
-    if (!selectedCourses.length && availableCourses.length > 0) {
-      setSelectedCourses(availableCourses.slice(0, 3).map((c) => c.id));
-    }
-  }, [availableCourses]);
+  const [selectedCourses, setSelectedCourses] = useState<string[]>(data.courses);
 
   const toggleCourse = (id: string) => {
     setSelectedCourses((prev) =>
@@ -59,11 +46,11 @@ export default function Step2Courses() {
 
       <View style={styles.chipRow}>
         <View style={styles.chip}>
-          <Text style={styles.chipText}>{data.academicLevel?.title || '300 Level'}</Text>
+          <Text style={styles.chipText}>{data.academicLevel?.title || 'Choose level'}</Text>
         </View>
         <View style={styles.chip}>
           <Text style={styles.chipText}>
-            {data.department?.name || 'Computer Science'} ({data.department?.code || 'CSC'})
+            {data.department ? `${data.department.name} (${data.department.code})` : 'Choose department'}
           </Text>
         </View>
       </View>

@@ -39,25 +39,16 @@ export interface OnboardingContextType {
   resetOnboarding: () => void;
 }
 
-const defaultSchool = FUTA_INSTITUTION.schools[0]; // School of Computing
-const defaultDept = defaultSchool.departments[0]; // Computer Science
-
 const initialState: OnboardingData = {
   institution: FUTA_INSTITUTION,
-  school: defaultSchool,
-  department: defaultDept,
-  faculty: defaultSchool.name,
-  academicLevel: {
-    id: '300',
-    title: '300 Level',
-    subtitle: 'Third Year',
-    icon: '📗',
-    iconBg: '#DCFCE7',
-  },
-  courses: ['CSC301', 'CSC303', 'CSC305'],
+  school: null,
+  department: null,
+  faculty: '',
+  academicLevel: null,
+  courses: [],
   selectedCourseDetails: [],
-  goals: ['exams', 'topics', 'grades', 'organize'],
-  learningStyles: ['reading', 'videos', 'ai', 'flashcards'],
+  goals: [],
+  learningStyles: [],
 };
 
 const OnboardingContext = createContext<OnboardingContextType>({
@@ -122,9 +113,8 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
   };
 
   const getAvailableCourses = (): AcademicCourse[] => {
-    const deptCode = data.department?.code || 'CSC';
-    const levelId = data.academicLevel?.id || '300';
-    return getCoursesForDepartment(deptCode, levelId);
+    if (!data.department || !data.academicLevel) return [];
+    return getCoursesForDepartment(data.department.code, data.academicLevel.id);
   };
 
   const setCourses = (courseIds: string[]) => {

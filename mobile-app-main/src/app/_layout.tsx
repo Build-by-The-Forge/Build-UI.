@@ -9,6 +9,7 @@ import {
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import { OnboardingProvider } from '@/context/Onboardingcontext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -30,11 +31,13 @@ export default function RootLayout() {
   if (!fontsLoaded) return null;
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="index" />
-      <Stack.Screen name="(onboarding)" />
-      <Stack.Screen name="(auth)" />
-      <Stack.Screen name="dashboard" />
-    </Stack>
+    <OnboardingProvider>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="index" />
+        <Stack.Screen name="(onboarding)" />
+        <Stack.Screen name="(auth)" />
+        <Stack.Screen name="dashboard" />
+      </Stack>
+    </OnboardingProvider>
   );
 }

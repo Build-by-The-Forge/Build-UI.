@@ -5,9 +5,11 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Pressable, StyleSheet, Text, TextInput, View, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { useOnboarding } from '@/context/Onboardingcontext';
 
 export default function SignupScreen() {
   const router = useRouter();
+  const { resetOnboarding } = useOnboarding();
   const [step, setStep] = useState(1);
 
   // Form state (for visual purposes in the UI)
@@ -15,7 +17,10 @@ export default function SignupScreen() {
 
   const nextStep = () => setStep((s) => Math.min(s + 1, 3));
   const prevStep = () => setStep((s) => Math.max(s - 1, 1));
-  const submit = () => router.push('/(onboarding)/step-one');
+  const submit = () => {
+    resetOnboarding();
+    router.push('/(onboarding)/step-one');
+  };
 
   const renderStepIndicator = () => (
     <View style={styles.stepperContainer}>

@@ -24,14 +24,10 @@ const GOALS: GoalItem[] = [
   { id: 'career', label: 'Prepare for my career', icon: '💼', iconBg: '#FEE2E2' },
 ];
 
-const DEFAULT_SELECTED = ['exams', 'topics', 'grades', 'organize'];
-
 export default function Step3Goals() {
   const router = useRouter();
   const { data, updateData } = useOnboarding();
-  const [selectedGoals, setSelectedGoals] = useState<string[]>(
-    data.goals.length ? data.goals : DEFAULT_SELECTED
-  );
+  const [selectedGoals, setSelectedGoals] = useState<string[]>(data.goals);
 
   const toggleGoal = (id: string) => {
     setSelectedGoals((prev) =>

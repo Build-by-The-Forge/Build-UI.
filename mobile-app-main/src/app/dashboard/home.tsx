@@ -57,8 +57,8 @@ export default function HomeScreen() {
     name: 'Data Structures and Algorithms',
   };
 
-  const deptName = data.department?.name || 'Computer Science';
-  const deptCode = data.department?.code || 'CSC';
+  const deptName = data.department?.name || 'Choose your department';
+  const deptCode = data.department?.code || '';
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -68,7 +68,7 @@ export default function HomeScreen() {
           <View>
             <Text style={styles.greeting}>Good day, Scholar 👋</Text>
             <Text style={styles.dateLine}>
-              {deptName} ({deptCode}) · {data.academicLevel?.title || '300 Level'}
+              {data.department ? `${deptName} (${deptCode})` : deptName} · {data.academicLevel?.title || 'Choose your level'}
             </Text>
           </View>
           <TouchableOpacity
