@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import DashboardBottomNav from '@/components/DashboardBottomNav';
 import { Fonts } from '@/constants/theme';
 import { ChatMessage } from '@/types/dashboard';
 
@@ -206,7 +205,6 @@ export default function ChatScreen() {
           </TouchableOpacity>
         </View>
 
-        <DashboardBottomNav activeTab="chat" />
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
@@ -319,7 +317,6 @@ const styles = StyleSheet.create({
     borderTopColor: COLORS.border,
     backgroundColor: COLORS.background,
     gap: 8,
-    marginBottom: 60,
   },
   attachmentButton: {
     width: 38,
