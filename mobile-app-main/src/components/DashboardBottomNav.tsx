@@ -77,7 +77,7 @@ export default function DashboardBottomNav({
         <Ionicons
           name={currentTab === 'home' ? 'home' : 'home-outline'}
           size={20}
-          color={currentTab === 'home' ? '#FFFFFF' : '#94A3B8'}
+          color={currentTab === 'home' ? '#2563EB' : '#64748B'}
         />
       ),
       isActive: currentTab === 'home',
@@ -89,7 +89,7 @@ export default function DashboardBottomNav({
         <Feather
           name="map-pin"
           size={19}
-          color={currentTab === 'map' ? '#FFFFFF' : '#94A3B8'}
+          color={currentTab === 'map' ? '#2563EB' : '#64748B'}
         />
       ),
       isActive: currentTab === 'map',
@@ -101,7 +101,7 @@ export default function DashboardBottomNav({
         <Ionicons
           name={currentTab === 'study' ? 'school' : 'school-outline'}
           size={21}
-          color={currentTab === 'study' ? '#FFFFFF' : '#94A3B8'}
+          color={currentTab === 'study' ? '#2563EB' : '#64748B'}
         />
       ),
       isActive: currentTab === 'study',
@@ -125,7 +125,7 @@ export default function DashboardBottomNav({
         <Ionicons
           name={currentTab === 'groups' ? 'people' : 'people-outline'}
           size={21}
-          color={currentTab === 'groups' ? '#FFFFFF' : '#94A3B8'}
+          color={currentTab === 'groups' ? '#2563EB' : '#64748B'}
         />
       ),
       isActive: currentTab === 'groups',
@@ -137,7 +137,7 @@ export default function DashboardBottomNav({
         <Ionicons
           name={currentTab === 'chat' ? 'chatbubble-ellipses' : 'chatbubble-ellipses-outline'}
           size={20}
-          color={currentTab === 'chat' ? '#FFFFFF' : '#94A3B8'}
+          color={currentTab === 'chat' ? '#2563EB' : '#64748B'}
         />
       ),
       isActive: currentTab === 'chat',
