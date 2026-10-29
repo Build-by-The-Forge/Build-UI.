@@ -7,6 +7,7 @@ import {
   ViewStyle,
   StyleProp,
   Platform,
+  useWindowDimensions,
 } from 'react-native';
 import Animated, {
   useAnimatedStyle,
@@ -47,6 +48,8 @@ function DockIconItem({
   showTooltips?: boolean;
 }) {
   const [isHovered, setIsHovered] = useState(false);
+  const { width } = useWindowDimensions();
+  const compact = width < 380;
   const scale = useSharedValue(1);
   const translateY = useSharedValue(0);
   const tooltipOpacity = useSharedValue(0);
@@ -138,6 +141,7 @@ function DockIconItem({
         {...webProps}
         style={[
           styles.iconButton,
+          compact && styles.iconButtonCompact,
           item.isActive && styles.iconButtonActive,
           item.isSpecial && styles.iconButtonSpecial,
           animatedStyle,
@@ -167,9 +171,10 @@ export function FloatingDock({
   containerStyle,
   showTooltips = true,
 }: FloatingDockProps) {
+  const { width } = useWindowDimensions();
   return (
     <View style={[styles.dockContainer, containerStyle]}>
-      <View style={[styles.dockBar, style]}>
+      <View style={[styles.dockBar, width < 380 && styles.dockBarCompact, style]}>
         {items.map((item, index) => (
           <DockIconItem
             key={`${item.title}-${index}`}
@@ -213,6 +218,7 @@ const styles = StyleSheet.create({
     shadowRadius: 20,
     elevation: 12,
   },
+  dockBarCompact: { gap: 6, paddingHorizontal: 8, paddingVertical: 8 },
   itemWrapper: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -254,6 +260,7 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: '#93C5FD',
   },
+  iconButtonCompact: { width: 40, height: 40, borderRadius: 20 },
   iconButtonActive: {
     backgroundColor: '#FFFFFF',
     borderColor: '#2563EB',
