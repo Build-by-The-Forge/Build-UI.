@@ -11,6 +11,7 @@ import {
   Platform,
 } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 import DashboardBottomNav from '@/components/DashboardBottomNav';
 import { Fonts } from '@/constants/theme';
 import { ChatMessage } from '@/types/dashboard';
@@ -186,8 +187,8 @@ export default function ChatScreen() {
 
         {/* Input bar */}
         <View style={styles.inputBar}>
-          <TouchableOpacity hitSlop={8}>
-            <Text style={styles.inputIcon}>📎</Text>
+          <TouchableOpacity style={styles.attachmentButton} hitSlop={8} accessibilityLabel="Attach a file">
+            <Ionicons name="attach" size={22} color={COLORS.primary} />
           </TouchableOpacity>
           <TextInput
             style={styles.textInput}
@@ -197,8 +198,8 @@ export default function ChatScreen() {
             onChangeText={setDraft}
             onSubmitEditing={sendMessage}
           />
-          <TouchableOpacity hitSlop={8}>
-            <Text style={styles.inputIcon}>🙂</Text>
+          <TouchableOpacity style={styles.emojiButton} hitSlop={8} accessibilityLabel="Choose an emoji">
+            <Ionicons name="happy-outline" size={22} color="#64748B" />
           </TouchableOpacity>
           <TouchableOpacity style={styles.sendButton} onPress={sendMessage} activeOpacity={0.8}>
             <Text style={styles.sendIcon}>➤</Text>
@@ -320,7 +321,17 @@ const styles = StyleSheet.create({
     gap: 8,
     marginBottom: 60,
   },
-  inputIcon: { fontSize: 20 },
+  attachmentButton: {
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    backgroundColor: '#EFF6FF',
+    borderWidth: 1,
+    borderColor: '#BFDBFE',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  emojiButton: { width: 34, height: 38, alignItems: 'center', justifyContent: 'center' },
   textInput: {
     flex: 1,
     backgroundColor: COLORS.surface,
