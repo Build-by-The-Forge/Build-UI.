@@ -1,23 +1,6 @@
-import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  ViewStyle,
-  StyleProp,
-  Platform,
-  useWindowDimensions,
-} from 'react-native';
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-  withTiming,
-  interpolate,
-  Extrapolation,
-} from 'react-native-reanimated';
-import { Fonts } from '@/constants/theme';
+import React from 'react';
+import { Pressable, StyleProp, StyleSheet, Text, useWindowDimensions, View, ViewStyle } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '@/context/ThemeContext';
 
 export interface FloatingDockItem {
@@ -39,283 +22,58 @@ export interface FloatingDockProps {
   showTooltips?: boolean;
 }
 
-const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
-
-function DockIconItem({
-  item,
-  showTooltips = true,
-}: {
-  item: FloatingDockItem;
-  showTooltips?: boolean;
-}) {
-  const [isHovered, setIsHovered] = useState(false);
+export function FloatingDock({ items, style, containerStyle }: FloatingDockProps) {
   const { width } = useWindowDimensions();
-  const compact = width < 380;
+  const { bottom } = useSafeAreaInsets();
   const { mode } = useTheme();
   const dark = mode === 'dark';
-  const scale = useSharedValue(1);
-  const translateY = useSharedValue(0);
-  const tooltipOpacity = useSharedValue(0);
+  const desktop = width >= 760;
+  const compact = width < 360;
+  const accent = dark ? '#8AB8FF' : '#2563EB';
 
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [
-        { scale: scale.value },
-        { translateY: translateY.value },
-      ],
-    };
-  });
-
-  const animatedTooltipStyle = useAnimatedStyle(() => {
-    return {
-      opacity: tooltipOpacity.value,
-      transform: [
-        {
-          translateY: interpolate(
-            tooltipOpacity.value,
-            [0, 1],
-            [6, -8],
-            Extrapolation.CLAMP
-          ),
-        },
-      ],
-    };
-  });
-
-  const handlePressIn = () => {
-    scale.value = withSpring(1.22, { damping: 12, stiffness: 220 });
-    translateY.value = withSpring(-6, { damping: 12, stiffness: 220 });
-    if (showTooltips) {
-      tooltipOpacity.value = withTiming(1, { duration: 150 });
-    }
-  };
-
-  const handlePressOut = () => {
-    scale.value = withSpring(1, { damping: 14, stiffness: 180 });
-    translateY.value = withSpring(0, { damping: 14, stiffness: 180 });
-    if (showTooltips && !isHovered) {
-      tooltipOpacity.value = withTiming(0, { duration: 200 });
-    }
-  };
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-    scale.value = withSpring(1.25, { damping: 12, stiffness: 200 });
-    translateY.value = withSpring(-8, { damping: 12, stiffness: 200 });
-    if (showTooltips) {
-      tooltipOpacity.value = withTiming(1, { duration: 150 });
-    }
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    scale.value = withSpring(1, { damping: 14, stiffness: 180 });
-    translateY.value = withSpring(0, { damping: 14, stiffness: 180 });
-    if (showTooltips) {
-      tooltipOpacity.value = withTiming(0, { duration: 180 });
-    }
-  };
-
-  const webProps = Platform.OS === 'web' ? {
-    onMouseEnter: handleMouseEnter,
-    onMouseLeave: handleMouseLeave,
-  } : {};
-
-  return (
-    <View style={styles.itemWrapper}>
-      {/* Floating Tooltip */}
-      {showTooltips && (
-        <Animated.View
-          style={[styles.tooltipContainer, animatedTooltipStyle]}
-          pointerEvents="none"
+  return <View style={[styles.outer, desktop && styles.outerDesktop, containerStyle]} pointerEvents="box-none">
+    <View style={[styles.bar, desktop && styles.barDesktop, dark && styles.barDark, { paddingBottom: desktop ? 9 : Math.max(bottom, 8) }, style]}>
+      {items.map((item) => {
+        const selected = !!item.isActive;
+        return <Pressable
+          key={item.title}
+          onPress={item.onPress}
+          accessibilityRole="tab"
+          accessibilityLabel={item.title}
+          accessibilityState={{ selected }}
+          style={({ pressed }) => [styles.item, desktop && styles.itemDesktop, pressed && styles.itemPressed]}
         >
-          <View style={styles.tooltipPill}>
-            <Text style={styles.tooltipText}>{item.title}</Text>
+          <View style={[styles.iconWrap, selected && (dark ? styles.iconActiveDark : styles.iconActive), item.isSpecial && (dark ? styles.aiWrapDark : styles.aiWrap)]}>
+            {item.icon}
+            {item.badge !== undefined && <View style={styles.badge}><Text style={styles.badgeText}>{item.badge}</Text></View>}
           </View>
-        </Animated.View>
-      )}
-
-      {/* Dock Icon Button */}
-      <AnimatedTouchable
-        activeOpacity={0.85}
-        onPress={item.onPress}
-        onPressIn={handlePressIn}
-        onPressOut={handlePressOut}
-        {...webProps}
-        style={[
-          styles.iconButton,
-          compact && styles.iconButtonCompact,
-          item.isActive && styles.iconButtonActive,
-          item.isSpecial && styles.iconButtonSpecial,
-          dark && styles.iconButtonDark,
-          dark && item.isActive && styles.iconButtonDarkActive,
-          dark && item.isSpecial && styles.iconButtonSpecial,
-          animatedStyle,
-        ]}
-      >
-        {item.icon}
-
-        {/* Active indicator dot */}
-        {item.isActive && !item.isSpecial && (
-          <View style={styles.activeDot} />
-        )}
-
-        {/* Optional Badge */}
-        {item.badge !== undefined && (
-          <View style={styles.badge}>
-            <Text style={styles.badgeText}>{item.badge}</Text>
-          </View>
-        )}
-      </AnimatedTouchable>
+          <Text numberOfLines={1} style={[styles.label, compact && styles.labelCompact, dark && styles.labelDark, selected && { color: accent, fontWeight: '800' }]}>{item.title}</Text>
+          {selected && <View style={[styles.indicator, { backgroundColor: accent }]} />}
+        </Pressable>;
+      })}
     </View>
-  );
+  </View>;
 }
 
-export function FloatingDock({
-  items,
-  style,
-  containerStyle,
-  showTooltips = true,
-}: FloatingDockProps) {
-  const { width } = useWindowDimensions();
-  return (
-    <View style={[styles.dockContainer, containerStyle]}>
-      <View style={[styles.dockBar, width < 380 && styles.dockBarCompact, style]}>
-        {items.map((item, index) => (
-          <DockIconItem
-            key={`${item.title}-${index}`}
-            item={item}
-            showTooltips={showTooltips}
-          />
-        ))}
-      </View>
-    </View>
-  );
-}
-
-export function FloatingDockDesktop(props: FloatingDockProps) {
-  return <FloatingDock {...props} />;
-}
-
-export function FloatingDockMobile(props: FloatingDockProps) {
-  return <FloatingDock {...props} />;
-}
+export function FloatingDockDesktop(props: FloatingDockProps) { return <FloatingDock {...props} />; }
+export function FloatingDockMobile(props: FloatingDockProps) { return <FloatingDock {...props} />; }
 
 const styles = StyleSheet.create({
-  dockContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-  },
-  dockBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 10,
-    backgroundColor: '#0F172A',
-    borderRadius: 32,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.12)',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.35,
-    shadowRadius: 20,
-    elevation: 12,
-  },
-  dockBarCompact: { gap: 6, paddingHorizontal: 8, paddingVertical: 8 },
-  itemWrapper: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
-  },
-  tooltipContainer: {
-    position: 'absolute',
-    top: -34,
-    alignSelf: 'center',
-    zIndex: 50,
-  },
-  tooltipPill: {
-    backgroundColor: '#1E293B',
-    paddingHorizontal: 9,
-    paddingVertical: 4,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.15)',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 4,
-  },
-  tooltipText: {
-    color: '#F8FAFC',
-    fontSize: 11,
-    fontWeight: '700',
-    fontFamily: Fonts.bold,
-  },
-  iconButton: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: '#FFFFFF',
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
-    borderWidth: 1.5,
-    borderColor: '#93C5FD',
-  },
-  iconButtonCompact: { width: 40, height: 40, borderRadius: 20 },
-  iconButtonDark: { backgroundColor: '#23334A', borderColor: '#405773' },
-  iconButtonDarkActive: { backgroundColor: '#244681', borderColor: '#70A5F5' },
-  iconButtonActive: {
-    backgroundColor: '#FFFFFF',
-    borderColor: '#2563EB',
-    shadowColor: '#2563EB',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.45,
-    shadowRadius: 10,
-    elevation: 6,
-  },
-  iconButtonSpecial: {
-    backgroundColor: '#FFFFFF',
-    borderColor: '#93C5FD',
-    borderWidth: 1.5,
-    shadowColor: '#3B82F6',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.5,
-    shadowRadius: 12,
-    elevation: 8,
-  },
-  activeDot: {
-    position: 'absolute',
-    bottom: -5,
-    width: 4,
-    height: 4,
-    borderRadius: 2,
-    backgroundColor: '#60A5FA',
-  },
-  badge: {
-    position: 'absolute',
-    top: -3,
-    right: -3,
-    backgroundColor: '#EF4444',
-    minWidth: 16,
-    height: 16,
-    borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 3,
-    borderWidth: 1.5,
-    borderColor: '#0F172A',
-  },
-  badgeText: {
-    color: '#FFFFFF',
-    fontSize: 9,
-    fontWeight: '800',
-    fontFamily: Fonts.extraBold,
-  },
+  outer: { width: '100%', alignItems: 'center' },
+  outerDesktop: { paddingHorizontal: 20 },
+  bar: { width: '100%', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-around', backgroundColor: '#FFFFFF', borderTopWidth: 1, borderColor: '#E1E8F2', paddingTop: 7, paddingHorizontal: 5, borderTopLeftRadius: 18, borderTopRightRadius: 18 },
+  barDark: { backgroundColor: '#172235', borderColor: '#304055' },
+  barDesktop: { maxWidth: 680, borderWidth: 1, borderRadius: 20, paddingHorizontal: 13, paddingTop: 9 },
+  item: { flex: 1, minWidth: 0, minHeight: 57, alignItems: 'center', justifyContent: 'flex-start', paddingTop: 1, position: 'relative' },
+  itemDesktop: { minHeight: 58 }, itemPressed: { opacity: 0.65 },
+  iconWrap: { width: 43, height: 32, borderRadius: 11, alignItems: 'center', justifyContent: 'center' },
+  iconActive: { backgroundColor: '#EAF2FF' }, iconActiveDark: { backgroundColor: '#263F64' },
+  aiWrap: { backgroundColor: '#F1F5FF' }, aiWrapDark: { backgroundColor: '#FFFFFF' },
+  label: { marginTop: 4, color: '#62738A', fontSize: 10, lineHeight: 13, fontWeight: '700', textAlign: 'center' },
+  labelCompact: { fontSize: 10 }, labelDark: { color: '#B5C3D5' },
+  indicator: { position: 'absolute', bottom: 0, width: 19, height: 2, borderRadius: 1 },
+  badge: { position: 'absolute', top: -3, right: -3, minWidth: 15, height: 15, borderRadius: 8, backgroundColor: '#D74646', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 3 },
+  badgeText: { color: '#FFFFFF', fontSize: 9, fontWeight: '800' },
 });
 
 export default FloatingDock;

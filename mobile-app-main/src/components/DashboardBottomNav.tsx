@@ -1,12 +1,11 @@
 import React from 'react';
-import { View, Image, StyleSheet, Platform } from 'react-native';
+import { View, Image, StyleSheet, useWindowDimensions } from 'react-native';
 import { useRouter, usePathname } from 'expo-router';
-import { Ionicons, Feather } from '@expo/vector-icons';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
 import { FloatingDock, FloatingDockItem } from '@/components/ui/floating-dock';
 import { useTheme } from '@/context/ThemeContext';
 
-export type DashboardTab = 'map' | 'study' | 'home' | 'groups' | 'chat' | 'profile';
+export type DashboardTab = 'map' | 'study' | 'home' | 'ai' | 'groups' | 'chat' | 'profile';
 
 interface DashboardBottomNavProps {
   activeTab?: DashboardTab;
@@ -21,14 +20,16 @@ export default function DashboardBottomNav({
 }: DashboardBottomNavProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const insets = useSafeAreaInsets();
+  const { width } = useWindowDimensions();
   const { mode } = useTheme();
-  const activeColor = mode === 'dark' ? '#E5EDF7' : '#2563EB';
+  const activeColor = mode === 'dark' ? '#8AB8FF' : '#2563EB';
   const inactiveColor = mode === 'dark' ? '#B5C3D5' : '#64748B';
 
   const currentTab: DashboardTab =
     activeTab ||
-    (pathname.includes('mapscreen') || pathname.includes('placdetailscreen')
+    (pathname.includes('buildai')
+      ? 'ai'
+      : pathname.includes('mapscreen') || pathname.includes('placdetailscreen')
       ? 'map'
       : pathname.includes('studygroup')
       ? 'groups'
@@ -61,6 +62,9 @@ export default function DashboardBottomNav({
       case 'profile':
         router.push('/dashboard/settings');
         break;
+      case 'ai':
+        router.push('/dashboard/buildai');
+        break;
       default:
         router.push('/dashboard/home');
     }
@@ -90,9 +94,9 @@ export default function DashboardBottomNav({
     {
       title: 'Map',
       icon: (
-        <Feather
-          name="map-pin"
-          size={19}
+        <Ionicons
+          name={currentTab === 'map' ? 'location' : 'location-outline'}
+          size={21}
           color={currentTab === 'map' ? activeColor : inactiveColor}
         />
       ),
@@ -121,6 +125,7 @@ export default function DashboardBottomNav({
         />
       ),
       isSpecial: true,
+      isActive: currentTab === 'ai',
       onPress: handleFab,
     },
     {
@@ -149,17 +154,15 @@ export default function DashboardBottomNav({
     },
   ];
 
-  const bottomInset = Math.max(insets.bottom, Platform.OS === 'ios' ? 20 : 16);
-
   return (
-    <View style={[styles.container, { bottom: bottomInset }]} pointerEvents="box-none">
+    <View style={[styles.container, { bottom: width >= 760 ? 16 : 0 }]} pointerEvents="box-none">
       <FloatingDock items={dockItems} showTooltips={showTooltips} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  aiLogo: { width: 28, height: 30 },
+  aiLogo: { width: 24, height: 25 },
   container: {
     position: 'absolute',
     left: 0,
