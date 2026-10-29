@@ -6,6 +6,7 @@ export default function DashboardLayout() {
       <Stack.Screen name="home" />
       <Stack.Screen name="buildai" />
       <Stack.Screen name="cbtquiz" />
+      <Stack.Screen name="courses" />
       <Stack.Screen name="chatscreen" />
       <Stack.Screen name="mapscreen" />
       <Stack.Screen name="placdetailscreen" />

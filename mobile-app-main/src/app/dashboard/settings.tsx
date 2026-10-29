@@ -57,7 +57,7 @@ export default function SettingsScreen() {
 
       {section('Account', <>
         {settingRow('Academic profile', data.department ? `${data.institution.shortName} · ${data.department.name}` : 'Choose your level and department', 'person-outline', () => router.push('/(onboarding)/step-one'))}
-        {settingRow('My courses', data.courses.length ? `${data.courses.length} courses selected` : 'Choose your courses', 'book-outline', () => router.push('/(onboarding)/step-two'))}
+        {settingRow('My courses', data.courses.length ? `${data.courses.length} courses selected` : 'Choose your courses', 'book-outline', () => router.push('/dashboard/courses'))}
       </>)}
 
       {section('Appearance', <View style={styles.appearance}>

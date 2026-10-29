@@ -30,7 +30,7 @@ export default function HomeScreen() {
 
   const start = () => {
     if (!hasProfile) router.push('/(onboarding)/step-one');
-    else if (!firstCourse) router.push('/(onboarding)/step-two');
+    else if (!firstCourse) router.push('/dashboard/courses');
     else router.push('/dashboard/studymode');
   };
   const actionLabel = !hasProfile ? 'Set up your studies' : firstCourse ? 'Choose a study mode' : 'Choose your courses';
@@ -75,7 +75,7 @@ export default function HomeScreen() {
   </View>;
 
   const courses = <View style={ui.section}>
-    <View style={ui.sectionHeadingRow}><View><Text style={ui.sectionEyebrow}>YOUR STUDIES</Text><Text style={ui.sectionTitle}>Your courses</Text></View><TouchableOpacity onPress={() => router.push(hasProfile ? '/(onboarding)/step-two' : '/(onboarding)/step-one')} accessibilityRole="button" accessibilityLabel="Manage courses"><Text style={ui.manage}>Manage</Text></TouchableOpacity></View>
+    <View style={ui.sectionHeadingRow}><View><Text style={ui.sectionEyebrow}>YOUR STUDIES</Text><Text style={ui.sectionTitle}>Your courses</Text></View><TouchableOpacity onPress={() => router.push('/dashboard/courses')} accessibilityRole="button" accessibilityLabel="Manage courses"><Text style={ui.manage}>Manage</Text></TouchableOpacity></View>
     {selectedCourses.length ? selectedCourses.slice(0, 4).map(course =>
       <View key={course.id} style={ui.courseRow}><View style={ui.courseDot} /><View style={ui.courseRowCopy}><Text style={ui.courseRowCode}>{course.code}</Text><Text style={ui.courseRowName} numberOfLines={1}>{course.name}</Text></View></View>
     ) : <Text style={ui.noCourses}>No courses selected yet. Add yours to keep them close at hand.</Text>}
