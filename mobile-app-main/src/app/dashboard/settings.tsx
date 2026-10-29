@@ -17,8 +17,9 @@ export default function SettingsScreen() {
   const [formError, setFormError] = useState('');
   const [showHelp, setShowHelp] = useState(false);
   const dark = mode === 'dark';
-  const ink = dark ? '#F8FAFC' : '#16263A';
-  const muted = dark ? '#A7B8CC' : '#64748B';
+  const ink = dark ? '#E5EDF7' : '#16263A';
+  const muted = dark ? '#B5C3D5' : '#64748B';
+  const accent = dark ? '#8AB8FF' : '#2563EB';
   const surface = dark ? '#172235' : '#FFFFFF';
   const border = dark ? '#304055' : '#E2E8F0';
   const tint = dark ? '#203555' : '#EFF6FF';
@@ -32,7 +33,7 @@ export default function SettingsScreen() {
 
   const settingRow = (title: string, detail: string, icon: Icon, onPress: () => void) =>
     <TouchableOpacity key={title} onPress={onPress} style={[styles.row, { borderColor: border }]} activeOpacity={0.75} accessibilityRole="button" accessibilityLabel={title}>
-      <View style={[styles.iconBox, { backgroundColor: tint }]}><Ionicons name={icon} size={20} color="#2563EB" /></View>
+      <View style={[styles.iconBox, { backgroundColor: tint }]}><Ionicons name={icon} size={20} color={accent} /></View>
       <View style={styles.rowCopy}><Text style={[styles.rowTitle, { color: ink }]}>{title}</Text><Text style={[styles.rowDetail, { color: muted }]} numberOfLines={2}>{detail}</Text></View>
       <Ionicons name="chevron-forward" size={18} color={muted} />
     </TouchableOpacity>;
@@ -41,7 +42,7 @@ export default function SettingsScreen() {
     <View style={styles.section}><Text style={[styles.sectionTitle, { color: ink }]}>{title}</Text><View style={[styles.sectionBody, { backgroundColor: surface, borderColor: border }]}>{content}</View></View>;
 
   const info = (title: string, detail: string, icon: Icon) =>
-    <View style={styles.infoRow}><View style={[styles.iconBox, { backgroundColor: tint }]}><Ionicons name={icon} size={20} color="#2563EB" /></View><View style={styles.rowCopy}><Text style={[styles.rowTitle, { color: ink }]}>{title}</Text><Text style={[styles.rowDetail, { color: muted }]}>{detail}</Text></View></View>;
+    <View style={styles.infoRow}><View style={[styles.iconBox, { backgroundColor: tint }]}><Ionicons name={icon} size={20} color={accent} /></View><View style={styles.rowCopy}><Text style={[styles.rowTitle, { color: ink }]}>{title}</Text><Text style={[styles.rowDetail, { color: muted }]}>{detail}</Text></View></View>;
 
   return <SafeAreaView style={[styles.page, { backgroundColor: dark ? '#0B1220' : '#F7F9FC' }]}>
     <ScrollView contentContainerStyle={[styles.content, { maxWidth: width >= 700 ? 760 : undefined }]} showsVerticalScrollIndicator={false}>
@@ -69,7 +70,7 @@ export default function SettingsScreen() {
             {selected && <Ionicons name="checkmark-circle" size={17} color="#FFFFFF" />}
           </TouchableOpacity>;
         })}</View>
-        {!ready && <ActivityIndicator style={styles.loading} color="#2563EB" accessibilityLabel="Loading appearance preference" />}
+        {!ready && <ActivityIndicator style={styles.loading} color={accent} accessibilityLabel="Loading appearance preference" />}
         {!!(formError || error) && <Text style={styles.error} accessibilityRole="alert">{formError || error}</Text>}
       </View>)}
 
@@ -84,7 +85,7 @@ export default function SettingsScreen() {
 
       {section('Help & support', <>
         <TouchableOpacity style={[styles.row, { borderColor: border }]} onPress={() => setShowHelp(value => !value)} accessibilityRole="button" accessibilityState={{ expanded: showHelp }}>
-          <View style={[styles.iconBox, { backgroundColor: tint }]}><Ionicons name="help-circle-outline" size={20} color="#2563EB" /></View><View style={styles.rowCopy}><Text style={[styles.rowTitle, { color: ink }]}>How do I update my studies?</Text><Text style={[styles.rowDetail, { color: muted }]}>View a quick guide</Text></View><Ionicons name={showHelp ? 'chevron-up' : 'chevron-down'} size={18} color={muted} />
+          <View style={[styles.iconBox, { backgroundColor: tint }]}><Ionicons name="help-circle-outline" size={20} color={accent} /></View><View style={styles.rowCopy}><Text style={[styles.rowTitle, { color: ink }]}>How do I update my studies?</Text><Text style={[styles.rowDetail, { color: muted }]}>View a quick guide</Text></View><Ionicons name={showHelp ? 'chevron-up' : 'chevron-down'} size={18} color={muted} />
         </TouchableOpacity>
         {showHelp && <Text style={[styles.helpText, { color: muted }]}>Choose your level and department in Academic profile. Then update your courses, goals, and learning styles above.</Text>}
       </>)}

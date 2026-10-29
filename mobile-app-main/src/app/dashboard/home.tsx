@@ -5,16 +5,19 @@ import { useRouter } from 'expo-router';
 import DashboardBottomNav from '@/components/DashboardBottomNav';
 import { useOnboarding } from '@/context/Onboardingcontext';
 import { useThemedStyles } from '@/hooks/useThemedStyles';
+import { useTheme } from '@/context/ThemeContext';
 
 const BLUE = '#2563EB';
 const tools = [
-  { title: 'Read Mode', detail: 'Work through a lesson', icon: 'book-outline' as const, route: '/dashboard/readmode' as const, tint: '#E9F1FF', color: '#2563EB' },
-  { title: 'CBT Practice', detail: 'Try practice questions', icon: 'checkbox-outline' as const, route: '/dashboard/cbtquiz' as const, tint: '#E8F7F3', color: '#0F766E' },
-  { title: 'Video Lessons', detail: 'Learn by watching', icon: 'play-circle-outline' as const, route: '/dashboard/videoplayer' as const, tint: '#F1EDFF', color: '#7252B5' },
+  { title: 'Read Mode', detail: 'Work through a lesson', icon: 'book-outline' as const, route: '/dashboard/readmode' as const, tint: '#E9F1FF', color: '#2563EB', darkTint: '#20385A', darkColor: '#8AB8FF' },
+  { title: 'CBT Practice', detail: 'Try practice questions', icon: 'checkbox-outline' as const, route: '/dashboard/cbtquiz' as const, tint: '#E8F7F3', color: '#0F766E', darkTint: '#163B3B', darkColor: '#6CD6C3' },
+  { title: 'Video Lessons', detail: 'Learn by watching', icon: 'play-circle-outline' as const, route: '/dashboard/videoplayer' as const, tint: '#F1EDFF', color: '#7252B5', darkTint: '#342D4E', darkColor: '#BBA4F5' },
 ];
 
 export default function HomeScreen() {
   const ui = useThemedStyles(styles);
+  const { mode } = useTheme();
+  const dark = mode === 'dark';
   const router = useRouter();
   const { width } = useWindowDimensions();
   const { data, getAvailableCourses } = useOnboarding();
@@ -40,7 +43,7 @@ export default function HomeScreen() {
       : firstCourse
         ? `You have ${selectedCourses.length} ${selectedCourses.length === 1 ? 'course' : 'courses'} selected. Pick a learning mode and start when you are ready.`
         : 'Select your courses so your study space reflects your programme.'}</Text>
-    {firstCourse && <View style={ui.courseIdentity}><View style={ui.courseMark}><Ionicons name="book-outline" size={19} color={BLUE} /></View><View style={ui.courseIdentityCopy}><Text style={ui.courseCode}>{firstCourse.code}</Text><Text style={ui.courseName} numberOfLines={2}>{firstCourse.name}</Text></View></View>}
+    {firstCourse && <View style={ui.courseIdentity}><View style={[ui.courseMark, dark && { backgroundColor: '#20385A' }]}><Ionicons name="book-outline" size={19} color={dark ? '#8AB8FF' : BLUE} /></View><View style={ui.courseIdentityCopy}><Text style={ui.courseCode}>{firstCourse.code}</Text><Text style={ui.courseName} numberOfLines={2}>{firstCourse.name}</Text></View></View>}
     <TouchableOpacity style={ui.primaryAction} onPress={start} accessibilityRole="button" accessibilityLabel={actionLabel}>
       <Text style={ui.primaryActionText}>{actionLabel}</Text><Ionicons name="arrow-forward" size={18} color="#FFFFFF" />
     </TouchableOpacity>
@@ -52,23 +55,23 @@ export default function HomeScreen() {
     <Text style={ui.sectionIntro}>Choose the format that helps you make progress today.</Text>
     <View style={[ui.tools, wide && ui.toolsWide]}>{tools.map(tool =>
       <TouchableOpacity key={tool.title} style={ui.tool} onPress={() => router.push(tool.route)} activeOpacity={0.75} accessibilityRole="button" accessibilityLabel={tool.title}>
-        <View style={[ui.toolIcon, { backgroundColor: tool.tint }]}><Ionicons name={tool.icon} size={22} color={tool.color} /></View>
+        <View style={[ui.toolIcon, { backgroundColor: dark ? tool.darkTint : tool.tint }]}><Ionicons name={tool.icon} size={22} color={dark ? tool.darkColor : tool.color} /></View>
         <View style={ui.toolCopy}><Text style={ui.toolTitle}>{tool.title}</Text><Text style={ui.toolDetail}>{tool.detail}</Text></View>
-        <Ionicons name="arrow-forward" size={17} color="#8A9AAF" />
+        <Ionicons name="arrow-forward" size={17} color={dark ? '#AFC0D5' : '#8A9AAF'} />
       </TouchableOpacity>
     )}</View>
   </View>;
 
   const assistant = <TouchableOpacity style={ui.assistant} onPress={() => router.push('/dashboard/buildai')} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel="Open BUILD AI chat">
-    <View style={ui.assistantLogo}><Image source={require('@/assets/images/build-ai-logo.png')} resizeMode="contain" style={ui.aiLogo} /></View>
+    <View style={[ui.assistantLogo, dark && { backgroundColor: '#FFFFFF' }]}><Image source={require('@/assets/images/build-ai-logo.png')} resizeMode="contain" style={ui.aiLogo} /></View>
     <View style={ui.assistantCopy}><Text style={ui.assistantKicker}>BUILD AI</Text><Text style={ui.assistantTitle}>Talk through a topic.</Text><Text style={ui.assistantBody}>{aiReady ? 'Ask a question, unpack a concept, or plan what to study next.' : 'Explore the chat. AI replies need a service connection.'}</Text></View>
-    <Ionicons name="arrow-forward" size={19} color={BLUE} />
+    <Ionicons name="arrow-forward" size={19} color={dark ? '#8AB8FF' : BLUE} />
   </TouchableOpacity>;
 
   const upcoming = <View style={ui.section}>
     <Text style={ui.sectionEyebrow}>ACADEMIC CALENDAR</Text>
     <Text style={ui.sectionTitle}>Upcoming</Text>
-    <View style={ui.emptySchedule}><Ionicons name="calendar-outline" size={23} color={BLUE} /><View style={ui.emptyScheduleCopy}><Text style={ui.emptyTitle}>Nothing scheduled here yet</Text><Text style={ui.emptyBody}>Tests, assignments, and classes will appear when a timetable is connected to BUILD.</Text></View></View>
+    <View style={ui.emptySchedule}><Ionicons name="calendar-outline" size={23} color={dark ? '#8AB8FF' : BLUE} /><View style={ui.emptyScheduleCopy}><Text style={ui.emptyTitle}>Nothing scheduled here yet</Text><Text style={ui.emptyBody}>Tests, assignments, and classes will appear when a timetable is connected to BUILD.</Text></View></View>
   </View>;
 
   const courses = <View style={ui.section}>
@@ -79,9 +82,9 @@ export default function HomeScreen() {
     {selectedCourses.length > 4 && <Text style={ui.moreCourses}>+{selectedCourses.length - 4} more selected</Text>}
   </View>;
 
-  return <SafeAreaView style={ui.page}>
+  return <SafeAreaView style={[ui.page, dark && { backgroundColor: '#0B1220' }]}>
     <ScrollView contentContainerStyle={[ui.content, { maxWidth: wide ? 1100 : undefined }]} showsVerticalScrollIndicator={false}>
-      <View style={ui.header}><View style={ui.headerCopy}><Text style={ui.greeting}>{greeting}.</Text><Text style={ui.headerContext}>{data.department ? `${data.department.name}${data.academicLevel ? ` · ${data.academicLevel.title}` : ''}` : 'Your place to learn at FUTA'}</Text></View><TouchableOpacity onPress={() => router.push('/dashboard/settings')} style={ui.settings} accessibilityRole="button" accessibilityLabel="Open settings"><Ionicons name="settings-outline" size={21} color={BLUE} /></TouchableOpacity></View>
+      <View style={ui.header}><View style={ui.headerCopy}><Text style={ui.greeting}>{greeting}.</Text><Text style={ui.headerContext}>{data.department ? `${data.department.name}${data.academicLevel ? ` · ${data.academicLevel.title}` : ''}` : 'Your place to learn at FUTA'}</Text></View><TouchableOpacity onPress={() => router.push('/dashboard/settings')} style={ui.settings} accessibilityRole="button" accessibilityLabel="Open settings"><Ionicons name="settings-outline" size={21} color={dark ? '#8AB8FF' : BLUE} /></TouchableOpacity></View>
       {wide ? <View style={ui.columns}><View style={ui.mainColumn}>{focus}{learning}{assistant}</View><View style={ui.sideColumn}>{upcoming}{courses}</View></View> : <>{focus}{learning}{assistant}{upcoming}{courses}</>}
     </ScrollView>
     <DashboardBottomNav activeTab="home" />

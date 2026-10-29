@@ -18,6 +18,7 @@ import Animated, {
   Extrapolation,
 } from 'react-native-reanimated';
 import { Fonts } from '@/constants/theme';
+import { useTheme } from '@/context/ThemeContext';
 
 export interface FloatingDockItem {
   title: string;
@@ -50,6 +51,8 @@ function DockIconItem({
   const [isHovered, setIsHovered] = useState(false);
   const { width } = useWindowDimensions();
   const compact = width < 380;
+  const { mode } = useTheme();
+  const dark = mode === 'dark';
   const scale = useSharedValue(1);
   const translateY = useSharedValue(0);
   const tooltipOpacity = useSharedValue(0);
@@ -144,6 +147,9 @@ function DockIconItem({
           compact && styles.iconButtonCompact,
           item.isActive && styles.iconButtonActive,
           item.isSpecial && styles.iconButtonSpecial,
+          dark && styles.iconButtonDark,
+          dark && item.isActive && styles.iconButtonDarkActive,
+          dark && item.isSpecial && styles.iconButtonSpecial,
           animatedStyle,
         ]}
       >
@@ -261,6 +267,8 @@ const styles = StyleSheet.create({
     borderColor: '#93C5FD',
   },
   iconButtonCompact: { width: 40, height: 40, borderRadius: 20 },
+  iconButtonDark: { backgroundColor: '#23334A', borderColor: '#405773' },
+  iconButtonDarkActive: { backgroundColor: '#244681', borderColor: '#70A5F5' },
   iconButtonActive: {
     backgroundColor: '#FFFFFF',
     borderColor: '#2563EB',

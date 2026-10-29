@@ -18,11 +18,14 @@ function darkColor(key: string, value: unknown) {
     if (brightness > 225) return '#172235';
     if (brightness > 190) return '#223149';
   }
-  if (key === 'borderColor' && brightness > 175) return '#334155';
+  if (key.startsWith('border') && key.endsWith('Color') && brightness > 175) return '#314158';
   if (key === 'color' && neutral) {
-    if (brightness < 110) return '#F8FAFC';
-    if (brightness < 190) return '#A5B4C8';
+    if (brightness < 110) return '#E5EDF7';
+    if (brightness < 190) return '#B5C3D5';
   }
+  if (key === 'color' && b > r * 1.35 && b > g * 1.1 && g >= r * 0.9 && brightness < 155) return '#8AB8FF';
+  if (key === 'color' && r > g * 1.15 && b > g * 1.3 && brightness < 165) return '#BBA4F5';
+  if (key === 'color' && g > r * 2 && b > r * 2 && b >= g * 0.75 && brightness < 155) return '#6CD6C3';
   return value;
 }
 

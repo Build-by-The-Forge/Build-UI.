@@ -4,6 +4,7 @@ import { useRouter, usePathname } from 'expo-router';
 import { Ionicons, Feather } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FloatingDock, FloatingDockItem } from '@/components/ui/floating-dock';
+import { useTheme } from '@/context/ThemeContext';
 
 export type DashboardTab = 'map' | 'study' | 'home' | 'groups' | 'chat' | 'profile';
 
@@ -21,6 +22,9 @@ export default function DashboardBottomNav({
   const router = useRouter();
   const pathname = usePathname();
   const insets = useSafeAreaInsets();
+  const { mode } = useTheme();
+  const activeColor = mode === 'dark' ? '#E5EDF7' : '#2563EB';
+  const inactiveColor = mode === 'dark' ? '#B5C3D5' : '#64748B';
 
   const currentTab: DashboardTab =
     activeTab ||
@@ -77,7 +81,7 @@ export default function DashboardBottomNav({
         <Ionicons
           name={currentTab === 'home' ? 'home' : 'home-outline'}
           size={20}
-          color={currentTab === 'home' ? '#2563EB' : '#64748B'}
+          color={currentTab === 'home' ? activeColor : inactiveColor}
         />
       ),
       isActive: currentTab === 'home',
@@ -89,7 +93,7 @@ export default function DashboardBottomNav({
         <Feather
           name="map-pin"
           size={19}
-          color={currentTab === 'map' ? '#2563EB' : '#64748B'}
+          color={currentTab === 'map' ? activeColor : inactiveColor}
         />
       ),
       isActive: currentTab === 'map',
@@ -101,7 +105,7 @@ export default function DashboardBottomNav({
         <Ionicons
           name={currentTab === 'study' ? 'school' : 'school-outline'}
           size={21}
-          color={currentTab === 'study' ? '#2563EB' : '#64748B'}
+          color={currentTab === 'study' ? activeColor : inactiveColor}
         />
       ),
       isActive: currentTab === 'study',
@@ -125,7 +129,7 @@ export default function DashboardBottomNav({
         <Ionicons
           name={currentTab === 'groups' ? 'people' : 'people-outline'}
           size={21}
-          color={currentTab === 'groups' ? '#2563EB' : '#64748B'}
+          color={currentTab === 'groups' ? activeColor : inactiveColor}
         />
       ),
       isActive: currentTab === 'groups',
@@ -137,7 +141,7 @@ export default function DashboardBottomNav({
         <Ionicons
           name={currentTab === 'chat' ? 'chatbubble-ellipses' : 'chatbubble-ellipses-outline'}
           size={20}
-          color={currentTab === 'chat' ? '#2563EB' : '#64748B'}
+          color={currentTab === 'chat' ? activeColor : inactiveColor}
         />
       ),
       isActive: currentTab === 'chat',
