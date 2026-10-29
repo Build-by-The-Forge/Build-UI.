@@ -66,7 +66,7 @@ export default function DashboardBottomNav({
     if (onFabPress) {
       onFabPress();
     } else {
-      router.push('/dashboard/studymode');
+      router.push('/dashboard/buildai');
     }
   };
 

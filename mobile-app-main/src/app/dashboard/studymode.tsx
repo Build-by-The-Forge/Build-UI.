@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   StyleSheet,
   SafeAreaView,
-  Alert,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import DashboardBottomNav from '@/components/DashboardBottomNav';
@@ -86,14 +85,7 @@ export default function StudyModesScreen() {
   const [activeTab, setActiveTab] = useState('All Modes');
 
   const handleCustomPlan = () => {
-    Alert.alert(
-      '✦ BUILD AI Study Planner',
-      'BUILD AI analyzed your syllabus and created a 7-day revision schedule starting with Integration Techniques and Thermodynamics.',
-      [
-        { text: 'Start Today', onPress: () => router.push('/dashboard/readmode') },
-        { text: 'Got it', style: 'cancel' },
-      ]
-    );
+    router.push('/dashboard/buildai');
   };
 
   return (
