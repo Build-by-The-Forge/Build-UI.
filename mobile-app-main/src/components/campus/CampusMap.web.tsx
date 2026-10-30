@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import { CAMPUS_CENTER, campusStyle, type CampusMapProps } from './mapStyle';
+import { CAMPUS_CENTER, buildingColor, campusPlacesGeoJSON, campusStyle, visiblePlaceFilter, type CampusMapProps } from './mapStyle';
 
 export default function CampusMap({threeD, selected, resetKey, onSelect, onReady, onError, tracking, userLocation, heading}: CampusMapProps) {
   const container = useRef<HTMLDivElement>(null);
@@ -36,9 +36,12 @@ export default function CampusMap({threeD, selected, resetKey, onSelect, onReady
     const instance=map.current;if(!instance)return;
     const update=()=>{
       instance.setLayoutProperty('buildings-3d','visibility',threeD?'visible':'none');
-      instance.setPaintProperty('buildings-3d','fill-extrusion-color',['case',['==',['get','osmId'],selected?.id||''],'#2487ed','#c4d2df']);
-      instance.setPaintProperty('place-dots','circle-radius',['case',['==',['get','id'],selected?.id||''],8,4]);
-      instance.setPaintProperty('place-dots','circle-color',['case',['==',['get','id'],selected?.id||''],'#1266da','#6c91ad']);
+      instance.setPaintProperty('buildings-flat','fill-color',buildingColor(selected?.id));
+      instance.setPaintProperty('buildings-3d','fill-extrusion-color',buildingColor(selected?.id));
+      (instance.getSource('places') as maplibregl.GeoJSONSource|undefined)?.setData(campusPlacesGeoJSON(selected?.id));
+      for(const layer of ['place-halos','place-dots','place-labels'])instance.setFilter(layer,visiblePlaceFilter(selected?.id));
+      instance.setPaintProperty('place-halos','circle-radius',['case',['==',['get','id'],selected?.id||''],13,10]);
+      instance.setPaintProperty('place-dots','circle-radius',['case',['==',['get','id'],selected?.id||''],7,5]);
       instance.easeTo({pitch:threeD?52:0,...(selected?{center:selected.coordinate as [number,number],zoom:17}:{}),duration:650});
     };
     // isStyleLoaded() becomes false during glyph requests after a camera move.
