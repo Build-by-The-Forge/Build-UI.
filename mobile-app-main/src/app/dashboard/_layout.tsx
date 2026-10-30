@@ -5,6 +5,7 @@ export default function DashboardLayout() {
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="home" />
       <Stack.Screen name="buildai" />
+      <Stack.Screen name="calendar" />
       <Stack.Screen name="cbtquiz" />
       <Stack.Screen name="courses" />
       <Stack.Screen name="chatscreen" />

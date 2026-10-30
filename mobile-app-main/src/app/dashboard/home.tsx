@@ -1,11 +1,12 @@
-import React from 'react';
-import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';
+import React, { useCallback, useState } from 'react';
+import { ActivityIndicator, Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import { useFocusEffect, useRouter } from 'expo-router';
 import DashboardBottomNav from '@/components/DashboardBottomNav';
 import { useOnboarding } from '@/context/Onboardingcontext';
 import { useThemedStyles } from '@/hooks/useThemedStyles';
 import { useTheme } from '@/context/ThemeContext';
+import { loadPlannerEvents, localDateKey, sortPlannerEvents, type PlannerEvent } from '@/services/studentCalendar';
 
 const BLUE = '#2563EB';
 const tools = [
@@ -27,6 +28,15 @@ export default function HomeScreen() {
   const firstCourse = selectedCourses[0];
   const hasProfile = !!(data.department && data.academicLevel);
   const greeting = new Date().getHours() < 12 ? 'Good morning' : new Date().getHours() < 18 ? 'Good afternoon' : 'Good evening';
+  const [calendarEvents, setCalendarEvents] = useState<PlannerEvent[]>([]);
+  const [calendarLoading, setCalendarLoading] = useState(true);
+  const [calendarError, setCalendarError] = useState(false);
+  const nextEvents = sortPlannerEvents(calendarEvents.filter(event => event.date >= localDateKey())).slice(0, 3);
+  useFocusEffect(useCallback(() => {
+    let active = true;
+    loadPlannerEvents().then(value => { if (active) { setCalendarEvents(value); setCalendarError(false); } }).catch(() => { if (active) setCalendarError(true); }).finally(() => { if (active) setCalendarLoading(false); });
+    return () => { active = false; };
+  }, []));
 
   const start = () => {
     if (!hasProfile) router.push('/(onboarding)/step-one');
@@ -69,9 +79,9 @@ export default function HomeScreen() {
   </TouchableOpacity>;
 
   const upcoming = <View style={ui.section}>
-    <Text style={ui.sectionEyebrow}>ACADEMIC CALENDAR</Text>
-    <Text style={ui.sectionTitle}>Upcoming</Text>
-    <View style={ui.emptySchedule}><Ionicons name="calendar-outline" size={23} color={dark ? '#8AB8FF' : BLUE} /><View style={ui.emptyScheduleCopy}><Text style={ui.emptyTitle}>Nothing scheduled here yet</Text><Text style={ui.emptyBody}>Tests, assignments, and classes will appear when a timetable is connected to BUILD.</Text></View></View>
+    <View style={ui.sectionHeadingRow}><View><Text style={ui.sectionEyebrow}>ACADEMIC CALENDAR</Text><Text style={ui.sectionTitle}>Upcoming</Text></View><TouchableOpacity onPress={() => router.push('/dashboard/calendar')} style={ui.calendarAdd} accessibilityRole="button" accessibilityLabel="Open student calendar and day planner"><Ionicons name="add" size={20} color="#FFFFFF" /></TouchableOpacity></View>
+    {calendarLoading ? <ActivityIndicator color={BLUE} style={{ marginVertical: 22 }} /> : nextEvents.length ? nextEvents.map(event => <TouchableOpacity key={event.id} onPress={() => router.push('/dashboard/calendar')} style={ui.scheduleRow} accessibilityRole="button" accessibilityLabel={`Open calendar for ${event.title}`}><View style={ui.scheduleDate}><Text style={ui.scheduleDay}>{Number(event.date.slice(-2))}</Text><Text style={ui.scheduleMonth}>{new Date(`${event.date}T12:00:00`).toLocaleDateString(undefined, { month: 'short' }).toUpperCase()}</Text></View><View style={ui.emptyScheduleCopy}><Text style={ui.scheduleType}>{event.type.toUpperCase()}{event.courseCode ? ` · ${event.courseCode}` : ''}</Text><Text style={ui.scheduleTitle} numberOfLines={2}>{event.title}</Text><Text style={ui.scheduleTime}>{event.allDay ? 'All day' : `${event.startTime}–${event.endTime}`}</Text></View><Ionicons name="chevron-forward" size={16} color={dark ? '#B5C3D5' : '#8A9AAF'} /></TouchableOpacity>) : <View style={ui.emptySchedule}><Ionicons name="calendar-outline" size={23} color={dark ? '#8AB8FF' : BLUE} /><View style={ui.emptyScheduleCopy}><Text style={ui.emptyTitle}>{calendarError ? 'Calendar unavailable' : 'Nothing scheduled here yet'}</Text><Text style={ui.emptyBody}>{calendarError ? 'Open your calendar to try again.' : 'Add classes, study sessions, assignments, and exams to your planner.'}</Text></View></View>}
+    {nextEvents.length > 0 && <TouchableOpacity onPress={() => router.push('/dashboard/calendar')} accessibilityRole="button" style={ui.viewCalendar}><Text style={ui.viewCalendarText}>View calendar</Text><Ionicons name="arrow-forward" size={15} color={dark ? '#8AB8FF' : BLUE} /></TouchableOpacity>}
   </View>;
 
   const courses = <View style={ui.section}>
@@ -116,6 +126,7 @@ const styles = StyleSheet.create({
   assistantKicker: { color: BLUE, fontSize: 10, fontWeight: '800', letterSpacing: 1 }, assistantTitle: { color: '#21324A', fontSize: 15, fontWeight: '800', marginTop: 3 }, assistantBody: { color: '#6F8095', fontSize: 12, lineHeight: 18, marginTop: 3 },
   emptySchedule: { flexDirection: 'row', gap: 13, alignItems: 'flex-start', borderTopWidth: 1, borderTopColor: '#E7ECF3', paddingTop: 17, marginTop: 14 },
   emptyScheduleCopy: { flex: 1 }, emptyTitle: { color: '#27374D', fontSize: 13, fontWeight: '700' }, emptyBody: { color: '#7A899B', fontSize: 12, lineHeight: 19, marginTop: 4 },
+  calendarAdd: { width: 35, height: 35, borderRadius: 10, backgroundColor: BLUE, alignItems: 'center', justifyContent: 'center' }, scheduleRow: { flexDirection: 'row', alignItems: 'center', gap: 11, minHeight: 73, borderTopWidth: 1, borderTopColor: '#E7ECF3', paddingVertical: 10 }, scheduleDate: { width: 40, height: 44, borderRadius: 9, backgroundColor: '#EAF2FF', alignItems: 'center', justifyContent: 'center' }, scheduleDay: { color: BLUE, fontSize: 15, fontWeight: '800' }, scheduleMonth: { color: BLUE, fontSize: 9, fontWeight: '800' }, scheduleType: { color: BLUE, fontSize: 9, fontWeight: '800', letterSpacing: 0.5 }, scheduleTitle: { color: '#203048', fontSize: 13, fontWeight: '800', marginTop: 3 }, scheduleTime: { color: '#77879B', fontSize: 11, marginTop: 3 }, viewCalendar: { flexDirection: 'row', alignItems: 'center', gap: 5, alignSelf: 'flex-start', minHeight: 35 }, viewCalendarText: { color: BLUE, fontSize: 12, fontWeight: '800' },
   manage: { color: BLUE, fontSize: 12, fontWeight: '800', paddingVertical: 5 }, courseRow: { flexDirection: 'row', alignItems: 'center', gap: 10, minHeight: 58, borderBottomWidth: 1, borderBottomColor: '#E7ECF3' },
   courseDot: { width: 9, height: 9, borderRadius: 5, backgroundColor: BLUE }, courseRowCopy: { flex: 1 }, courseRowCode: { color: '#253854', fontSize: 12, fontWeight: '800' }, courseRowName: { color: '#77879B', fontSize: 11, marginTop: 2 },
   noCourses: { color: '#7A899B', fontSize: 12, lineHeight: 19, borderTopWidth: 1, borderTopColor: '#E7ECF3', paddingTop: 14, marginTop: 10 }, moreCourses: { color: '#718198', fontSize: 11, marginTop: 10 },
