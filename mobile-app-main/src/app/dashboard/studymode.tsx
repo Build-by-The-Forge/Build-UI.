@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { ActivityIndicator, Image, Modal, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as DocumentPicker from 'expo-document-picker';
-import { useRouter } from 'expo-router';
+import { useFocusEffect, useRouter } from 'expo-router';
 import { z } from 'zod';
 import DashboardBottomNav from '@/components/DashboardBottomNav';
 import { useOnboarding } from '@/context/Onboardingcontext';
@@ -30,8 +30,7 @@ export default function StudyModesScreen() {
   const { data, getAvailableCourses } = useOnboarding();
   const wide = width >= 760;
   const selectedCourses = getAvailableCourses().filter(course => data.courses.includes(course.id));
-  const hasProfile = !!(data.department && data.academicLevel);
-  const manageCourses = () => router.push(hasProfile ? '/(onboarding)/step-two' : '/(onboarding)/step-one');
+  const manageCourses = () => router.push('/dashboard/courses');
   const aiReady = !!process.env.EXPO_PUBLIC_BUILD_AI_API_URL;
   const [shelf, setShelf] = useState<StudyShelf>({ courses: [], notes: [] });
   const [shelfLoading, setShelfLoading] = useState(true);
@@ -43,9 +42,11 @@ export default function StudyModesScreen() {
   const [courseName, setCourseName] = useState('');
   const allCourses = [...selectedCourses.map(course => ({ id: course.id, code: course.code, name: course.name })), ...shelf.courses];
 
-  useEffect(() => {
-    loadStudyShelf().then(setShelf).catch(() => setShelfError('Your saved shelf could not be loaded.')).finally(() => setShelfLoading(false));
-  }, []);
+  useFocusEffect(useCallback(() => {
+    let active = true;
+    loadStudyShelf().then(value => { if (active) { setShelf(value); setShelfError(''); } }).catch(() => { if (active) setShelfError('Your saved shelf could not be loaded.'); }).finally(() => { if (active) setShelfLoading(false); });
+    return () => { active = false; };
+  }, []));
 
   const persist = async (next: StudyShelf) => {
     await saveStudyShelf(next);
