@@ -70,7 +70,18 @@
     "web": "expo start --web",
     "lint": "expo lint",
     "api:generate": "node scripts/api-codegen.mjs",
-    "api:check": "node scripts/api-codegen.mjs --check"
+    "api:check": "node scripts/api-codegen.mjs --check",
+    "test": "jest"
   },
-  "private": true
+  "private": true,
+  "jest": {
+    "preset": "jest-expo",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/tools/"
+    ],
+    "modulePathIgnorePatterns": [
+      "<rootDir>/tools/"
+    ]
+  }
 }
