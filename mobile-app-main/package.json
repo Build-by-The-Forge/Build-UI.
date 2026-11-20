@@ -68,7 +68,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "expo lint",
+    "lint": "eslint .",
     "api:generate": "node scripts/api-codegen.mjs",
     "api:check": "node scripts/api-codegen.mjs --check",
     "test": "jest"
