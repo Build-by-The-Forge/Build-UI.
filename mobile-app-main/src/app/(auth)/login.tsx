@@ -2,11 +2,36 @@ import { Fonts } from '@/constants/theme';
 import { Feather } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Link, useRouter } from 'expo-router';
-import { Pressable, StyleSheet, Text, TextInput, View, KeyboardAvoidingView, Platform } from 'react-native';
+import { Link } from 'expo-router';
+import { useState } from 'react';
+import { ActivityIndicator, Pressable, StyleSheet, Text, TextInput, View, KeyboardAvoidingView, Platform } from 'react-native';
+import { describeAuthError, noErrors, type FormErrors } from '@/auth/errorMessages';
+import { useSession } from '@/auth/SessionProvider';
 
 export default function LoginScreen() {
-  const router = useRouter();
+  const { signIn, reason } = useSession();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [errors, setErrors] = useState<FormErrors>(noErrors);
+
+  async function submit() {
+    if (busy) return;
+    if (!email.trim() || !password) {
+      setErrors({ fields: {}, general: 'Enter your email and password.' });
+      return;
+    }
+    setBusy(true);
+    setErrors(noErrors);
+    try {
+      // On success the navigator moves on by itself: this screen is only
+      // reachable while signed out.
+      await signIn(email.trim(), password);
+    } catch (error) {
+      setErrors(describeAuthError(error));
+      setBusy(false);
+    }
+  }
 
   return (
     <KeyboardAvoidingView
@@ -45,6 +70,12 @@ export default function LoginScreen() {
               placeholderTextColor="#9CA3AF"
               keyboardType="email-address"
               autoCapitalize="none"
+              autoComplete="email"
+              autoCorrect={false}
+              value={email}
+              onChangeText={setEmail}
+              editable={!busy}
+              accessibilityLabel="Email address"
             />
           </View>
 
@@ -55,21 +86,31 @@ export default function LoginScreen() {
               placeholder="Password"
               placeholderTextColor="#9CA3AF"
               secureTextEntry
+              autoComplete="current-password"
+              value={password}
+              onChangeText={setPassword}
+              onSubmitEditing={submit}
+              editable={!busy}
+              accessibilityLabel="Password"
             />
           </View>
 
-          <Pressable style={styles.forgotPassword}>
-            <Text style={styles.forgotText}>forgot password?</Text>
-          </Pressable>
+          {reason === 'expired' && !errors.general && (
+            <Text style={styles.notice}>Your session ended. Sign in again to continue.</Text>
+          )}
+          {!!errors.general && <Text accessibilityRole="alert" style={styles.error}>{errors.general}</Text>}
+          {Object.values(errors.fields).map((m) => (
+            <Text key={m} accessibilityRole="alert" style={styles.error}>{m}</Text>
+          ))}
 
-          <Pressable style={styles.buttonWrapper} onPress={() => router.replace('/(onboarding)/step-one')}>
+          <Pressable style={styles.buttonWrapper} onPress={submit} disabled={busy} accessibilityRole="button" accessibilityState={{ busy }}>
             <LinearGradient
               colors={['#3B82F6', '#6366F1']}
               style={styles.button}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
             >
-              <Text style={styles.buttonText}>Sign In</Text>
+              {busy ? <ActivityIndicator color="#ffffff" /> : <Text style={styles.buttonText}>Sign In</Text>}
             </LinearGradient>
           </Pressable>
 
@@ -188,6 +229,24 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.medium,
     fontSize: 13,
     color: '#004EAA',
+  },
+  error: {
+    fontFamily: Fonts.medium,
+    fontSize: 13,
+    color: '#7F1D1D',
+    backgroundColor: '#FEE2E2',
+    borderRadius: 12,
+    padding: 10,
+    marginTop: 10,
+  },
+  notice: {
+    fontFamily: Fonts.medium,
+    fontSize: 13,
+    color: '#1E3A8A',
+    backgroundColor: '#DBEAFE',
+    borderRadius: 12,
+    padding: 10,
+    marginTop: 10,
   },
   buttonWrapper: {
     marginTop: 8,

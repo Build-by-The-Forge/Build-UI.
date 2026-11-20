@@ -4,7 +4,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { z } from 'zod';
 import { useOnboarding } from '@/context/Onboardingcontext';
+import { useAcademicProfile } from '@/features/academic/ProfileProvider';
 import { useTheme } from '@/context/ThemeContext';
+import { useSession } from '@/auth/SessionProvider';
 
 type Icon = React.ComponentProps<typeof Ionicons>['name'];
 const appearanceSchema = z.object({ mode: z.string().regex(/^(light|dark)$/, 'Choose Light or Dark mode') });
@@ -13,6 +15,8 @@ export default function SettingsScreen() {
   const router = useRouter();
   const { width } = useWindowDimensions();
   const { data } = useOnboarding();
+  const { profile } = useAcademicProfile();
+  const { signOut, email } = useSession();
   const { mode, setMode, ready, error } = useTheme();
   const [formError, setFormError] = useState('');
   const [showHelp, setShowHelp] = useState(false);
@@ -52,12 +56,12 @@ export default function SettingsScreen() {
       </View>
       <View style={[styles.identity, { backgroundColor: dark ? '#172B4C' : '#EAF2FF', borderColor: dark ? '#28456B' : '#D5E6FF' }]}>
         <View style={styles.logoBox}><Image source={require('@/assets/images/build-logo.png')} resizeMode="contain" style={styles.logo} /></View>
-        <View style={styles.rowCopy}><Text style={[styles.identityTitle, { color: ink }]}>Your BUILD space</Text><Text style={[styles.rowDetail, { color: muted }]} numberOfLines={2}>{data.department ? `${data.department.name} · ${data.academicLevel?.title || 'Level not set'}` : 'Set up your academic profile'}</Text></View>
+        <View style={styles.rowCopy}><Text style={[styles.identityTitle, { color: ink }]}>Your BUILD space</Text><Text style={[styles.rowDetail, { color: muted }]} numberOfLines={2}>{profile?.department ? `${profile.department.name} · ${profile.level ? `${profile.level} Level` : 'Level not set'}` : 'Set up your academic profile'}</Text></View>
       </View>
 
       {section('Account', <>
-        {settingRow('Academic profile', data.department ? `${data.institution.shortName} · ${data.department.name}` : 'Choose your level and department', 'person-outline', () => router.push('/(onboarding)/step-one'))}
-        {settingRow('My courses', data.courses.length ? `${data.courses.length} courses selected` : 'Choose your courses', 'book-outline', () => router.push('/dashboard/courses'))}
+        {settingRow('Academic profile', profile?.programme ? `${profile.programme.name} · ${profile.level ?? ''} Level` : 'Choose your programme and level', 'person-outline', () => router.push('/(onboarding)/step-one'))}
+        {settingRow('My courses', profile?.courses.length ? `${profile.courses.length} courses selected` : 'Choose your courses', 'book-outline', () => router.push('/dashboard/courses'))}
       </>)}
 
       {section('Appearance', <View style={styles.appearance}>
@@ -92,7 +96,7 @@ export default function SettingsScreen() {
 
       {section('About', info('BUILD', 'A campus study companion for FUTA students · Version 1.0.0', 'information-circle-outline'))}
 
-      <View style={[styles.signOut, { borderColor: border }]}><Ionicons name="log-out-outline" size={20} color={muted} /><View style={styles.rowCopy}><Text style={[styles.rowTitle, { color: muted }]}>Sign out</Text><Text style={[styles.rowDetail, { color: muted }]}>Available when account sign-in is connected.</Text></View></View>
+      <TouchableOpacity onPress={() => { void signOut(); }} style={[styles.signOut, { borderColor: border }]} accessibilityRole="button" accessibilityLabel="Sign out"><Ionicons name="log-out-outline" size={20} color={ink} /><View style={styles.rowCopy}><Text style={[styles.rowTitle, { color: ink }]}>Sign out</Text><Text style={[styles.rowDetail, { color: muted }]}>{email ?? 'End this session on this device'}</Text></View></TouchableOpacity>
     </ScrollView>
   </SafeAreaView>;
 }
