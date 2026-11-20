@@ -37,7 +37,7 @@ export default function DashboardBottomNav({
       ? 'chat'
       : pathname.includes('studymode') ||
         pathname.includes('readmode') ||
-        pathname.includes('cbtquiz') ||
+        pathname.includes('cbt') ||
         pathname.includes('videoplayer')
       ? 'study'
       : 'home');
