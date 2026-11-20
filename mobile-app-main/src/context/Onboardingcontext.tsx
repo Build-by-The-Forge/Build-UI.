@@ -1,67 +1,51 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+
+import type { AcademicProfile } from '@/api/types';
 import { onSignedOut } from '@/auth';
-import { Institution, School, Department, AcademicCourse } from '@/types/academic';
-import {
-  FUTA_INSTITUTION,
-  getSchools,
-  getSchoolByCode,
-  getDepartmentByCode,
-  getCoursesForDepartment,
-} from '@/data/institutionData';
 
-export interface AcademicLevel {
-  id: string;
-  title: string;
-  subtitle: string;
-  icon?: string;
-  iconBg?: string;
-}
+export type NamedRef = { readonly id: string; readonly name: string };
+export type ProgrammeRef = NamedRef & { readonly code: string; readonly durationYears: number | null };
 
-export interface OnboardingData {
-  institution: Institution;
-  school: School | null;
-  department: Department | null;
-  faculty: string; // legacy string representation
-  academicLevel: AcademicLevel | null;
-  courses: string[];
-  selectedCourseDetails: AcademicCourse[];
+/**
+ * What the student is choosing while the onboarding screens are open. It is a
+ * draft: nothing here is true until putAcademicProfile accepts it, and the
+ * backend's profile (see features/academic) is what the rest of the app reads.
+ * Goals and learning styles have no field in the contract, so they stay on
+ * this device and in memory only.
+ */
+export type OnboardingData = {
+  faculty: NamedRef | null;
+  department: NamedRef | null;
+  programme: ProgrammeRef | null;
+  level: number | null;
+  courseIds: string[];
   goals: string[];
   learningStyles: string[];
-}
+};
 
-export interface OnboardingContextType {
+export type OnboardingContextType = {
   data: OnboardingData;
   updateData: (patch: Partial<OnboardingData>) => void;
-  setSchool: (schoolCode: string) => void;
-  setDepartment: (deptCode: string) => void;
-  setAcademicLevel: (level: AcademicLevel | null) => void;
-  setCourses: (courseIds: string[]) => void;
-  getAvailableCourses: () => AcademicCourse[];
+  /** Choosing a different programme drops the level and courses chosen for the old one. */
+  setProgramme: (faculty: NamedRef, department: NamedRef, programme: ProgrammeRef) => void;
+  setLevel: (level: number) => void;
+  setCourseIds: (ids: string[]) => void;
+  /** Starts the draft from what the backend already holds, so editing begins there. */
+  loadFromProfile: (profile: AcademicProfile) => void;
   resetOnboarding: () => void;
-}
+};
 
 const initialState: OnboardingData = {
-  institution: FUTA_INSTITUTION,
-  school: null,
+  faculty: null,
   department: null,
-  faculty: '',
-  academicLevel: null,
-  courses: [],
-  selectedCourseDetails: [],
+  programme: null,
+  level: null,
+  courseIds: [],
   goals: [],
   learningStyles: [],
 };
 
-const OnboardingContext = createContext<OnboardingContextType>({
-  data: initialState,
-  updateData: () => {},
-  setSchool: () => {},
-  setDepartment: () => {},
-  setAcademicLevel: () => {},
-  setCourses: () => {},
-  getAvailableCourses: () => [],
-  resetOnboarding: () => {},
-});
+const OnboardingContext = createContext<OnboardingContextType | null>(null);
 
 export function OnboardingProvider({ children }: { children: React.ReactNode }) {
   const [data, setData] = useState<OnboardingData>(initialState);
@@ -69,94 +53,43 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
   // Nothing chosen by one student may be visible to the next on this device.
   useEffect(() => onSignedOut(() => setData(initialState)), []);
 
-  const updateData = (patch: Partial<OnboardingData>) => {
-    setData((prev) => {
-      const updated = { ...prev, ...patch };
-      // Keep legacy faculty string in sync with school name if school changed
-      if (patch.school && patch.school.name) {
-        updated.faculty = patch.school.name;
-      }
-      return updated;
-    });
-  };
+  const updateData = useCallback((patch: Partial<OnboardingData>) => setData((prev) => ({ ...prev, ...patch })), []);
 
-  const setSchool = (schoolCode: string) => {
-    const school = getSchoolByCode(schoolCode);
-    if (school) {
-      const firstDept = school.departments[0] || null;
-      setData((prev) => ({
-        ...prev,
-        school,
-        faculty: school.name,
-        department: firstDept,
-        courses: [],
-        selectedCourseDetails: [],
-      }));
-    }
-  };
+  const setProgramme = useCallback((faculty: NamedRef, department: NamedRef, programme: ProgrammeRef) => {
+    setData((prev) =>
+      prev.programme?.id === programme.id
+        ? prev
+        : { ...prev, faculty, department, programme, level: null, courseIds: [] },
+    );
+  }, []);
 
-  const setDepartment = (deptCode: string) => {
-    const found = getDepartmentByCode(deptCode);
-    if (found) {
-      setData((prev) => ({
-        ...prev,
-        school: found.school,
-        faculty: found.school.name,
-        department: found.department,
-        courses: [],
-        selectedCourseDetails: [],
-      }));
-    }
-  };
+  const setLevel = useCallback((level: number) => setData((prev) => ({ ...prev, level })), []);
+  const setCourseIds = useCallback((courseIds: string[]) => setData((prev) => ({ ...prev, courseIds })), []);
 
-  const setAcademicLevel = (level: AcademicLevel | null) => {
+  const loadFromProfile = useCallback((profile: AcademicProfile) => {
     setData((prev) => ({
       ...prev,
-      academicLevel: level,
+      faculty: profile.faculty,
+      department: profile.department,
+      programme: profile.programme
+        ? { id: profile.programme.id, name: profile.programme.name, code: profile.programme.code, durationYears: null }
+        : null,
+      level: profile.level,
+      courseIds: profile.courses.map((c) => c.id),
     }));
-  };
+  }, []);
 
-  const getAvailableCourses = (): AcademicCourse[] => {
-    if (!data.department || !data.academicLevel) return [];
-    return getCoursesForDepartment(data.department.code, data.academicLevel.id);
-  };
+  const resetOnboarding = useCallback(() => setData(initialState), []);
 
-  const setCourses = (courseIds: string[]) => {
-    const available = getAvailableCourses();
-    const details = available.filter((c) => courseIds.includes(c.id));
-    setData((prev) => ({
-      ...prev,
-      courses: courseIds,
-      selectedCourseDetails: details,
-    }));
-  };
-
-  const resetOnboarding = () => {
-    setData(initialState);
-  };
-
-  return (
-    <OnboardingContext.Provider
-      value={{
-        data,
-        updateData,
-        setSchool,
-        setDepartment,
-        setAcademicLevel,
-        setCourses,
-        getAvailableCourses,
-        resetOnboarding,
-      }}
-    >
-      {children}
-    </OnboardingContext.Provider>
+  const value = useMemo(
+    () => ({ data, updateData, setProgramme, setLevel, setCourseIds, loadFromProfile, resetOnboarding }),
+    [data, updateData, setProgramme, setLevel, setCourseIds, loadFromProfile, resetOnboarding],
   );
+  return <OnboardingContext.Provider value={value}>{children}</OnboardingContext.Provider>;
 }
 
-export function useOnboarding() {
+export function useOnboarding(): OnboardingContextType {
   const ctx = useContext(OnboardingContext);
-  if (!ctx) {
-    throw new Error('useOnboarding must be used within an OnboardingProvider');
-  }
+  if (!ctx) throw new Error('useOnboarding must be used within an OnboardingProvider');
   return ctx;
 }
