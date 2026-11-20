@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useEffectEvent, useState } from 'react';
 
 import { ApiError } from '@/api/errors';
 
@@ -14,8 +14,8 @@ export type LoadState<T> =
 export function useLoad<T>(key: string | null, load: () => Promise<T>): LoadState<T> & { reload: () => void } {
   const [state, setState] = useState<LoadState<T>>({ status: 'loading', data: null, error: null });
   const [attempt, setAttempt] = useState(0);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const run = useCallback(load, [key, attempt]);
+  // Always the latest loader, without making it a dependency of the effect.
+  const run = useEffectEvent(() => load());
 
   useEffect(() => {
     if (key === null) return;
@@ -35,7 +35,7 @@ export function useLoad<T>(key: string | null, load: () => Promise<T>): LoadStat
     return () => {
       cancelled = true;
     };
-  }, [key, run]);
+  }, [key, attempt]);
 
   const reload = useCallback(() => setAttempt((n) => n + 1), []);
   return { ...state, reload };

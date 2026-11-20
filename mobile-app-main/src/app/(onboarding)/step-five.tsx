@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import PrimaryButton from '@/components/PrimaryButton';
+import { describeAuthError } from '@/auth/errorMessages';
 import { useOnboarding } from '@/context/Onboardingcontext';
+import { useAcademicProfile } from '@/features/academic/ProfileProvider';
 import colors from '@/theme/colors';
 
 const STYLE_TITLES: Record<string, string> = {
@@ -24,58 +26,34 @@ function formatLearningStyles(ids: string[]) {
 export default function Step5Summary() {
   const router = useRouter();
   const { data } = useOnboarding();
+  const { save } = useAcademicProfile();
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const ready = !!data.programme && data.level !== null;
 
   const profileRows = [
-    {
-      id: 'institution',
-      icon: '🏛️',
-      iconBg: '#DBEAFE',
-      label: 'Institution',
-      value: data.institution ? `${data.institution.shortName}` : 'FUTA',
-    },
-    {
-      id: 'level',
-      icon: '🎓',
-      iconBg: '#EDE9FE',
-      label: 'Academic Level',
-      value: data.academicLevel
-        ? `${data.academicLevel.title} (${data.academicLevel.subtitle})`
-        : 'Not set',
-    },
-    {
-      id: 'faculty',
-      icon: '🏫',
-      iconBg: '#CCFBF1',
-      label: 'School / Faculty',
-      value: data.school?.name || data.faculty || 'Not set',
-    },
-    {
-      id: 'department',
-      icon: '🏢',
-      iconBg: '#DCFCE7',
-      label: 'Department',
-      value: data.department
-        ? `${data.department.name} (${data.department.code})`
-        : 'Not set',
-    },
-    {
-      id: 'courses',
-      icon: '📚',
-      iconBg: '#FEF3C7',
-      label: 'Courses',
-      value: `${data.courses.length} courses enrolled`,
-    },
-    {
-      id: 'style',
-      icon: '⭐',
-      iconBg: '#FCE7F3',
-      label: 'Learning Style',
-      value: formatLearningStyles(data.learningStyles),
-    },
+    { id: 'level', icon: '🎓', iconBg: '#EDE9FE', label: 'Level', value: data.level ? `${data.level} Level` : 'Not set' },
+    { id: 'faculty', icon: '🏫', iconBg: '#CCFBF1', label: 'School', value: data.faculty?.name ?? 'Not set' },
+    { id: 'department', icon: '🏢', iconBg: '#DCFCE7', label: 'Department', value: data.department?.name ?? 'Not set' },
+    { id: 'programme', icon: '📘', iconBg: '#DBEAFE', label: 'Programme', value: data.programme ? `${data.programme.name} (${data.programme.code})` : 'Not set' },
+    { id: 'courses', icon: '📚', iconBg: '#FEF3C7', label: 'Courses', value: `${data.courseIds.length} ${data.courseIds.length === 1 ? 'course' : 'courses'}` },
+    { id: 'style', icon: '⭐', iconBg: '#FCE7F3', label: 'Learning style', value: formatLearningStyles(data.learningStyles) },
   ];
 
-  const handleStartLearning = () => {
-    router.replace('/dashboard/home');
+  // The profile is only true once the backend has accepted it.
+  const handleStartLearning = async () => {
+    if (!data.programme || data.level === null || saving) return;
+    setSaving(true);
+    setError(null);
+    try {
+      await save({ programme_id: data.programme.id, level: data.level, course_ids: data.courseIds });
+      router.replace('/dashboard/home');
+    } catch (e) {
+      const described = describeAuthError(e);
+      setError(Object.values(described.fields)[0] ?? described.general ?? 'Your profile could not be saved.');
+      setSaving(false);
+    }
   };
 
   return (
@@ -85,8 +63,8 @@ export default function Step5Summary() {
           <Text style={styles.iconCheck}>✓</Text>
         </View>
 
-        <Text style={styles.title}>You're all set.</Text>
-        <Text style={styles.subtitle}>BUILD is ready to personalize your learning experience.</Text>
+        <Text style={styles.title}>Almost there.</Text>
+        <Text style={styles.subtitle}>Check your details, then start learning.</Text>
 
         <View style={styles.profileCard}>
           <Text style={styles.profileHeading}>YOUR BUILD PROFILE</Text>
@@ -110,18 +88,16 @@ export default function Step5Summary() {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.infoBox}>
-          <Text style={styles.infoIcon}>💡</Text>
-          <Text style={styles.infoText}>
-            We've prepared {data.courses.length} courses and personalized study plans for{' '}
-            {data.department?.name || 'your department'} at {data.institution?.shortName || 'FUTA'}.
-          </Text>
-        </View>
+        {error && (
+          <View style={styles.infoBox}>
+            <Text style={styles.infoText} accessibilityRole="alert">{error}</Text>
+          </View>
+        )}
       </ScrollView>
 
       <View style={styles.footer}>
-        <PrimaryButton label="Start Learning" onPress={handleStartLearning} />
-        <Text style={styles.footerNote}>You can change these settings anytime</Text>
+        <PrimaryButton label={saving ? 'Saving…' : 'Start Learning'} onPress={handleStartLearning} disabled={!ready || saving} />
+        <Text style={styles.footerNote}>Learning style is kept on this device. You can change your profile anytime.</Text>
       </View>
     </SafeAreaView>
   );
