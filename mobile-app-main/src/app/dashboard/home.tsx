@@ -3,7 +3,7 @@ import { ActivityIndicator, Image, SafeAreaView, ScrollView, StyleSheet, Text, T
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect, useRouter } from 'expo-router';
 import DashboardBottomNav from '@/components/DashboardBottomNav';
-import { useOnboarding } from '@/context/Onboardingcontext';
+import { useAcademicProfile } from '@/features/academic/ProfileProvider';
 import { useThemedStyles } from '@/hooks/useThemedStyles';
 import { useTheme } from '@/context/ThemeContext';
 import { loadPlannerEvents, localDateKey, sortPlannerEvents, type PlannerEvent } from '@/services/studentCalendar';
@@ -21,12 +21,12 @@ export default function HomeScreen() {
   const dark = mode === 'dark';
   const router = useRouter();
   const { width } = useWindowDimensions();
-  const { data, getAvailableCourses } = useOnboarding();
+  const { profile } = useAcademicProfile();
   const wide = width >= 760;
-  const selectedCourses = getAvailableCourses().filter(course => data.courses.includes(course.id));
+  const selectedCourses = (profile?.courses ?? []).map(course => ({ id: course.id, code: course.code, name: course.title }));
   const aiReady = !!process.env.EXPO_PUBLIC_BUILD_AI_API_URL;
   const firstCourse = selectedCourses[0];
-  const hasProfile = !!(data.department && data.academicLevel);
+  const hasProfile = !!profile?.complete;
   const greeting = new Date().getHours() < 12 ? 'Good morning' : new Date().getHours() < 18 ? 'Good afternoon' : 'Good evening';
   const [calendarEvents, setCalendarEvents] = useState<PlannerEvent[]>([]);
   const [calendarLoading, setCalendarLoading] = useState(true);
@@ -94,7 +94,7 @@ export default function HomeScreen() {
 
   return <SafeAreaView style={[ui.page, dark && { backgroundColor: '#0B1220' }]}>
     <ScrollView contentContainerStyle={[ui.content, { maxWidth: wide ? 1100 : undefined }]} showsVerticalScrollIndicator={false}>
-      <View style={ui.header}><View style={ui.headerCopy}><Text style={ui.greeting}>{greeting}.</Text><Text style={ui.headerContext}>{data.department ? `${data.department.name}${data.academicLevel ? ` · ${data.academicLevel.title}` : ''}` : 'Your place to learn at FUTA'}</Text></View><TouchableOpacity onPress={() => router.push('/dashboard/settings')} style={ui.settings} accessibilityRole="button" accessibilityLabel="Open settings"><Ionicons name="settings-outline" size={21} color={dark ? '#8AB8FF' : BLUE} /></TouchableOpacity></View>
+      <View style={ui.header}><View style={ui.headerCopy}><Text style={ui.greeting}>{greeting}.</Text><Text style={ui.headerContext}>{profile?.department ? `${profile.department.name}${profile.level ? ` · ${profile.level} Level` : ''}` : 'Your place to learn at FUTA'}</Text></View><TouchableOpacity onPress={() => router.push('/dashboard/settings')} style={ui.settings} accessibilityRole="button" accessibilityLabel="Open settings"><Ionicons name="settings-outline" size={21} color={dark ? '#8AB8FF' : BLUE} /></TouchableOpacity></View>
       {wide ? <View style={ui.columns}><View style={ui.mainColumn}>{focus}{learning}{assistant}</View><View style={ui.sideColumn}>{upcoming}{courses}</View></View> : <>{focus}{learning}{assistant}{upcoming}{courses}</>}
     </ScrollView>
     <DashboardBottomNav activeTab="home" />
