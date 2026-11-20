@@ -14,6 +14,7 @@ import { ConfigError } from '@/api/config';
 import { getSessionManager } from '@/auth';
 import { SessionProvider, useSession } from '@/auth/SessionProvider';
 import { OnboardingProvider } from '@/context/Onboardingcontext';
+import { ProfileProvider } from '@/features/academic/ProfileProvider';
 import { ThemeProvider } from '@/context/ThemeContext';
 
 SplashScreen.preventAutoHideAsync();
@@ -27,8 +28,8 @@ function Routes() {
   const { gate } = useSession();
   return (
     <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="index" />
       <Stack.Protected guard={gate === 'auth'}>
-        <Stack.Screen name="index" />
         <Stack.Screen name="(auth)" />
       </Stack.Protected>
       <Stack.Protected guard={gate === 'app'}>
@@ -37,9 +38,6 @@ function Routes() {
       </Stack.Protected>
       <Stack.Protected guard={gate === 'verify-email'}>
         <Stack.Screen name="verify-email" />
-      </Stack.Protected>
-      <Stack.Protected guard={gate === 'wait' || gate === 'denied'}>
-        <Stack.Screen name="gate" />
       </Stack.Protected>
     </Stack>
   );
@@ -85,9 +83,11 @@ export default function RootLayout() {
   return (
     <ThemeProvider>
       <SessionProvider>
-        <OnboardingProvider>
-          <Routes />
-        </OnboardingProvider>
+        <ProfileProvider>
+          <OnboardingProvider>
+            <Routes />
+          </OnboardingProvider>
+        </ProfileProvider>
       </SessionProvider>
     </ThemeProvider>
   );

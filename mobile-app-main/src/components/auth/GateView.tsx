@@ -7,11 +7,11 @@ import { useSession } from '@/auth/SessionProvider';
  * Shown while the session is restored or the tenant is checked, and when
  * either can't finish. It never shows app content.
  */
-export default function GateScreen() {
+export function GateView({ failed: profileFailed = false, onRetry }: { failed?: boolean; onRetry?: () => void }) {
   const { status, access, retry, signOut } = useSession();
 
   const unreachable = status === 'unreachable';
-  const failed = access === 'error';
+  const failed = access === 'error' || profileFailed;
   const denied = access === 'denied';
 
   if (denied) {
@@ -33,7 +33,7 @@ export default function GateScreen() {
       <View style={styles.root}>
         <Text style={styles.title}>Can&apos;t reach BUILD</Text>
         <Text style={styles.body}>Check your connection and try again. You are still signed in.</Text>
-        <Pressable style={styles.button} onPress={retry} accessibilityRole="button">
+        <Pressable style={styles.button} onPress={onRetry ?? retry} accessibilityRole="button">
           <Text style={styles.buttonText}>Try again</Text>
         </Pressable>
         <Pressable onPress={() => void signOut()} accessibilityRole="button" style={styles.link}>
