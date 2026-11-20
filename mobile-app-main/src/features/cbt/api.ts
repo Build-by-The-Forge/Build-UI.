@@ -16,6 +16,8 @@ import { fetchAll } from '@/features/academic/api';
  */
 export type CbtApi = {
   readonly assessments: (courseId?: string) => Promise<readonly Assessment[]>;
+  /** This student's attempts, newest first. */
+  readonly attempts: () => Promise<readonly Attempt[]>;
   /** Starts an attempt, or returns the one already in progress. */
   readonly startAttempt: (assessmentId: string) => Promise<Attempt>;
   readonly attempt: (attemptId: string) => Promise<Attempt>;
@@ -38,6 +40,10 @@ export function createCbtApi(client: ApiClient, tenantSlug: string): CbtApi {
             params: { header, query: { ...(courseId ? { course_id: courseId } : {}), limit, offset } },
           }),
         ),
+      ),
+    attempts: () =>
+      fetchAll((limit, offset) =>
+        callPage(client.GET('/assessment/attempts', { params: { header, query: { limit, offset } } })),
       ),
     startAttempt: (assessmentId) =>
       call(
