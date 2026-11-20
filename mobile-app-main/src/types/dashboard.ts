@@ -26,19 +26,6 @@ export interface QuickStudyItem {
   route: string;
 }
 
-export interface QuizOption {
-  id: string;
-  text: string;
-}
-
-export interface QuizQuestion {
-  id: number;
-  difficulty: 'Easy' | 'Medium' | 'Hard';
-  prompt: string;
-  options: QuizOption[];
-  correctOptionId: string;
-}
-
 export interface ChatMessage {
   id: string;
   sender: 'me' | 'them';
