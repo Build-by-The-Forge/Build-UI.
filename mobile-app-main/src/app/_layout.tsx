@@ -9,6 +9,9 @@ import {
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import { Text, View } from 'react-native';
+import { ConfigError } from '@/api/config';
+import { getSessionManager } from '@/auth';
 import { SessionProvider, useSession } from '@/auth/SessionProvider';
 import { OnboardingProvider } from '@/context/Onboardingcontext';
 import { ThemeProvider } from '@/context/ThemeContext';
@@ -42,6 +45,16 @@ function Routes() {
   );
 }
 
+/** A build with unsafe or missing configuration says so instead of crashing. */
+function configProblem(): string | null {
+  try {
+    getSessionManager();
+    return null;
+  } catch (error) {
+    return error instanceof ConfigError ? error.message : 'The app is not configured correctly.';
+  }
+}
+
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
     Nunito_400Regular,
@@ -58,6 +71,16 @@ export default function RootLayout() {
   }, [fontsLoaded]);
 
   if (!fontsLoaded) return null;
+
+  const problem = configProblem();
+  if (problem) {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 28, backgroundColor: '#F0F5FF' }}>
+        <Text style={{ fontSize: 18, fontWeight: '700', color: '#1F54DD', textAlign: 'center' }}>BUILD can&apos;t start</Text>
+        <Text style={{ marginTop: 10, color: '#475569', textAlign: 'center', lineHeight: 21 }}>{problem}</Text>
+      </View>
+    );
+  }
 
   return (
     <ThemeProvider>
