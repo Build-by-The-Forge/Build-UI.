@@ -1,0 +1,64 @@
+name: mobile-ci
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mobile-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: mobile-app-main
+
+jobs:
+  checks:
+    name: Typecheck, lint and tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            mobile-app-main/package-lock.json
+            mobile-app-main/tools/api-codegen/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - run: npm ci --prefix tools/api-codegen --no-audit --no-fund
+      - name: Generated client matches the vendored contract
+        run: npm run api:check
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test -- --ci
+      - run: npm run test:campus
+
+  contract-drift:
+    # Fails when build-backend's contract has moved on from the copy this app
+    # was generated from. Kept as its own job so a backend change shows up as
+    # a contract problem, not as a mystery failure in the checks above.
+    name: Vendored contract matches build-backend main
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: Build-by-The-Forge/build-backend
+          ref: main
+          path: backend
+          sparse-checkout: contracts/mobile
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: mobile-app-main/tools/api-codegen/package-lock.json
+      - run: npm ci --prefix tools/api-codegen --no-audit --no-fund
+      - run: node scripts/api-codegen.mjs --check --upstream ../backend/contracts/mobile/openapi.yaml
