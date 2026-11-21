@@ -1,6 +1,8 @@
+import { AppState } from 'react-native';
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 
 import { apiConfig } from '@/api/config';
+import { isAbortError } from '@/api/client';
 import { getSessionManager } from './index';
 import { gateFor, type AccessState, type Gate } from './routeGate';
 import type { SessionStatus, SignedOutReason } from './sessionManager';
@@ -42,21 +44,31 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       return;
     }
     let cancelled = false;
+    const controller = new AbortController();
     setAccess('checking');
-    ensureTenantAccess(manager.client, apiConfig().tenantSlug).then(
+    ensureTenantAccess(manager.client, apiConfig().tenantSlug, controller.signal).then(
       (result) => {
         if (cancelled) return;
         setEmail(result.email);
         setAccess(result.access);
       },
-      () => {
-        if (!cancelled) setAccess('error');
+      (error: unknown) => {
+        // A check we cancelled (signed out, unmounted) says nothing about the network.
+        if (!cancelled && !isAbortError(error)) setAccess('error');
       },
     );
     return () => {
       cancelled = true;
+      controller.abort();
     };
   }, [signedIn, manager, attempt, snapshot.userId]);
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', (state) => {
+      if (state === 'active') void manager.resume();
+    });
+    return () => subscription.remove();
+  }, [manager]);
 
   const retry = useCallback(() => {
     if (manager.getSnapshot().status === 'unreachable') void manager.retry();

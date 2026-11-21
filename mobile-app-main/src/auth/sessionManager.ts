@@ -155,6 +155,21 @@ export class SessionManager {
     }
   }
 
+  /**
+   * Called when the app returns to the foreground. A token that expired, or a
+   * session that lapsed or was revoked while the app slept, is found out now
+   * rather than by the student's next tap. Never throws.
+   */
+  async resume(): Promise<void> {
+    if (this.snapshot.status !== 'signedIn') return;
+    try {
+      await this.getAccessToken();
+    } catch {
+      // A rejected refresh token already signed the student out; a network
+      // failure leaves the session alone for the next request to retry.
+    }
+  }
+
   /** Re-runs the launch restore after `unreachable`. */
   retry = (): Promise<void> => this.bootstrap();
 
