@@ -40,7 +40,13 @@ const requestIdMiddleware: Middleware = {
 export function withTimeout(base: typeof fetch, timeoutMs: number): typeof fetch {
   return (async (input: RequestInfo | URL, init?: RequestInit) => {
     const controller = new AbortController();
-    const callerSignal = init?.signal ?? (input instanceof Request ? input.signal : undefined);
+    // Duck-typed: the Request openapi-fetch builds can come from a different
+    // implementation than the global one, so `instanceof Request` isn't reliable.
+    const requestLike = typeof input === 'object' && input !== null ? (input as Partial<Request>) : null;
+    const callerSignal = init?.signal ?? requestLike?.signal ?? undefined;
+    // A signal that was aborted before the request got here never fires its
+    // event, so check it first.
+    if (callerSignal?.aborted) throw abortError();
     const onCallerAbort = () => controller.abort();
     callerSignal?.addEventListener('abort', onCallerAbort);
     let timedOut = false;
@@ -52,7 +58,7 @@ export function withTimeout(base: typeof fetch, timeoutMs: number): typeof fetch
       return await base(input, { ...init, signal: controller.signal });
     } catch (error) {
       if (timedOut) {
-        const id = input instanceof Request ? input.headers.get('X-Request-ID') : null;
+        const id = requestLike?.headers?.get?.('X-Request-ID') ?? null;
         throw new ApiError(
           'TIMEOUT',
           'The request took too long. Check your connection and try again.',
@@ -101,10 +107,22 @@ function malformed(response: Response): ApiError {
   );
 }
 
+function abortError(): Error {
+  return Object.assign(new Error('The request was cancelled.'), { name: 'AbortError' });
+}
+
+/** True for a fetch cancelled by its caller (a screen unmounting, say). */
+export function isAbortError(error: unknown): boolean {
+  return typeof error === 'object' && error !== null && (error as { name?: unknown }).name === 'AbortError';
+}
+
 async function settle<D>(pending: Promise<FetchResult<D>>): Promise<FetchResult<D>> {
   try {
     return await pending;
   } catch (error) {
+    // A cancellation the caller asked for isn't a failure to reach BUILD, so it
+    // passes through untouched. A timeout is already an ApiError by now.
+    if (isAbortError(error)) throw error;
     throw errorFromTransport(error, null);
   }
 }
