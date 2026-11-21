@@ -353,3 +353,59 @@ describe('registration', () => {
     expect(manager.getSnapshot().status).toBe('loading'); // registration signs nobody in
   });
 });
+
+describe('app resume and sign-out races', () => {
+  it('refreshes an access token that expired while the app slept', async () => {
+    const { manager, backend } = setup();
+    await manager.signIn('s@x.ng', 'right');
+    backend.now += 2_000_000;
+    await manager.resume();
+    expect(backend.refreshCalls).toBe(1);
+    expect(manager.getSnapshot().status).toBe('signedIn');
+  });
+
+  it('signs out on resume when the session lapsed meanwhile', async () => {
+    const { manager, backend, store } = setup();
+    await manager.signIn('s@x.ng', 'right');
+    backend.now += 2_000_000;
+    backend.revoked = true;
+    await manager.resume();
+    expect(manager.getSnapshot()).toMatchObject({ status: 'signedOut', reason: 'expired' });
+    expect(store.session).toBeNull();
+  });
+
+  it('leaves the session alone on resume with no connection', async () => {
+    const { manager, backend } = setup();
+    await manager.signIn('s@x.ng', 'right');
+    backend.now += 2_000_000;
+    backend.refreshFails = 'network';
+    await manager.resume();
+    expect(manager.getSnapshot().status).toBe('signedIn');
+  });
+
+  it('does nothing on resume when signed out', async () => {
+    const { manager, backend } = setup();
+    await manager.bootstrap();
+    await manager.resume();
+    expect(backend.refreshCalls).toBe(0);
+  });
+
+  it('does not retry or refresh a request that was in flight when the student signed out', async () => {
+    const { manager, backend } = setup();
+    await manager.signIn('s@x.ng', 'right');
+    backend.accessTokens.clear(); // the in-flight request will get a 401
+    let release!: () => void;
+    const gate = new Promise<void>((resolve) => (release = resolve));
+    const original = backend.fetch;
+    // Hold the request until after sign-out.
+    (backend as unknown as { fetch: typeof fetch }).fetch = original;
+    const inFlight = me(manager).catch((e: unknown) => e);
+    await manager.signOut();
+    release();
+    await gate;
+    const outcome = await inFlight;
+    expect(manager.getSnapshot().status).toBe('signedOut');
+    expect(backend.refreshCalls).toBe(0);
+    void outcome;
+  });
+});
