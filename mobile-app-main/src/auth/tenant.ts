@@ -16,15 +16,19 @@ export type TenantAccessResult = { readonly access: TenantAccess; readonly email
  * decides: this only reads the outcome. A new account has no membership, and
  * without one no tenant-scoped screen works.
  */
-export async function ensureTenantAccess(client: ApiClient, slug: string): Promise<TenantAccessResult> {
-  const user = await call(client.GET('/identity/me'));
+export async function ensureTenantAccess(
+  client: ApiClient,
+  slug: string,
+  signal?: AbortSignal,
+): Promise<TenantAccessResult> {
+  const user = await call(client.GET('/identity/me', { signal }));
   if (!user.email_verified) return { access: 'verify-email', email: user.email };
 
-  const memberships = await call(client.GET('/identity/memberships'));
+  const memberships = await call(client.GET('/identity/memberships', { signal }));
   if (memberships.some((m) => m.tenant_slug === slug)) return { access: 'ready', email: user.email };
 
   try {
-    await call(client.POST('/tenants/{slug}/join', { params: { path: { slug } } }));
+    await call(client.POST('/tenants/{slug}/join', { params: { path: { slug } }, signal }));
     return { access: 'ready', email: user.email };
   } catch (error) {
     if (error instanceof ApiError) {

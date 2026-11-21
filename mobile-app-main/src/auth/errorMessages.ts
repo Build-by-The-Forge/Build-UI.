@@ -1,3 +1,4 @@
+import { isAbortError } from '@/api/client';
 import { ApiError } from '@/api/errors';
 
 export type FormErrors = {
@@ -15,6 +16,8 @@ const NONE: FormErrors = { fields: {}, general: null };
  * keyed on the stable code and only falls back to it.
  */
 export function describeAuthError(error: unknown): FormErrors {
+  // The student left the screen; there is nothing to tell them.
+  if (isAbortError(error)) return NONE;
   if (!(error instanceof ApiError)) {
     return { fields: {}, general: 'Something went wrong. Please try again.' };
   }

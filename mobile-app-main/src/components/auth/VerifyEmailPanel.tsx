@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
-import { call } from '@/api/client';
+import { call, isAbortError } from '@/api/client';
 import { Fonts } from '@/constants/theme';
 import { getSessionManager } from '@/auth';
 import { describeAuthError, noErrors, type FormErrors } from '@/auth/errorMessages';
@@ -24,6 +24,13 @@ export function VerifyEmailPanel({ email, onVerified }: Props) {
   const [errors, setErrors] = useState<FormErrors>(noErrors);
   const [sent, setSent] = useState(false);
   const [cooldown, setCooldown] = useState(0);
+  // Leaving the screen cancels a request in flight instead of updating a gone screen.
+  const controller = useRef<AbortController | null>(null);
+  useEffect(() => {
+    controller.current = new AbortController();
+    const current = controller.current;
+    return () => current.abort();
+  }, []);
 
   useEffect(() => {
     if (cooldown <= 0) return;
@@ -40,9 +47,10 @@ export function VerifyEmailPanel({ email, onVerified }: Props) {
     setBusy(true);
     setErrors(noErrors);
     try {
-      await call(getSessionManager().client.POST('/identity/verify-email', { body: { token: token.trim() } }));
+      await call(getSessionManager().client.POST('/identity/verify-email', { body: { token: token.trim() }, signal: controller.current?.signal }));
       onVerified();
     } catch (error) {
+      if (isAbortError(error)) return;
       setErrors(describeAuthError(error));
       setBusy(false);
     }
@@ -53,9 +61,10 @@ export function VerifyEmailPanel({ email, onVerified }: Props) {
     setErrors(noErrors);
     setCooldown(RESEND_COOLDOWN_S);
     try {
-      await call(getSessionManager().client.POST('/identity/resend-verification', { body: { email } }));
+      await call(getSessionManager().client.POST('/identity/resend-verification', { body: { email }, signal: controller.current?.signal }));
       setSent(true);
     } catch (error) {
+      if (isAbortError(error)) return;
       setSent(false);
       setErrors(describeAuthError(error));
     }
