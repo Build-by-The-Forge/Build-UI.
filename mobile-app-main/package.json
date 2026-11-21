@@ -13,6 +13,7 @@
     "@schedule-x/react": "^4.1.0",
     "@schedule-x/theme-default": "^4.9.1",
     "expo": "~57.0.2",
+    "expo-blur": "~57.0.3",
     "expo-constants": "~57.0.3",
     "expo-device": "~57.0.0",
     "expo-document-picker": "~57.0.3",
