@@ -11,6 +11,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { OnboardingProvider } from '@/context/Onboardingcontext';
 import { ThemeProvider } from '@/context/ThemeContext';
+import { AppGlassProvider } from '@/theme/glass/AppGlassProvider';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -32,13 +33,13 @@ export default function RootLayout() {
   if (!fontsLoaded) return null;
 
   return (
-    <ThemeProvider><OnboardingProvider>
+    <ThemeProvider><AppGlassProvider><OnboardingProvider>
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" />
         <Stack.Screen name="(onboarding)" />
         <Stack.Screen name="(auth)" />
         <Stack.Screen name="dashboard" />
       </Stack>
-    </OnboardingProvider></ThemeProvider>
+    </OnboardingProvider></AppGlassProvider></ThemeProvider>
   );
 }
