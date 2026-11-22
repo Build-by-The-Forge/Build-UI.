@@ -65,6 +65,22 @@ describe('useLoad', () => {
     expect(result.current.error).toBeNull();
   });
 
+  it('never shows the previous key data while the next key loads', async () => {
+    let releaseB!: (v: string) => void;
+    const loader = (key: string) => () =>
+      key === 'a' ? Promise.resolve('a-data') : new Promise<string>((resolve) => (releaseB = resolve));
+    const { result, rerender } = renderHook(({ k }: { k: string }) => useLoad(k, loader(k)), { initialProps: { k: 'a' } });
+    await waitFor(() => expect(result.current.data).toBe('a-data'));
+
+    rerender({ k: 'b' });
+    // The very first render for the new key already has no data from the old one.
+    expect(result.current.data).toBeNull();
+    expect(result.current.status).toBe('loading');
+
+    await act(async () => releaseB('b-data'));
+    expect(result.current.data).toBe('b-data');
+  });
+
   it('treats an abort that arrives for a live screen as cancelled, not as no connection', async () => {
     const { result } = renderHook(() =>
       useLoad('k', async () => {

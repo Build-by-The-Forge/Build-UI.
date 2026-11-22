@@ -15,7 +15,8 @@ export type LoadState<T> =
  * ends in an abort is never reported as a failure.
  */
 export function useLoad<T>(key: string | null, load: (signal: AbortSignal) => Promise<T>): LoadState<T> & { reload: () => void } {
-  const [state, setState] = useState<LoadState<T>>({ status: 'loading', data: null, error: null });
+  // The key each result belongs to, so a result for the previous key is never shown for the next.
+  const [settled, setSettled] = useState<{ key: string; state: LoadState<T> } | null>(null);
   const [attempt, setAttempt] = useState(0);
   // Always the latest loader, without making it a dependency of the effect.
   const run = useEffectEvent((signal: AbortSignal) => load(signal));
@@ -24,16 +25,16 @@ export function useLoad<T>(key: string | null, load: (signal: AbortSignal) => Pr
     if (key === null) return;
     let cancelled = false;
     const controller = new AbortController();
-    setState({ status: 'loading', data: null, error: null });
+    setSettled(null);
     run(controller.signal).then(
       (data) => {
-        if (!cancelled) setState({ status: 'ready', data, error: null });
+        if (!cancelled) setSettled({ key, state: { status: 'ready', data, error: null } });
       },
       (error: unknown) => {
         if (cancelled || isAbortError(error)) return;
         const apiError =
           error instanceof ApiError ? error : new ApiError('INTERNAL_ERROR', 'Something went wrong. Please try again.', null, null);
-        setState({ status: 'error', data: null, error: apiError });
+        setSettled({ key, state: { status: 'error', data: null, error: apiError } });
       },
     );
     return () => {
@@ -43,5 +44,6 @@ export function useLoad<T>(key: string | null, load: (signal: AbortSignal) => Pr
   }, [key, attempt]);
 
   const reload = useCallback(() => setAttempt((n) => n + 1), []);
+  const state: LoadState<T> = settled && settled.key === key ? settled.state : { status: 'loading', data: null, error: null };
   return { ...state, reload };
 }
