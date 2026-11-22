@@ -1,0 +1,9 @@
+{
+  "name": "build-api-codegen",
+  "private": true,
+  "description": "Isolated generator for src/api/generated/schema.ts. Kept apart from the app because openapi-typescript peers on TypeScript 5 and the app uses TypeScript 6.",
+  "devDependencies": {
+    "openapi-typescript": "7.13.0",
+    "typescript": "5.9.3"
+  }
+}
