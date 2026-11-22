@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { onSignedOut } from '@/auth';
 import { Institution, School, Department, AcademicCourse } from '@/types/academic';
 import {
   FUTA_INSTITUTION,
@@ -64,6 +65,9 @@ const OnboardingContext = createContext<OnboardingContextType>({
 
 export function OnboardingProvider({ children }: { children: React.ReactNode }) {
   const [data, setData] = useState<OnboardingData>(initialState);
+
+  // Nothing chosen by one student may be visible to the next on this device.
+  useEffect(() => onSignedOut(() => setData(initialState)), []);
 
   const updateData = (patch: Partial<OnboardingData>) => {
     setData((prev) => {

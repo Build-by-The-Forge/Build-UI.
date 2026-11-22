@@ -5,6 +5,7 @@ import { useRouter } from 'expo-router';
 import { z } from 'zod';
 import { useOnboarding } from '@/context/Onboardingcontext';
 import { useTheme } from '@/context/ThemeContext';
+import { useSession } from '@/auth/SessionProvider';
 
 type Icon = React.ComponentProps<typeof Ionicons>['name'];
 const appearanceSchema = z.object({ mode: z.string().regex(/^(light|dark)$/, 'Choose Light or Dark mode') });
@@ -13,6 +14,7 @@ export default function SettingsScreen() {
   const router = useRouter();
   const { width } = useWindowDimensions();
   const { data } = useOnboarding();
+  const { signOut, email } = useSession();
   const { mode, setMode, ready, error } = useTheme();
   const [formError, setFormError] = useState('');
   const [showHelp, setShowHelp] = useState(false);
@@ -92,7 +94,7 @@ export default function SettingsScreen() {
 
       {section('About', info('BUILD', 'A campus study companion for FUTA students · Version 1.0.0', 'information-circle-outline'))}
 
-      <View style={[styles.signOut, { borderColor: border }]}><Ionicons name="log-out-outline" size={20} color={muted} /><View style={styles.rowCopy}><Text style={[styles.rowTitle, { color: muted }]}>Sign out</Text><Text style={[styles.rowDetail, { color: muted }]}>Available when account sign-in is connected.</Text></View></View>
+      <TouchableOpacity onPress={() => { void signOut(); }} style={[styles.signOut, { borderColor: border }]} accessibilityRole="button" accessibilityLabel="Sign out"><Ionicons name="log-out-outline" size={20} color={ink} /><View style={styles.rowCopy}><Text style={[styles.rowTitle, { color: ink }]}>Sign out</Text><Text style={[styles.rowDetail, { color: muted }]}>{email ?? 'End this session on this device'}</Text></View></TouchableOpacity>
     </ScrollView>
   </SafeAreaView>;
 }
