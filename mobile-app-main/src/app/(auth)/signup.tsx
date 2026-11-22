@@ -4,137 +4,51 @@ import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { Pressable, StyleSheet, Text, TextInput, View, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { ActivityIndicator, Pressable, StyleSheet, Text, TextInput, View, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { useOnboarding } from '@/context/Onboardingcontext';
+import { VerifyEmailPanel } from '@/components/auth/VerifyEmailPanel';
+import { describeAuthError, noErrors, type FormErrors } from '@/auth/errorMessages';
+import { useSession } from '@/auth/SessionProvider';
 
 export default function SignupScreen() {
   const router = useRouter();
   const { resetOnboarding } = useOnboarding();
-  const [step, setStep] = useState(1);
-
-  // Form state (for visual purposes in the UI)
+  const { signUp } = useSession();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirm, setConfirm] = useState('');
   const [agreed, setAgreed] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [errors, setErrors] = useState<FormErrors>(noErrors);
+  // Registration answers a bodyless 202 whether or not the account is new, so
+  // the next step is always "check your email".
+  const [registeredEmail, setRegisteredEmail] = useState<string | null>(null);
 
-  const nextStep = () => setStep((s) => Math.min(s + 1, 3));
-  const prevStep = () => setStep((s) => Math.max(s - 1, 1));
-  const submit = () => {
-    resetOnboarding();
-    router.push('/(onboarding)/step-one');
-  };
-
-  const renderStepIndicator = () => (
-    <View style={styles.stepperContainer}>
-      {[1, 2, 3].map((i) => (
-        <View key={i} style={styles.stepItem}>
-          <View style={[styles.stepCircle, step >= i ? styles.stepCircleActive : null]}>
-            <Text style={[styles.stepNumber, step >= i ? styles.stepNumberActive : null]}>{i}</Text>
-          </View>
-          {i < 3 && <View style={[styles.stepLine, step > i ? styles.stepLineActive : null]} />}
-        </View>
-      ))}
-    </View>
-  );
-
-  const renderStepContent = () => {
-    switch (step) {
-      case 1:
-        return (
-          <View style={styles.formContent}>
-            <View style={styles.inputContainer}>
-              <Feather name="user" size={20} color="#6B7280" style={styles.inputIcon} />
-              <TextInput style={styles.input} placeholder="First Name" placeholderTextColor="#9CA3AF" />
-            </View>
-            <View style={[styles.inputContainer, { marginTop: 5 }]}>
-              <Feather name="user" size={20} color="#6B7280" style={styles.inputIcon} />
-              <TextInput style={styles.input} placeholder="Last Name" placeholderTextColor="#9CA3AF" />
-            </View>
-            <View style={[styles.inputContainer, { marginTop: 5 }]}>
-              <Feather name="mail" size={20} color="#6B7280" style={styles.inputIcon} />
-              <TextInput style={styles.input} placeholder="Email Address" placeholderTextColor="#9CA3AF" keyboardType="email-address" autoCapitalize="none" />
-            </View>
-
-            <View style={styles.actions}>
-              <Pressable style={styles.buttonWrapper} onPress={nextStep}>
-                <LinearGradient colors={['#3B82F6', '#6366F1']} style={styles.button} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                  <Text style={styles.buttonText}>Continue</Text>
-                </LinearGradient>
-              </Pressable>
-            </View>
-          </View>
-        );
-      case 2:
-        return (
-          <View style={styles.formContent}>
-            <View style={styles.inputContainer}>
-              <Feather name="book" size={20} color="#6B7280" style={styles.inputIcon} />
-              <TextInput style={styles.input} placeholder="University or Institution" placeholderTextColor="#9CA3AF" />
-            </View>
-            <View style={[styles.inputContainer, { marginTop: 5 }]}>
-              <Feather name="briefcase" size={20} color="#6B7280" style={styles.inputIcon} />
-              <TextInput style={styles.input} placeholder="Faculty" placeholderTextColor="#9CA3AF" />
-            </View>
-            <View style={[styles.inputContainer, { marginTop: 5 }]}>
-              <Feather name="layers" size={20} color="#6B7280" style={styles.inputIcon} />
-              <TextInput style={styles.input} placeholder="Department" placeholderTextColor="#9CA3AF" />
-            </View>
-
-            <View style={styles.actionsRow}>
-              <Pressable style={styles.backButton} onPress={prevStep}>
-                <Feather name="arrow-left" size={24} color="#1F54DD" />
-              </Pressable>
-              <Pressable style={[styles.buttonWrapper, { flex: 1 }]} onPress={nextStep}>
-                <LinearGradient colors={['#3B82F6', '#6366F1']} style={styles.button} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                  <Text style={styles.buttonText}>Continue</Text>
-                </LinearGradient>
-              </Pressable>
-            </View>
-          </View>
-        );
-      case 3:
-        return (
-          <View style={styles.formContent}>
-            <View style={styles.inputContainer}>
-              <Feather name="lock" size={20} color="#6B7280" style={styles.inputIcon} />
-              <TextInput style={styles.input} placeholder="Password" placeholderTextColor="#9CA3AF" secureTextEntry />
-            </View>
-            <View style={styles.passwordIndicator}>
-              <View style={[styles.indicatorBar, { backgroundColor: '#10B981' }]} />
-              <View style={[styles.indicatorBar, { backgroundColor: '#10B981' }]} />
-              <View style={[styles.indicatorBar, { backgroundColor: '#D1D5DB' }]} />
-              <Text style={styles.indicatorText}>Good</Text>
-            </View>
-            <View style={[styles.inputContainer, { marginTop: 5 }]}>
-              <Feather name="lock" size={20} color="#6B7280" style={styles.inputIcon} />
-              <TextInput style={styles.input} placeholder="Confirm Password" placeholderTextColor="#9CA3AF" secureTextEntry />
-            </View>
-
-            <View style={styles.agreementRow}>
-              <Pressable style={[styles.checkbox, agreed && styles.checkboxActive]} onPress={() => setAgreed(!agreed)}>
-                {agreed && <Feather name="check" size={14} color="#fff" />}
-              </Pressable>
-              <Text style={styles.agreementText}>
-                I agree to the <Text style={styles.linkText}>Terms of Service</Text> & <Text style={styles.linkText}>Privacy Policy</Text>
-              </Text>
-            </View>
-
-            <View style={styles.actionsRow}>
-              <Pressable style={styles.backButton} onPress={prevStep}>
-                <Feather name="arrow-left" size={24} color="#1F54DD" />
-              </Pressable>
-              <Pressable style={[styles.buttonWrapper, { flex: 1 }]} onPress={submit}>
-                <LinearGradient colors={['#3B82F6', '#6366F1']} style={styles.button} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                  <Text style={styles.buttonText}>Complete Sign Up</Text>
-                </LinearGradient>
-              </Pressable>
-            </View>
-          </View>
-        );
-      default:
-        return null;
+  async function submit() {
+    if (busy) return;
+    const fields: Record<string, string> = {};
+    if (!email.trim()) fields.email = 'Enter your email address.';
+    if (!password) fields.password = 'Choose a password.';
+    else if (password !== confirm) fields.confirm = 'The two passwords do not match.';
+    if (Object.keys(fields).length || !agreed) {
+      setErrors({ fields, general: agreed ? null : 'Agree to the Terms of Service and Privacy Policy to continue.' });
+      return;
     }
-  };
+    setBusy(true);
+    setErrors(noErrors);
+    try {
+      await signUp(email.trim(), password);
+      resetOnboarding();
+      setRegisteredEmail(email.trim());
+    } catch (error) {
+      setErrors(describeAuthError(error));
+    } finally {
+      setBusy(false);
+    }
+  }
 
-  const stepTitles = ["Personal Information", "Academic Details", "Security & Setup"];
+  const fieldError = (name: string) =>
+    errors.fields[name] ? <Text accessibilityRole="alert" style={styles.error}>{errors.fields[name]}</Text> : null;
 
   return (
     <KeyboardAvoidingView style={styles.root} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -142,34 +56,58 @@ export default function SignupScreen() {
       <View style={styles.blurCircle1} />
       <View style={styles.blurCircle2} />
 
-      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-
-        {/* Header */}
+      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
         <View style={styles.header}>
           <View style={styles.logoRow}>
             <Image source={require('@/assets/images/logo.png')} style={styles.logo} contentFit="contain" />
             <Text style={styles.logoText}>BUILD</Text>
           </View>
           <Text style={styles.title}>Create your BUILD account</Text>
-          <Text style={styles.subtitle}>Let's set up your learning experience.</Text>
+          <Text style={styles.subtitle}>Your programme and courses come next.</Text>
         </View>
 
-        {/* Glassmorphism Box */}
         <View style={styles.glassBox}>
+          {registeredEmail ? (
+            <VerifyEmailPanel email={registeredEmail} onVerified={() => router.replace('/(auth)/login')} />
+          ) : (
+            <View style={styles.formContent}>
+              <View style={styles.inputContainer}>
+                <Feather name="mail" size={20} color="#6B7280" style={styles.inputIcon} />
+                <TextInput style={styles.input} placeholder="Email Address" placeholderTextColor="#9CA3AF" keyboardType="email-address" autoCapitalize="none" autoComplete="email" autoCorrect={false} value={email} onChangeText={setEmail} editable={!busy} accessibilityLabel="Email address" />
+              </View>
+              {fieldError('email')}
+              <View style={styles.inputContainer}>
+                <Feather name="lock" size={20} color="#6B7280" style={styles.inputIcon} />
+                <TextInput style={styles.input} placeholder="Password" placeholderTextColor="#9CA3AF" secureTextEntry autoComplete="new-password" value={password} onChangeText={setPassword} editable={!busy} accessibilityLabel="Password" />
+              </View>
+              {fieldError('password')}
+              <View style={styles.inputContainer}>
+                <Feather name="lock" size={20} color="#6B7280" style={styles.inputIcon} />
+                <TextInput style={styles.input} placeholder="Confirm Password" placeholderTextColor="#9CA3AF" secureTextEntry autoComplete="new-password" value={confirm} onChangeText={setConfirm} editable={!busy} accessibilityLabel="Confirm password" />
+              </View>
+              {fieldError('confirm')}
 
-          {renderStepIndicator()}
+              <View style={styles.agreementRow}>
+                <Pressable style={[styles.checkbox, agreed && styles.checkboxActive]} onPress={() => setAgreed(!agreed)} accessibilityRole="checkbox" accessibilityState={{ checked: agreed }}>
+                  {agreed && <Feather name="check" size={14} color="#fff" />}
+                </Pressable>
+                <Text style={styles.agreementText}>
+                  I agree to the <Text style={styles.linkText}>Terms of Service</Text> & <Text style={styles.linkText}>Privacy Policy</Text>
+                </Text>
+              </View>
+              {!!errors.general && <Text accessibilityRole="alert" style={styles.error}>{errors.general}</Text>}
 
-          <View style={styles.stepInfo}>
-            <Text style={styles.stepCount}>Step {step} of 3</Text>
-            <Text style={styles.stepTitle}>{stepTitles[step - 1]}</Text>
-          </View>
-
-          <View style={styles.divider} />
-
-          {renderStepContent()}
-
+              <Pressable style={styles.buttonWrapper} onPress={submit} disabled={busy} accessibilityRole="button" accessibilityState={{ busy }}>
+                <LinearGradient colors={['#3B82F6', '#6366F1']} style={styles.button} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+                  {busy ? <ActivityIndicator color="#ffffff" /> : <Text style={styles.buttonText}>Create account</Text>}
+                </LinearGradient>
+              </Pressable>
+              <Pressable onPress={() => router.replace('/(auth)/login')} accessibilityRole="link" style={styles.backLink}>
+                <Text style={styles.linkText}>Already have an account? Sign in</Text>
+              </Pressable>
+            </View>
+          )}
         </View>
-
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -219,6 +157,8 @@ const styles = StyleSheet.create({
   linkText: { color: '#1D4ED8', fontFamily: Fonts.medium },
 
   actions: { marginTop: 16 },
+  error: { fontFamily: Fonts.medium, fontSize: 13, color: '#7F1D1D', backgroundColor: '#FEE2E2', borderRadius: 12, padding: 10 },
+  backLink: { alignItems: 'center', paddingVertical: 8 },
   actionsRow: { flexDirection: 'row', marginTop: 16, gap: 12, alignItems: 'center' },
   backButton: { width: 50, height: 50, borderRadius: 20, backgroundColor: 'rgba(255,255,255,0.3)', borderColor: 'rgba(255,255,255,0.7)', borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
   buttonWrapper: {},

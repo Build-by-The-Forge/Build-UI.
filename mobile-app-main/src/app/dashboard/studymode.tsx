@@ -5,7 +5,7 @@ import * as DocumentPicker from 'expo-document-picker';
 import { useFocusEffect, useRouter } from 'expo-router';
 import { z } from 'zod';
 import DashboardBottomNav from '@/components/DashboardBottomNav';
-import { useOnboarding } from '@/context/Onboardingcontext';
+import { useAcademicProfile } from '@/features/academic/ProfileProvider';
 import { useThemedStyles } from '@/hooks/useThemedStyles';
 import { useTheme } from '@/context/ThemeContext';
 import { loadStudyShelf, openStudyNote, saveStudyShelf, storePickedNote, type StudyShelf, type ShelfNote } from '@/services/studyShelf';
@@ -27,9 +27,9 @@ export default function StudyModesScreen() {
   const dark = mode === 'dark';
   const router = useRouter();
   const { width } = useWindowDimensions();
-  const { data, getAvailableCourses } = useOnboarding();
+  const { profile } = useAcademicProfile();
   const wide = width >= 760;
-  const selectedCourses = getAvailableCourses().filter(course => data.courses.includes(course.id));
+  const selectedCourses = (profile?.courses ?? []).map(course => ({ id: course.id, code: course.code, name: course.title }));
   const manageCourses = () => router.push('/dashboard/courses');
   const aiReady = !!process.env.EXPO_PUBLIC_BUILD_AI_API_URL;
   const [shelf, setShelf] = useState<StudyShelf>({ courses: [], notes: [] });
@@ -92,7 +92,7 @@ export default function StudyModesScreen() {
     {shelfLoading ? <ActivityIndicator color={BLUE} style={{ marginVertical: 25 }} /> : allCourses.length ? <>
       <View style={ui.courseFeature}>
         <View style={ui.courseCover}><Ionicons name="book-outline" size={25} color="#FFFFFF" /><Text style={ui.coverCode}>{allCourses[0].code}</Text></View>
-        <View style={ui.courseCopy}><Text style={ui.courseLabel}>ON YOUR SHELF</Text><Text style={ui.courseName}>{allCourses[0].name}</Text><Text style={ui.courseMeta}>{shelf.courses.some(course => course.id === allCourses[0].id) ? 'Added by you' : data.department?.name || 'Selected course'}</Text></View>
+        <View style={ui.courseCopy}><Text style={ui.courseLabel}>ON YOUR SHELF</Text><Text style={ui.courseName}>{allCourses[0].name}</Text><Text style={ui.courseMeta}>{shelf.courses.some(course => course.id === allCourses[0].id) ? 'Added by you' : profile?.department?.name || 'Selected course'}</Text></View>
       </View>
       {allCourses.slice(1).map(course => <View key={course.id} style={ui.shelfRow}><View style={ui.courseMini}><Text style={ui.courseMiniText}>{course.code}</Text></View><Text style={ui.shelfRowName} numberOfLines={2}>{course.name}</Text><TouchableOpacity onPress={() => pickNote(course.id)} accessibilityRole="button" accessibilityLabel={`Attach notes to ${course.code}`} style={ui.attachButton}><Ionicons name="attach-outline" size={19} color={dark ? '#8AB8FF' : BLUE} /></TouchableOpacity></View>)}
       <TouchableOpacity onPress={() => pickNote(allCourses[0].id)} style={ui.attachFirst} accessibilityRole="button"><Ionicons name="attach-outline" size={16} color={dark ? '#8AB8FF' : BLUE} /><Text style={ui.attachText}>Attach notes to {allCourses[0].code}</Text></TouchableOpacity>
