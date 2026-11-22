@@ -15,6 +15,9 @@ export type ApiConfig = {
   readonly useMocks: boolean;
   /** Per-request timeout. */
   readonly timeoutMs: number;
+  /** Published Terms of Service and Privacy Policy. Both are required in production. */
+  readonly termsUrl: string | null;
+  readonly privacyUrl: string | null;
 };
 
 export class ConfigError extends Error {
@@ -22,6 +25,24 @@ export class ConfigError extends Error {
 }
 
 type Env = Readonly<Record<string, string | undefined>>;
+
+function readPolicyUrl(name: string, raw: string | undefined, isDev: boolean): string | null {
+  const value = (raw ?? '').trim();
+  if (!value) {
+    if (!isDev) throw new ConfigError(`${name} is not set. A production build must link the published policy.`);
+    return null;
+  }
+  let parsed: URL;
+  try {
+    parsed = new URL(value);
+  } catch {
+    throw new ConfigError(`${name} is not a valid URL.`);
+  }
+  if (parsed.protocol !== 'https:' && !(isDev && parsed.protocol === 'http:')) {
+    throw new ConfigError(`${name} must be an https URL.`);
+  }
+  return value;
+}
 
 export function readApiConfig(env: Env, isDev: boolean): ApiConfig {
   const useMocks = env.EXPO_PUBLIC_USE_MOCKS === 'true';
@@ -45,6 +66,8 @@ export function readApiConfig(env: Env, isDev: boolean): ApiConfig {
     tenantSlug: (env.EXPO_PUBLIC_TENANT_SLUG ?? '').trim() || 'futa',
     useMocks,
     timeoutMs: Number.isFinite(timeout) && timeout > 0 ? timeout : 20_000,
+    termsUrl: readPolicyUrl('EXPO_PUBLIC_TERMS_URL', env.EXPO_PUBLIC_TERMS_URL, isDev),
+    privacyUrl: readPolicyUrl('EXPO_PUBLIC_PRIVACY_URL', env.EXPO_PUBLIC_PRIVACY_URL, isDev),
   };
 }
 
@@ -60,6 +83,8 @@ export function apiConfig(): ApiConfig {
         EXPO_PUBLIC_TENANT_SLUG: process.env.EXPO_PUBLIC_TENANT_SLUG,
         EXPO_PUBLIC_USE_MOCKS: process.env.EXPO_PUBLIC_USE_MOCKS,
         EXPO_PUBLIC_API_TIMEOUT_MS: process.env.EXPO_PUBLIC_API_TIMEOUT_MS,
+        EXPO_PUBLIC_TERMS_URL: process.env.EXPO_PUBLIC_TERMS_URL,
+        EXPO_PUBLIC_PRIVACY_URL: process.env.EXPO_PUBLIC_PRIVACY_URL,
       },
       typeof __DEV__ !== 'undefined' && __DEV__,
     );
