@@ -9,10 +9,49 @@ import {
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import { Text, View } from 'react-native';
+import { ConfigError } from '@/api/config';
+import { getSessionManager } from '@/auth';
+import { SessionProvider, useSession } from '@/auth/SessionProvider';
 import { OnboardingProvider } from '@/context/Onboardingcontext';
+import { ProfileProvider } from '@/features/academic/ProfileProvider';
 import { ThemeProvider } from '@/context/ThemeContext';
 
 SplashScreen.preventAutoHideAsync();
+
+/**
+ * Which screens exist depends on the session. A guarded screen is removed from
+ * the navigator, so a signed-out student can't reach it by deep link or by the
+ * back button. The backend still authorises every request.
+ */
+function Routes() {
+  const { gate } = useSession();
+  return (
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="index" />
+      <Stack.Protected guard={gate === 'auth'}>
+        <Stack.Screen name="(auth)" />
+      </Stack.Protected>
+      <Stack.Protected guard={gate === 'app'}>
+        <Stack.Screen name="(onboarding)" />
+        <Stack.Screen name="dashboard" />
+      </Stack.Protected>
+      <Stack.Protected guard={gate === 'verify-email'}>
+        <Stack.Screen name="verify-email" />
+      </Stack.Protected>
+    </Stack>
+  );
+}
+
+/** A build with unsafe or missing configuration says so instead of crashing. */
+function configProblem(): string | null {
+  try {
+    getSessionManager();
+    return null;
+  } catch (error) {
+    return error instanceof ConfigError ? error.message : 'The app is not configured correctly.';
+  }
+}
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -31,14 +70,25 @@ export default function RootLayout() {
 
   if (!fontsLoaded) return null;
 
+  const problem = configProblem();
+  if (problem) {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 28, backgroundColor: '#F0F5FF' }}>
+        <Text style={{ fontSize: 18, fontWeight: '700', color: '#1F54DD', textAlign: 'center' }}>BUILD can&apos;t start</Text>
+        <Text style={{ marginTop: 10, color: '#475569', textAlign: 'center', lineHeight: 21 }}>{problem}</Text>
+      </View>
+    );
+  }
+
   return (
-    <ThemeProvider><OnboardingProvider>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="index" />
-        <Stack.Screen name="(onboarding)" />
-        <Stack.Screen name="(auth)" />
-        <Stack.Screen name="dashboard" />
-      </Stack>
-    </OnboardingProvider></ThemeProvider>
+    <ThemeProvider>
+      <SessionProvider>
+        <ProfileProvider>
+          <OnboardingProvider>
+            <Routes />
+          </OnboardingProvider>
+        </ProfileProvider>
+      </SessionProvider>
+    </ThemeProvider>
   );
 }

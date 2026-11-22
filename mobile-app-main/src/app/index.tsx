@@ -1,10 +1,33 @@
+import { GateView } from '@/components/auth/GateView';
+import { useSession } from '@/auth/SessionProvider';
+import { useAcademicProfile } from '@/features/academic/ProfileProvider';
 import { Fonts } from '@/constants/theme';
 import { Image } from 'expo-image';
-import { useRouter } from 'expo-router';
+import { Redirect, useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function WelcomeScreen() {
+/**
+ * The front door. What it shows depends on the session: the welcome screen
+ * when signed out, a loading or retry view while the session or profile is
+ * being read, and otherwise a redirect to where the student belongs: the
+ * dashboard once their academic profile is complete, onboarding until then.
+ */
+export default function Entry() {
+  const { gate } = useSession();
+  const { status, profile, reload } = useAcademicProfile();
+  if (gate === 'auth') return <WelcomeScreen />;
+  if (gate === 'verify-email') return <Redirect href="/verify-email" />;
+  if (gate === 'app') {
+    if (status === 'ready') {
+      return <Redirect href={profile?.complete ? '/dashboard/home' : '/(onboarding)/step-one'} />;
+    }
+    return <GateView failed={status === 'error'} onRetry={reload} />;
+  }
+  return <GateView />;
+}
+
+function WelcomeScreen() {
   const router = useRouter();
 
   useEffect(() => {

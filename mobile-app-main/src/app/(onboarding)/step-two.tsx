@@ -3,40 +3,43 @@ import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView } fr
 import { useRouter } from 'expo-router';
 import ProgressHeader from '@/components/ProgressHeader';
 import PrimaryButton from '@/components/PrimaryButton';
+import { LoadBoundary } from '@/components/onboarding/LoadBoundary';
 import { useOnboarding } from '@/context/Onboardingcontext';
+import { MAX_PROFILE_COURSES } from '@/features/academic/api';
+import { useAcademicProfile } from '@/features/academic/ProfileProvider';
+import { useLoad } from '@/features/academic/useLoad';
 import colors from '@/theme/colors';
 
-const TABS = ['All Courses', 'Core', 'Electives', 'Lab'];
+type Tab = 'level' | 'all';
 
 export default function Step2Courses() {
   const router = useRouter();
-  const { data, setCourses, getAvailableCourses } = useOnboarding();
-  const [activeTab, setActiveTab] = useState('All Courses');
+  const { api } = useAcademicProfile();
+  const { data, setCourseIds } = useOnboarding();
+  const [tab, setTab] = useState<Tab>('level');
+  const [selected, setSelected] = useState<string[]>(data.courseIds);
+  const [limitHit, setLimitHit] = useState(false);
 
-  const availableCourses = getAvailableCourses();
-  const [selectedCourses, setSelectedCourses] = useState<string[]>(data.courses);
+  const departmentId = data.department?.id ?? null;
+  const courses = useLoad(departmentId ? `courses:${departmentId}` : null, (signal) => api.courses(departmentId!, signal));
 
-  const toggleCourse = (id: string) => {
-    setSelectedCourses((prev) =>
-      prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id]
-    );
+  const toggle = (id: string) => {
+    setLimitHit(false);
+    setSelected((prev) => {
+      if (prev.includes(id)) return prev.filter((c) => c !== id);
+      if (prev.length >= MAX_PROFILE_COURSES) {
+        setLimitHit(true);
+        return prev;
+      }
+      return [...prev, id];
+    });
   };
 
-  const filteredCourses = availableCourses.filter((course) => {
-    if (activeTab === 'All Courses') return true;
-    if (activeTab === 'Core') return course.category === 'core';
-    if (activeTab === 'Electives') return course.category === 'elective';
-    if (activeTab === 'Lab') return course.category === 'lab';
-    return true;
-  });
+  // A course picked earlier stays picked even if it isn't on screen now.
+  const visible = (courses.data ?? []).filter((c) => tab === 'all' || c.level === data.level);
 
   const handleContinue = () => {
-    setCourses(selectedCourses);
-    router.push('/(onboarding)/step-three');
-  };
-
-  const handleSkip = () => {
-    setCourses([]);
+    setCourseIds(selected);
     router.push('/(onboarding)/step-three');
   };
 
@@ -46,30 +49,24 @@ export default function Step2Courses() {
 
       <View style={styles.chipRow}>
         <View style={styles.chip}>
-          <Text style={styles.chipText}>{data.academicLevel?.title || 'Choose level'}</Text>
+          <Text style={styles.chipText}>{data.level ? `${data.level} Level` : 'Choose level'}</Text>
         </View>
         <View style={styles.chip}>
-          <Text style={styles.chipText}>
-            {data.department ? `${data.department.name} (${data.department.code})` : 'Choose department'}
-          </Text>
+          <Text style={styles.chipText}>{data.department?.name ?? 'Choose department'}</Text>
         </View>
       </View>
 
       <View style={styles.headingBlock}>
         <Text style={styles.title}>Which courses are you taking?</Text>
-        <Text style={styles.subtitle}>Choose the courses you want BUILD to help you with.</Text>
+        <Text style={styles.subtitle}>Choose the courses you want BUILD to help you with. You can change this later.</Text>
       </View>
 
       <View style={styles.tabsRow}>
-        {TABS.map((tab) => {
-          const isActive = activeTab === tab;
+        {([['level', `${data.level ?? ''} Level`], ['all', 'All levels']] as const).map(([id, label]) => {
+          const isActive = tab === id;
           return (
-            <TouchableOpacity
-              key={tab}
-              style={[styles.tab, isActive && styles.tabActive]}
-              onPress={() => setActiveTab(tab)}
-            >
-              <Text style={[styles.tabText, isActive && styles.tabTextActive]}>{tab}</Text>
+            <TouchableOpacity key={id} style={[styles.tab, isActive && styles.tabActive]} onPress={() => setTab(id)} accessibilityRole="button" accessibilityState={{ selected: isActive }}>
+              <Text style={[styles.tabText, isActive && styles.tabTextActive]}>{label}</Text>
             </TouchableOpacity>
           );
         })}
@@ -77,30 +74,29 @@ export default function Step2Courses() {
 
       <View style={styles.selectedCountWrap}>
         <View style={styles.selectedCountPill}>
-          <Text style={styles.selectedCountText}>✓ {selectedCourses.length} courses selected</Text>
+          <Text style={styles.selectedCountText}>✓ {selected.length} of {MAX_PROFILE_COURSES} courses selected</Text>
         </View>
       </View>
+      {limitHit && <Text style={styles.limit} accessibilityRole="alert">You can pick up to {MAX_PROFILE_COURSES} courses. Remove one to add another.</Text>}
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        {filteredCourses.length > 0 ? (
-          filteredCourses.map((course) => {
-            const isSelected = selectedCourses.includes(course.id);
+        <LoadBoundary status={courses.status} error={courses.error} onRetry={courses.reload} isEmpty={visible.length === 0} empty={tab === 'level' ? 'No published courses for this level yet. Try All levels.' : 'No courses are published for your department yet.'}>
+          {visible.map((course) => {
+            const isSelected = selected.includes(course.id);
             return (
               <TouchableOpacity
                 key={course.id}
                 style={[styles.courseCard, isSelected && styles.courseCardSelected]}
                 activeOpacity={0.8}
-                onPress={() => toggleCourse(course.id)}
+                onPress={() => toggle(course.id)}
+                accessibilityRole="checkbox"
+                accessibilityState={{ checked: isSelected }}
+                accessibilityLabel={`${course.code} ${course.title}`}
               >
                 <View style={styles.courseTextWrap}>
-                  <View style={styles.courseTitleRow}>
-                    <Text style={styles.courseName}>
-                      {course.code} {course.name}
-                    </Text>
-                    {course.tag && <View style={styles.newDot} />}
-                  </View>
+                  <Text style={styles.courseName}>{course.code} {course.title}</Text>
                   <Text style={styles.courseMeta}>
-                    {course.code} · {course.units} Units · {course.category.toUpperCase()}
+                    {course.level} Level · Semester {course.semester} · {course.credit_units} {course.credit_units === 1 ? 'unit' : 'units'}
                   </Text>
                 </View>
                 <View style={[styles.checkbox, isSelected && styles.checkboxSelected]}>
@@ -108,17 +104,13 @@ export default function Step2Courses() {
                 </View>
               </TouchableOpacity>
             );
-          })
-        ) : (
-          <View style={styles.emptyWrap}>
-            <Text style={styles.emptyText}>No courses found in this category.</Text>
-          </View>
-        )}
+          })}
+        </LoadBoundary>
       </ScrollView>
 
       <View style={styles.footer}>
         <PrimaryButton label="Continue" onPress={handleContinue} />
-        <TouchableOpacity style={styles.skipButton} onPress={handleSkip}>
+        <TouchableOpacity style={styles.skipButton} onPress={() => { setCourseIds([]); router.push('/(onboarding)/step-three'); }}>
           <Text style={styles.skipText}>Skip for now</Text>
         </TouchableOpacity>
       </View>
@@ -127,6 +119,7 @@ export default function Step2Courses() {
 }
 
 const styles = StyleSheet.create({
+  limit: { color: '#92400E', backgroundColor: '#FFFBEB', marginHorizontal: 20, padding: 10, borderRadius: 10, fontSize: 13 },
   safeArea: {
     flex: 1,
     backgroundColor: colors.background,

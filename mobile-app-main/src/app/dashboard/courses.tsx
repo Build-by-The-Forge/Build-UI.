@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Modal, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, useWindowDimensions, View } from 'react-native';
+import { ActivityIndicator, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { useOnboarding, type AcademicLevel } from '@/context/Onboardingcontext';
-import { getCoursesForDepartment, getSchools } from '@/data/institutionData';
+import { describeAuthError } from '@/auth/errorMessages';
+import { LoadBoundary } from '@/components/onboarding/LoadBoundary';
+import { MAX_PROFILE_COURSES } from '@/features/academic/api';
+import { useAcademicProfile } from '@/features/academic/ProfileProvider';
+import { useLoad } from '@/features/academic/useLoad';
 import { useTheme } from '@/context/ThemeContext';
 import { useThemedStyles } from '@/hooks/useThemedStyles';
 import { loadStudyShelf, saveStudyShelf, type StudyShelf } from '@/services/studyShelf';
 
 const BLUE = '#2563EB';
-const FILTERS = ['All', 'Core', 'Electives', 'Lab'] as const;
-const LEVELS: AcademicLevel[] = [
-  { id: '100', title: '100 Level', subtitle: 'First Year' }, { id: '200', title: '200 Level', subtitle: 'Second Year' },
-  { id: '300', title: '300 Level', subtitle: 'Third Year' }, { id: '400', title: '400 Level', subtitle: 'Fourth Year' },
-  { id: '500', title: '500 Level', subtitle: 'Fifth Year' }, { id: 'postgrad', title: 'Postgraduate', subtitle: 'Masters / PhD' },
-];
-const departments = getSchools().flatMap(school => school.departments.map(department => ({ school, department })));
-type Filter = typeof FILTERS[number];
+type Filter = 'level' | 'all';
 
 export default function ManageCoursesScreen() {
   const router = useRouter();
@@ -24,37 +20,38 @@ export default function ManageCoursesScreen() {
   const { mode } = useTheme();
   const dark = mode === 'dark';
   const { width } = useWindowDimensions();
-  const { data, updateData } = useOnboarding();
-  const [selected, setSelected] = useState<string[]>(data.courses);
-  const [levelId, setLevelId] = useState(data.academicLevel?.id || '');
-  const [departmentCode, setDepartmentCode] = useState(data.department?.code || '');
-  const [departmentPickerOpen, setDepartmentPickerOpen] = useState(false);
-  const [departmentSearch, setDepartmentSearch] = useState('');
+  const { profile, api, save } = useAcademicProfile();
+  const savedIds = (profile?.courses ?? []).map(course => course.id);
+  const [selected, setSelected] = useState<string[]>(savedIds);
   const [shelf, setShelf] = useState<StudyShelf>({ courses: [], notes: [] });
   const [removedCustom, setRemovedCustom] = useState<string[]>([]);
-  const [filter, setFilter] = useState<Filter>('All');
+  const [filter, setFilter] = useState<Filter>('level');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
-  const level = LEVELS.find(item => item.id === levelId) || null;
-  const departmentChoice = departments.find(item => item.department.code === departmentCode);
-  const hasProfile = !!(departmentChoice && level);
-  const available = hasProfile ? getCoursesForDepartment(departmentCode, levelId) : [];
-  const visible = available.filter(course => filter === 'All' || course.category === (filter === 'Electives' ? 'elective' : filter.toLowerCase()));
+  const programme = profile?.programme ?? null;
+  const level = profile?.level ?? null;
+  const departmentId = profile?.department?.id ?? null;
+  const hasProfile = !!(programme && level);
+  const catalogue = useLoad(departmentId ? `courses:${departmentId}` : null, (signal) => api.courses(departmentId!, signal));
+  const visible = (catalogue.data ?? []).filter(course => filter === 'all' || course.level === level);
   const customCourses = shelf.courses.filter(course => !removedCustom.includes(course.id));
-  const changed = levelId !== (data.academicLevel?.id || '') || departmentCode !== (data.department?.code || '') || selected.length !== data.courses.length || selected.some(id => !data.courses.includes(id)) || removedCustom.length > 0;
+  const changed = selected.length !== savedIds.length || selected.some(id => !savedIds.includes(id)) || removedCustom.length > 0;
 
   useEffect(() => {
     loadStudyShelf().then(setShelf).catch(() => setError('Your saved courses could not be loaded.')).finally(() => setLoading(false));
   }, []);
 
   const goBack = () => router.canGoBack() ? router.back() : router.replace('/dashboard/studymode');
-  const toggle = (id: string) => setSelected(current => current.includes(id) ? current.filter(item => item !== id) : [...current, id]);
-  const chooseLevel = (id: string) => { if (id !== levelId) { setLevelId(id); setSelected([]); } };
-  const chooseDepartment = (code: string) => { if (code !== departmentCode) { setDepartmentCode(code); setSelected([]); } setDepartmentPickerOpen(false); setDepartmentSearch(''); };
-  const matchingDepartments = departments.filter(item => `${item.department.name} ${item.department.code} ${item.school.name}`.toLowerCase().includes(departmentSearch.trim().toLowerCase()));
+  const toggle = (id: string) => setSelected(current => {
+    if (current.includes(id)) return current.filter(item => item !== id);
+    if (current.length >= MAX_PROFILE_COURSES) { setError(`You can pick up to ${MAX_PROFILE_COURSES} courses.`); return current; }
+    setError('');
+    return [...current, id];
+  });
 
-  const save = async () => {
+  const saveChanges = async () => {
+    if (!programme || !level) return;
     setSaving(true); setError('');
     try {
       if (removedCustom.length) {
@@ -63,16 +60,13 @@ export default function ManageCoursesScreen() {
           notes: shelf.notes.map(note => removedCustom.includes(note.courseId || '') ? { ...note, courseId: null } : note),
         });
       }
-      updateData({
-        school: departmentChoice?.school || null,
-        department: departmentChoice?.department || null,
-        academicLevel: level,
-        courses: selected,
-        selectedCourseDetails: available.filter(course => selected.includes(course.id)),
-      });
+      // The backend replaces the whole profile; the screen only moves on after it accepts.
+      await save({ programme_id: programme.id, level, course_ids: selected });
       goBack();
-    } catch { setError('Could not save your course changes. Try again.'); }
-    finally { setSaving(false); }
+    } catch (e) {
+      const described = describeAuthError(e);
+      setError(Object.values(described.fields)[0] ?? described.general ?? 'Could not save your course changes. Try again.');
+    } finally { setSaving(false); }
   };
 
   return <SafeAreaView style={[ui.page, dark && { backgroundColor: '#0B1220' }]}>
@@ -81,24 +75,26 @@ export default function ManageCoursesScreen() {
       <Text style={ui.title}>Manage your courses</Text>
       <Text style={ui.subtitle}>Keep your shelf aligned with what you are studying now.</Text>
       {error ? <Text style={ui.error} accessibilityRole="alert">{error}</Text> : null}
-      <View style={ui.profileSection}><Text style={ui.eyebrow}>YOUR PROGRAMME</Text><Text style={ui.sectionTitle}>Find your courses</Text><Text style={ui.profileHint}>Choose your level and department to see the right course catalogue.</Text>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={ui.levels}>{LEVELS.map(item => <TouchableOpacity key={item.id} onPress={() => chooseLevel(item.id)} style={[ui.filter, levelId === item.id && ui.filterActive]} accessibilityRole="button" accessibilityState={{ selected: levelId === item.id }}><Text style={[ui.filterText, levelId === item.id && ui.filterTextActive]}>{item.title}</Text></TouchableOpacity>)}</ScrollView>
-        <TouchableOpacity onPress={() => setDepartmentPickerOpen(true)} style={ui.departmentButton} accessibilityRole="button" accessibilityLabel="Choose department"><Ionicons name="school-outline" size={20} color={dark ? '#8AB8FF' : BLUE} /><Text style={ui.departmentText} numberOfLines={2}>{departmentChoice ? `${departmentChoice.department.name} (${departmentCode})` : 'Choose your department'}</Text><Ionicons name="chevron-down" size={18} color={dark ? '#B5C3D5' : '#64748B'} /></TouchableOpacity>
+      <View style={ui.profileSection}><Text style={ui.eyebrow}>YOUR PROGRAMME</Text>
+        <Text style={ui.sectionTitle}>{programme ? programme.name : 'No programme chosen'}</Text>
+        <Text style={ui.profileHint}>{hasProfile ? `${profile?.department?.name ?? ''} · ${level} Level` : 'Choose your programme and level to see the right course catalogue.'}</Text>
+        <TouchableOpacity onPress={() => router.push('/(onboarding)/step-one')} style={ui.departmentButton} accessibilityRole="button" accessibilityLabel="Change programme or level"><Ionicons name="school-outline" size={20} color={dark ? '#8AB8FF' : BLUE} /><Text style={ui.departmentText}>{hasProfile ? 'Change programme or level' : 'Choose your programme'}</Text><Ionicons name="chevron-forward" size={18} color={dark ? '#B5C3D5' : '#64748B'} /></TouchableOpacity>
       </View>
       {hasProfile ? <>
         <View style={ui.sectionHeading}><View><Text style={ui.eyebrow}>COURSE CATALOGUE</Text><Text style={ui.sectionTitle}>Choose your courses</Text></View><Text style={ui.count}>{selected.length} selected</Text></View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={ui.filters}>{FILTERS.map(item => <TouchableOpacity key={item} onPress={() => setFilter(item)} style={[ui.filter, filter === item && ui.filterActive]} accessibilityRole="button" accessibilityState={{ selected: filter === item }}><Text style={[ui.filterText, filter === item && ui.filterTextActive]}>{item}</Text></TouchableOpacity>)}</ScrollView>
-        {visible.length ? visible.map(course => {
-          const checked = selected.includes(course.id);
-          return <TouchableOpacity key={course.id} onPress={() => toggle(course.id)} style={ui.courseRow} accessibilityRole="checkbox" accessibilityState={{ checked }} accessibilityLabel={`${course.code} ${course.name}`}>
-            <View style={ui.courseCopy}><Text style={ui.courseCode}>{course.code}</Text><Text style={ui.courseName}>{course.name}</Text><Text style={ui.courseMeta}>{course.units} {course.units === 1 ? 'unit' : 'units'} · {course.category}</Text></View><View style={[ui.check, checked && ui.checkActive]}>{checked && <Ionicons name="checkmark" size={16} color="#FFFFFF" />}</View>
-          </TouchableOpacity>;
-        }) : <Text style={ui.empty}>No courses in this category for your current level and department.</Text>}
-      </> : <Text style={ui.empty}>Select a level and department above to browse courses. You can still manage courses you added yourself below.</Text>}
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={ui.filters}>{([['level', `${level} Level`], ['all', 'All levels']] as const).map(([id, label]) => <TouchableOpacity key={id} onPress={() => setFilter(id)} style={[ui.filter, filter === id && ui.filterActive]} accessibilityRole="button" accessibilityState={{ selected: filter === id }}><Text style={[ui.filterText, filter === id && ui.filterTextActive]}>{label}</Text></TouchableOpacity>)}</ScrollView>
+        <LoadBoundary status={catalogue.status} error={catalogue.error} onRetry={catalogue.reload} isEmpty={visible.length === 0} empty="No published courses match. Try All levels.">
+          {visible.map(course => {
+            const checked = selected.includes(course.id);
+            return <TouchableOpacity key={course.id} onPress={() => toggle(course.id)} style={ui.courseRow} accessibilityRole="checkbox" accessibilityState={{ checked }} accessibilityLabel={`${course.code} ${course.title}`}>
+              <View style={ui.courseCopy}><Text style={ui.courseCode}>{course.code}</Text><Text style={ui.courseName}>{course.title}</Text><Text style={ui.courseMeta}>{course.level} Level · Semester {course.semester} · {course.credit_units} {course.credit_units === 1 ? 'unit' : 'units'}</Text></View><View style={[ui.check, checked && ui.checkActive]}>{checked && <Ionicons name="checkmark" size={16} color="#FFFFFF" />}</View>
+            </TouchableOpacity>;
+          })}
+        </LoadBoundary>
+      </> : <Text style={ui.empty}>Choose a programme and level above to browse courses. You can still manage courses you added yourself below.</Text>}
       <View style={ui.customSection}><Text style={ui.eyebrow}>ADDED BY YOU</Text><Text style={ui.sectionTitle}>Your own courses</Text>{loading ? <ActivityIndicator color={BLUE} style={ui.loading} /> : customCourses.length ? customCourses.map(course => <View key={course.id} style={ui.customRow}><View style={ui.courseCopy}><Text style={ui.courseCode}>{course.code}</Text><Text style={ui.courseName}>{course.name}</Text></View><TouchableOpacity onPress={() => setRemovedCustom(current => [...current, course.id])} style={ui.removeButton} accessibilityRole="button" accessibilityLabel={`Remove ${course.code}`}><Ionicons name="trash-outline" size={18} color={dark ? '#EEA8A4' : '#A34747'} /></TouchableOpacity></View>) : <Text style={ui.empty}>Courses you add from the Study shelf will appear here.</Text>}</View>
     </ScrollView>
-    <View style={[ui.footer, dark && { backgroundColor: '#172235', borderColor: '#304055' }]}><Text style={ui.footerHint}>{changed ? 'Your changes are ready to save.' : 'Your course selection is up to date.'}</Text><TouchableOpacity onPress={save} disabled={saving || loading || !!error} style={[ui.saveButton, (saving || loading || !!error) && ui.saveDisabled]} accessibilityRole="button" accessibilityLabel="Save courses"><Text style={ui.saveText}>{saving ? 'Saving…' : 'Save courses'}</Text><Ionicons name="checkmark" size={17} color="#FFFFFF" /></TouchableOpacity></View>
-    <Modal visible={departmentPickerOpen} transparent animationType="fade" onRequestClose={() => setDepartmentPickerOpen(false)}><View style={ui.modalShade}><View style={ui.modalCard}><View style={ui.modalHeader}><Text style={ui.modalTitle}>Choose department</Text><TouchableOpacity onPress={() => setDepartmentPickerOpen(false)} accessibilityRole="button" accessibilityLabel="Close department picker"><Ionicons name="close" size={22} color={dark ? '#E5EDF7' : '#203047'} /></TouchableOpacity></View><TextInput value={departmentSearch} onChangeText={setDepartmentSearch} placeholder="Search departments" placeholderTextColor={dark ? '#8B9DB4' : '#8996A7'} style={ui.search} accessibilityLabel="Search departments" /><ScrollView style={ui.departmentList} keyboardShouldPersistTaps="handled">{matchingDepartments.map(item => <TouchableOpacity key={item.department.code} onPress={() => chooseDepartment(item.department.code)} style={ui.departmentRow} accessibilityRole="button" accessibilityLabel={`${item.department.name}, ${item.school.name}`}><View style={ui.courseCopy}><Text style={ui.departmentName}>{item.department.name}</Text><Text style={ui.departmentSchool}>{item.school.name}</Text></View>{departmentCode === item.department.code && <Ionicons name="checkmark-circle" size={20} color={dark ? '#8AB8FF' : BLUE} />}</TouchableOpacity>)}{!matchingDepartments.length && <Text style={ui.empty}>No matching department.</Text>}</ScrollView></View></View></Modal>
+    <View style={[ui.footer, dark && { backgroundColor: '#172235', borderColor: '#304055' }]}><Text style={ui.footerHint}>{changed ? 'Your changes are ready to save.' : 'Your course selection is up to date.'}</Text><TouchableOpacity onPress={saveChanges} disabled={saving || loading || !hasProfile || !changed} style={[ui.saveButton, (saving || loading || !hasProfile || !changed) && ui.saveDisabled]} accessibilityRole="button" accessibilityLabel="Save courses"><Text style={ui.saveText}>{saving ? 'Saving…' : 'Save courses'}</Text><Ionicons name="checkmark" size={17} color="#FFFFFF" /></TouchableOpacity></View>
   </SafeAreaView>;
 }
 
