@@ -9,6 +9,8 @@ import { useOnboarding } from '@/context/Onboardingcontext';
 import { VerifyEmailPanel } from '@/components/auth/VerifyEmailPanel';
 import { describeAuthError, noErrors, type FormErrors } from '@/auth/errorMessages';
 import { useSession } from '@/auth/SessionProvider';
+import { apiConfig } from '@/api/config';
+import { PolicyAgreement } from '@/components/auth/PolicyAgreement';
 
 export default function SignupScreen() {
   const router = useRouter();
@@ -18,6 +20,9 @@ export default function SignupScreen() {
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const [agreed, setAgreed] = useState(false);
+  const { termsUrl, privacyUrl } = apiConfig();
+  // Acceptance is only asked for when both documents can be opened.
+  const policiesLinked = !!termsUrl && !!privacyUrl;
   const [busy, setBusy] = useState(false);
   const [errors, setErrors] = useState<FormErrors>(noErrors);
   // Registration answers a bodyless 202 whether or not the account is new, so
@@ -30,8 +35,9 @@ export default function SignupScreen() {
     if (!email.trim()) fields.email = 'Enter your email address.';
     if (!password) fields.password = 'Choose a password.';
     else if (password !== confirm) fields.confirm = 'The two passwords do not match.';
-    if (Object.keys(fields).length || !agreed) {
-      setErrors({ fields, general: agreed ? null : 'Agree to the Terms of Service and Privacy Policy to continue.' });
+    const needsAgreement = policiesLinked && !agreed;
+    if (Object.keys(fields).length || needsAgreement) {
+      setErrors({ fields, general: needsAgreement ? 'Agree to the Terms of Service and Privacy Policy to continue.' : null });
       return;
     }
     setBusy(true);
@@ -87,14 +93,7 @@ export default function SignupScreen() {
               </View>
               {fieldError('confirm')}
 
-              <View style={styles.agreementRow}>
-                <Pressable style={[styles.checkbox, agreed && styles.checkboxActive]} onPress={() => setAgreed(!agreed)} accessibilityRole="checkbox" accessibilityState={{ checked: agreed }}>
-                  {agreed && <Feather name="check" size={14} color="#fff" />}
-                </Pressable>
-                <Text style={styles.agreementText}>
-                  I agree to the <Text style={styles.linkText}>Terms of Service</Text> & <Text style={styles.linkText}>Privacy Policy</Text>
-                </Text>
-              </View>
+              <PolicyAgreement termsUrl={termsUrl} privacyUrl={privacyUrl} agreed={agreed} onToggle={() => setAgreed(!agreed)} />
               {!!errors.general && <Text accessibilityRole="alert" style={styles.error}>{errors.general}</Text>}
 
               <Pressable style={styles.buttonWrapper} onPress={submit} disabled={busy} accessibilityRole="button" accessibilityState={{ busy }}>
