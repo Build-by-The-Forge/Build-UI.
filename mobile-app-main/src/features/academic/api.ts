@@ -1,4 +1,5 @@
 import { call, callPage, type ApiClient } from '@/api/client';
+import { ApiError } from '@/api/errors';
 import type {
   AcademicProfile,
   AcademicProfileUpdate,
@@ -11,16 +12,23 @@ import type {
 
 /** Largest page the contract allows. */
 const PAGE_SIZE = 100;
-/** Stops a misbehaving list from looping forever. */
-const MAX_ITEMS = 2_000;
+/** The most items one list is read to the end for. Beyond it the read fails. */
+export const MAX_ITEMS = 2_000;
 
-/** Reads every page of a list route, in the backend's own order. */
+/**
+ * Reads every page of a list route, in the backend's own order. A list the
+ * backend says is longer than MAX_ITEMS fails with an error instead of being
+ * returned cut short, since a partial list would pass for the whole one.
+ */
 export async function fetchAll<T>(
   load: (limit: number, offset: number) => Promise<Page<T>>,
 ): Promise<readonly T[]> {
   const items: T[] = [];
-  for (let offset = 0; offset < MAX_ITEMS; offset += PAGE_SIZE) {
+  for (let offset = 0; ; offset += PAGE_SIZE) {
     const page = await load(PAGE_SIZE, offset);
+    if (page.pagination.total > MAX_ITEMS) {
+      throw new ApiError('INTERNAL_ERROR', 'This list is too long to show here. Narrow it down and try again.', null, null);
+    }
     items.push(...page.items);
     if (offset + PAGE_SIZE >= page.pagination.total || page.items.length === 0) break;
   }
@@ -32,47 +40,52 @@ export async function fetchAll<T>(
  * answer is the backend's: nothing here invents a faculty, programme or course.
  */
 export type AcademicApi = {
-  readonly faculties: () => Promise<readonly Faculty[]>;
-  readonly departments: (facultyId: string) => Promise<readonly Department[]>;
-  readonly programmes: (departmentId: string) => Promise<readonly Programme[]>;
-  readonly courses: (departmentId: string) => Promise<readonly Course[]>;
-  readonly getProfile: () => Promise<AcademicProfile>;
-  readonly saveProfile: (update: AcademicProfileUpdate) => Promise<AcademicProfile>;
+  readonly faculties: (signal?: AbortSignal) => Promise<readonly Faculty[]>;
+  readonly departments: (facultyId: string, signal?: AbortSignal) => Promise<readonly Department[]>;
+  readonly programmes: (departmentId: string, signal?: AbortSignal) => Promise<readonly Programme[]>;
+  readonly courses: (departmentId: string, signal?: AbortSignal) => Promise<readonly Course[]>;
+  readonly getProfile: (signal?: AbortSignal) => Promise<AcademicProfile>;
+  /** Pass a signal so a save that hasn't left the device can be cancelled. */
+  readonly saveProfile: (update: AcademicProfileUpdate, signal?: AbortSignal) => Promise<AcademicProfile>;
 };
 
 export function createAcademicApi(client: ApiClient, tenantSlug: string): AcademicApi {
   const header = { 'X-Tenant-Slug': tenantSlug };
   return {
-    faculties: () =>
+    faculties: (signal) =>
       fetchAll((limit, offset) =>
-        callPage(client.GET('/catalogue/faculties', { params: { header, query: { limit, offset } } })),
+        callPage(client.GET('/catalogue/faculties', { params: { header, query: { limit, offset } }, signal })),
       ),
-    departments: (facultyId) =>
+    departments: (facultyId, signal) =>
       fetchAll((limit, offset) =>
         callPage(
           client.GET('/catalogue/departments', {
             params: { header, query: { faculty_id: facultyId, limit, offset } },
+            signal,
           }),
         ),
       ),
-    programmes: (departmentId) =>
+    programmes: (departmentId, signal) =>
       fetchAll((limit, offset) =>
         callPage(
           client.GET('/catalogue/programmes', {
             params: { header, query: { department_id: departmentId, limit, offset } },
+            signal,
           }),
         ),
       ),
-    courses: (departmentId) =>
+    courses: (departmentId, signal) =>
       fetchAll((limit, offset) =>
         callPage(
           client.GET('/catalogue/courses', {
             params: { header, query: { department_id: departmentId, limit, offset } },
+            signal,
           }),
         ),
       ),
-    getProfile: () => call(client.GET('/academic/profile', { params: { header } })),
-    saveProfile: (update) => call(client.PUT('/academic/profile', { params: { header }, body: update })),
+    getProfile: (signal) => call(client.GET('/academic/profile', { params: { header }, signal })),
+    saveProfile: (update, signal) =>
+      call(client.PUT('/academic/profile', { params: { header }, body: update, signal })),
   };
 }
 
