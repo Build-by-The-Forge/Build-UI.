@@ -1,6 +1,7 @@
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 
 import { apiConfig } from '@/api/config';
+import { isAbortError } from '@/api/client';
 import { ApiError } from '@/api/errors';
 import type { AcademicProfile, AcademicProfileUpdate } from '@/api/types';
 import { getSessionManager } from '@/auth';
@@ -16,57 +17,79 @@ type ProfileContextValue = {
   readonly error: ApiError | null;
   readonly api: AcademicApi;
   readonly reload: () => void;
-  /** Replaces the profile on the backend and keeps what it returns. Throws ApiError. */
+  /**
+   * Replaces the profile on the backend and keeps what it returns, but only if
+   * the student who started the save is still the one signed in. Throws ApiError.
+   */
   readonly save: (update: AcademicProfileUpdate) => Promise<AcademicProfile>;
 };
 
 const ProfileContext = createContext<ProfileContextValue | null>(null);
 
+type Owner = { readonly key: string | null; readonly controller: AbortController };
+
 /**
  * Holds the student's academic profile, read from /academic/profile once they
  * are in the app and dropped the moment they sign out.
+ *
+ * Everything in flight belongs to the session that started it. When the
+ * signed-in student changes (or signs out), that session's requests are
+ * aborted and a late answer can no longer write into state, so one student's
+ * profile can never land in the next student's session.
  */
 export function ProfileProvider({ children }: { children: React.ReactNode }) {
   const { gate } = useSession();
-  const api = useMemo(() => createAcademicApi(getSessionManager().client, apiConfig().tenantSlug), []);
+  const manager = getSessionManager();
+  const snapshot = useSyncExternalStore(manager.subscribe, manager.getSnapshot, manager.getSnapshot);
+  const api = useMemo(() => createAcademicApi(manager.client, apiConfig().tenantSlug), [manager]);
   const [status, setStatus] = useState<ProfileStatus>('idle');
   const [profile, setProfile] = useState<AcademicProfile | null>(null);
   const [error, setError] = useState<ApiError | null>(null);
   const [attempt, setAttempt] = useState(0);
   const inApp = gate === 'app';
+  const sessionKey = inApp ? snapshot.userId : null;
+  const owner = useRef<Owner>({ key: null, controller: new AbortController() });
+
+  // A new session key means a new owner: abort what the old one had in flight.
+  useEffect(() => {
+    owner.current.controller.abort();
+    owner.current = { key: sessionKey, controller: new AbortController() };
+    return () => owner.current.controller.abort();
+  }, [sessionKey]);
 
   useEffect(() => {
-    if (!inApp) {
+    if (!sessionKey) {
       setStatus('idle');
       setProfile(null);
       setError(null);
       return;
     }
-    let cancelled = false;
+    const mine = owner.current;
     setStatus('loading');
+    setProfile(null);
     setError(null);
-    api.getProfile().then(
+    api.getProfile(mine.controller.signal).then(
       (value) => {
-        if (cancelled) return;
+        if (owner.current !== mine) return;
         setProfile(value);
         setStatus('ready');
       },
       (e: unknown) => {
-        if (cancelled) return;
+        if (owner.current !== mine || isAbortError(e)) return;
         setError(e instanceof ApiError ? e : new ApiError('INTERNAL_ERROR', 'Something went wrong. Please try again.', null, null));
         setStatus('error');
       },
     );
-    return () => {
-      cancelled = true;
-    };
-  }, [inApp, api, attempt]);
+  }, [sessionKey, api, attempt]);
 
   const save = useCallback(
     async (update: AcademicProfileUpdate) => {
-      const saved = await api.saveProfile(update);
-      setProfile(saved);
-      setStatus('ready');
+      const mine = owner.current;
+      const saved = await api.saveProfile(update, mine.controller.signal);
+      if (owner.current === mine) {
+        setProfile(saved);
+        setStatus('ready');
+      }
       return saved;
     },
     [api],
