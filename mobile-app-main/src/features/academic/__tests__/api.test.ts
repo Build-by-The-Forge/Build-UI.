@@ -1,5 +1,5 @@
 import { createApiClient } from '@/api/client';
-import { createAcademicApi, fetchAll, levelsFor } from '../api';
+import { createAcademicApi, fetchAll, levelsFor, MAX_ITEMS } from '../api';
 
 const page = <T,>(items: T[], total: number, limit = 100, offset = 0) => ({
   items,
@@ -29,6 +29,22 @@ describe('fetchAll', () => {
     const load = jest.fn(async () => page<number>([], 999));
     await expect(fetchAll(load)).resolves.toEqual([]);
     expect(load).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('fetchAll limits', () => {
+  it('fails instead of returning a cut-short list when the backend has more than the limit', async () => {
+    const load = jest.fn(async (limit: number, offset: number) =>
+      page(Array.from({ length: limit }, (_, i) => offset + i), MAX_ITEMS + 1, limit, offset),
+    );
+    await expect(fetchAll(load)).rejects.toMatchObject({ code: 'INTERNAL_ERROR', message: expect.stringContaining('too long') });
+    expect(load).toHaveBeenCalledTimes(1); // it says so at once, without reading 2,000 items first
+  });
+
+  it('still returns a list exactly at the limit, in full', async () => {
+    const all = Array.from({ length: MAX_ITEMS }, (_, i) => i);
+    const load = jest.fn(async (limit: number, offset: number) => page(all.slice(offset, offset + limit), all.length, limit, offset));
+    await expect(fetchAll(load)).resolves.toHaveLength(MAX_ITEMS);
   });
 });
 
