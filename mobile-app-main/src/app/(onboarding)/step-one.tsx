@@ -29,9 +29,9 @@ export default function Step1Programme() {
     }
   }, [profile, data.programme, loadFromProfile]);
 
-  const faculties = useLoad('faculties', () => api.faculties());
-  const departments = useLoad(facultyId ? `departments:${facultyId}` : null, () => api.departments(facultyId!));
-  const programmes = useLoad(departmentId ? `programmes:${departmentId}` : null, () => api.programmes(departmentId!));
+  const faculties = useLoad('faculties', (signal) => api.faculties(signal));
+  const departments = useLoad(facultyId ? `departments:${facultyId}` : null, (signal) => api.departments(facultyId!, signal));
+  const programmes = useLoad(departmentId ? `programmes:${departmentId}` : null, (signal) => api.programmes(departmentId!, signal));
 
   const selectedProgramme = programmes.data?.find((p) => p.id === data.programme?.id) ?? null;
   const levels = levelsFor(selectedProgramme);

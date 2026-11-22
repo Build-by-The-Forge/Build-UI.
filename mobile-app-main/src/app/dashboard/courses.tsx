@@ -33,7 +33,7 @@ export default function ManageCoursesScreen() {
   const level = profile?.level ?? null;
   const departmentId = profile?.department?.id ?? null;
   const hasProfile = !!(programme && level);
-  const catalogue = useLoad(departmentId ? `courses:${departmentId}` : null, () => api.courses(departmentId!));
+  const catalogue = useLoad(departmentId ? `courses:${departmentId}` : null, (signal) => api.courses(departmentId!, signal));
   const visible = (catalogue.data ?? []).filter(course => filter === 'all' || course.level === level);
   const customCourses = shelf.courses.filter(course => !removedCustom.includes(course.id));
   const changed = selected.length !== savedIds.length || selected.some(id => !savedIds.includes(id)) || removedCustom.length > 0;

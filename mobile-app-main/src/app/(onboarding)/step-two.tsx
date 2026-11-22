@@ -21,7 +21,7 @@ export default function Step2Courses() {
   const [limitHit, setLimitHit] = useState(false);
 
   const departmentId = data.department?.id ?? null;
-  const courses = useLoad(departmentId ? `courses:${departmentId}` : null, () => api.courses(departmentId!));
+  const courses = useLoad(departmentId ? `courses:${departmentId}` : null, (signal) => api.courses(departmentId!, signal));
 
   const toggle = (id: string) => {
     setLimitHit(false);
